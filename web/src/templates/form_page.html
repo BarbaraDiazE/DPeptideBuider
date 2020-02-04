@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+        <head>
+                <title>Peptide Builder</title>
+                <link rel="stylesheet" href= "{% static "css\mystyle.css" %}" />
+        </head>
+        <style>
+
+                .sidenav {
+                  width: 300px;
+                  position: fixed;
+                  z-index: 1;
+                  top: 250px;
+                  left: 640px;
+                  background: lightsteelblue;
+                  overflow-x: hidden;
+                  padding: 8px 0;
+                  margin-left: 500px;
+                }
+
+                .sidenav h3 {
+                  padding: 8px 4px 8px 4px;
+                  text-decoration: none;
+                  font-size: 20px;
+                  color: teal;
+                  display: block;
+                  text-align: left;
+                }
+                
+                .sidenav a {
+                  padding: 8px 4px 20px 50px;
+                  text-decoration: none;
+                  font-size: 18px;
+                  color: teal;
+                  display: block;
+                  text-align: left;
+                }
+                
+                .sidenav a:hover {
+                  color: #064579;
+                }
+                
+                .main {
+                  margin-left: 20px; /* Same width as the sidebar + left position in px */
+                  font-size: 28px; /* Increased text to enable scrolling */
+                  padding: 0px 10px;
+                }
+                
+        </style>
+<body>
+  <div class = "container">
+        <h1>Peptide Builder</h1>
+        <h2>A chemoinformatic tool to enumerate peptides</h2>
+  </div>
+  <div class="sidenav">
+                <h3>Chemoinformatic tools</h3>
+                <a href="/chemspace">Chemical Space</a>
+                <a href="/diversity">Diversity Analysis</a>
+                <a href="/contact">Contac</a>
+  </div>              
+</body>
+<body>
+    <div class = "container"></div> <!--Amino Acids-->
+        <form method="post"> {% csrf_token %}
+        <h3>Step 1. Select amino acids</h3>
+        <div class="dropdown"><!--First Smiles-->
+                <label>First position</label>
+                <button onclick="myFunction()" class="dropbtn">Options</button>
+                <div class="dropdown-content">
+                        {{ form.first }}
+                </div>
+        </div>
+        <div class="dropdown"><!--Linear Smiles-->
+                <label>Linear</label>
+                <button onclick="myFunction()" class="dropbtn">Options</button>
+                <div class="dropdown-content">
+                        {{ form.linear}}
+                </div>
+        </div>     
+        <div class="dropdown"> <!--Methylated Smiles-->
+                <label >Methylated</label>
+                <button onclick="myFunction()" class="dropbtn">Options</button>
+                <div class="dropdown-content">
+                        {{ form.methylated}}
+                </div>
+        </div>
+    <div class = "container"> <!--Topology-->
+        <h3>Step 2. Select topology</h3>
+        <div class="dropdown">
+                <label >Topology</label>
+                <button onclick="myFunction()" class="dropbtn">Options</button>
+                <div class="dropdown-content">
+                        {{ form.topology }}
+                </div>
+        </div>
+    </div>
+    <div class = "container"><!--Length and submit-->
+        <h3>Step 3. Select length</h3>
+        <h4>{{ form.length }}</h4>  
+        <h3>Step 4. Numerate peptides library</h3>    
+        <input type="submit" value="Submit"  onclick="alert('peptides are on constructions!')">
+    </div>          
+   </form>
+
+
+<script>
+/* When the user clicks on the button, 
+toggle between hiding and showing the dropdown content */
+function myFunction() {
+  document.getElementById("myDropdown").classList.toggle("show");
+}
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+</script>
+
+</body>

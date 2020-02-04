@@ -1,0 +1,28 @@
+version: '3'
+services: 
+  web:
+    build: ./web/
+    container_name: peptide_builder
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    restart: unless-stopped
+    networks: 
+      - nginx_network
+    
+  nginx:
+    image: nginx
+    ports:
+      - 4000:80
+    volumes:
+      - ./config/nginx/conf.d:/etc/nginx/conf.d
+    networks: 
+      - nginx_network
+    depends_on:
+      - web
+    restart: unless-stopped
+
+networks: 
+  nginx_network:
+    driver: bridge

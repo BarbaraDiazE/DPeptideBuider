@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+    <style>
+        input{
+            color: teal;
+            background-color: #f1f1f1;
+            border: 1px;
+            padding: 12px 28px;
+            text-align: center;
+            display: inline-block;
+            border-radius: 4px;
+            font-size: 14px;
+            font: "Verdana";
+            margin-left: 50px;
+            margin-right: 50px
+    }
+        container{
+            padding: 100px, 80px, 50px, 8px;
+            margin-left: 100px;
+            margin-right: 100px;
+    }
+        table {
+                border-collapse: collapse;
+                margin-left: 100px;
+                margin-right: 100px;
+                }
+
+        th, td {
+                font-style: normal;
+                padding: 6px 16px;
+                align-content: left;
+                margin-left: 100px;
+                margin-right: 100px;
+                border-block-color: teal;
+                }
+        tr {
+                align-content: left;
+                align-items: left;
+                font-family: tahoma, verdana, sans-serif;
+                margin-left: 100px;
+                margin-right: 100px
+            } 
+        h4{
+            color: teal;
+            font-size: 24px;
+            font: "Verdana";
+            text-align: justify;
+            margin-left: 200px;
+            }    
+    </style>
+    <head>
+        <title>Plot</title>
+        <link rel="stylesheet" href="http://cdn.pydata.org/bokeh/release/bokeh-0.12.13.min.css" type="text/css" />
+    </head>
+<body>
+        <input type="button" value="Back" onclick="window.location.href='/diversity'">
+        <div class="container">
+              {{ div | safe }}
+              <script type="text/javascript" src="http://cdn.pydata.org/bokeh/release/bokeh-0.12.13.min.js"></script>
+              {{ script | safe }}
+        </div>
+        <div class="container">
+                    <h4>Statistical values</h4>
+                    <table class="table">
+                            <thead>
+                                <tr>                  
+                                    <th>{{stats | safe}}</th>
+                                </tr>
+                            </thead>
+                    </table>
+        </div>
+</body>
+</html>
+    

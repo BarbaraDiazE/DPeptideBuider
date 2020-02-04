@@ -1,0 +1,120 @@
+h1{
+  color: darkslategray;
+  font-size: 40px;
+  font: "Verdana";
+  text-align: center;
+}
+
+h2{
+  color: teal;
+  font-size: 30px;
+  font: "Verdana";
+  text-align: center;
+}
+h3{
+  color: darkslategray;
+  font-size: 20px;
+  font: "Verdana";
+  text-align: justify;
+  margin-left: 50px;
+  margin-right: 50px
+}
+h4{
+  color: teal;
+  font-size: 18px;
+  font: "Verdana";
+  text-align: justify;
+}
+h5{
+  color: teal;
+  font-size: 18px;
+  font: "Verdana";
+  text-align: right;
+}
+
+.container{
+  align-content: center;
+  display: inline;
+  margin-left: 50px;
+  margin-right: 50px
+}
+
+.dropbtn {
+    background-color: teal;
+    color:#f1f1f1;
+    padding: 12px 26px;
+    font-size: 16px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    font: "Verdana";
+    align-content: center;
+    text-align: center;
+    display: inline-flex;
+    margin-left: 50px;
+    margin-right: 50px
+  }
+  
+.dropbtn:hover, .dropbtn:focus {
+    background-color: lightpink;
+  }
+  
+.dropdown {
+    display: inline-block;
+    font: "verdana";
+    font-size: 18px;
+    color: teal;
+    border-radius: 4px;
+    margin-left: 50px;
+    margin-right: 50px
+  }
+  
+.dropdown-content {
+    display: none;
+    position: relative;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  
+.dropdown-content a {
+    color: darkslategray;
+    padding: 12px 16px;
+    font: "Verdana";
+    display: inline-block;
+  }
+  
+.dropdown a:hover {background-color: #f1f1f1;}
+  
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown:hover .dropbtn {
+  background-color: lightpink;
+}
+
+input{
+  color: teal;
+  background-color: #f1f1f1;
+  border: 1px;
+  padding: 12px 28px;
+  text-align: center;
+  display: inline-block;
+  border-radius: 4px;
+  font-size: 14px;
+  font: "Verdana";
+  margin-left: 50px;
+  margin-right: 50px
+}
+
+.table {
+  border-collapse: collapse;
+}
+
+.table, th, td {
+  border: 1px solid red;
+}

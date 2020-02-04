@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+        <head>
+                <title>Peptide Builder</title>
+                <link rel="stylesheet" href= "{% static "css\mystyle.css" %}" />
+        </head>
+        <style>   
+        body {
+                margin: 0;
+                padding: 20px;
+                font-family: tahoma, verdana, sans-serif;
+                font-size: 62.5%;
+                }    
+        table {
+                border-collapse: collapse;
+                }
+
+        th, td {
+                border: 1px solid teal;
+                font-style: normal;
+                padding: 6px 16px;
+                align-content: left;
+                }
+        tr {
+                background: #dedede;
+                align-content: left;
+                align-items: left;
+                font-family: tahoma, verdana, sans-serif;
+        }       
+        caption {
+                margin: 0;
+                border-bottom: none;
+                padding: 6px 16px;
+                font-weight: bold;
+                }
+        </style>
+                <div class = "container">
+                        <h2>Peptide numerated libraries</h2>
+                </div>
+                <div class="container">
+                        <h3><a href="/">Home</a></h3>
+                        <h5>
+                                <input type="button" value="Download CSV" onclick="window.location.href='/download_csv'">
+                        </h5>
+                <body>
+                </div>
+                <div class="container">
+                        <table class="table">
+                                <thead>
+                                    <tr>                  
+                                        <th>{{loaded_data | safe}}</th>
+                                    </tr>
+                                </thead>
+                        </table>
+                </div>
+                
+                </body>
+                
