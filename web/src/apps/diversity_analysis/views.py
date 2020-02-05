@@ -26,8 +26,9 @@ class DiversityAnalysisView(APIView):
             print(result.Library.unique())
             plot = Plot().plot_similarity(result, fp_name)
             script, div = components(plot)
-            stats = Stat().statistical_values(result)
-            return render_to_response('plot_diversity.html', {'script': script, 'div': div, "stats":stats})
+            #stats = Stat().statistical_values(result)
+            #return render_to_response('plot_diversity.html', {'script': script, 'div': div, "stats":stats})
+            return render_to_response('plot_diversity.html', {'script': script, 'div': div, "stats":result})
         return render(request,'diversity_analysis.html', context = form_dict)
 
     def get(self, request):
