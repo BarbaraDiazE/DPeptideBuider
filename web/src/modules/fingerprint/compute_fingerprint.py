@@ -102,6 +102,5 @@ class FP:
         ref_data = pd.read_csv(f'modules/similarity_db/coor_similatiry_reference_libraries_{fp_name}.csv', index_col= "Unnamed: 0")
         frames = [pep_result, ref_data]
         result = pd.concat(frames, axis = 0).reset_index()
-        #result = pep_result
         return result
         
