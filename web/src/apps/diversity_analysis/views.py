@@ -6,32 +6,26 @@ import os, glob, csv
 from bokeh.embed import components
 
 from rest_framework.views import APIView
+
 from apps.diversity_analysis.forms import Diversity_Analysis_Form
 
 from modules.fingerprint.compute_fingerprint import FP
 from modules.diversity_analysis.plot_diversity import Plot
-from modules.diversity_analysis.stats import Stat
 
 class DiversityAnalysisView(APIView):
     
     def post(self, request):
         form = Diversity_Analysis_Form(request.POST)
         csv_name = request.session['csv_name']  
-        form_dict = {'form' : form, }
         if form.is_valid():
             form = form.save()
             fp_name = form.fp
-            result = FP(csv_name, fp_name).similarity(fp_name)
-            print(result.head())
-            print(result.Library.unique())
+            result, stats = FP(csv_name, fp_name).similarity(fp_name)
             plot = Plot().plot_similarity(result, fp_name)
             script, div = components(plot)
-            #stats = Stat().statistical_values(result)
-            #return render_to_response('plot_diversity.html', {'script': script, 'div': div, "stats":stats})
-            return render_to_response('plot_diversity.html', {'script': script, 'div': div, "stats":result})
-        return render(request,'diversity_analysis.html', context = form_dict)
+            return render_to_response('plot_diversity.html', {'script': script, 'div': div, "stats":stats})
+        return render(request,'diversity_analysis.html', context = {'form' : form, } )
 
     def get(self, request):
         form = Diversity_Analysis_Form(request.POST)
-        form_dict = {'form' : form, }
-        return render(request,'diversity_analysis.html', context = form_dict)
+        return render(request,'diversity_analysis.html', context = {'form' : form, })

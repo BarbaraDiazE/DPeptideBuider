@@ -9,6 +9,8 @@ from rdkit.Chem import AllChem, MACCSkeys
 from rdkit.Chem.Fingerprints import FingerprintMols
 from rdkit.Chem.AtomPairs import Pairs  
 
+from modules.diversity_analysis.stats import statistical_values
+
 class FP:
 
     def __init__(self, csv_name, fp_name):
@@ -102,6 +104,6 @@ class FP:
         ref_data = pd.read_csv(f'modules/similarity_db/coor_similatiry_reference_libraries_{fp_name}.csv', index_col= "Unnamed: 0")
         frames = [pep_result, ref_data]
         result = pd.concat(frames, axis = 0).reset_index()
-        #result = pep_result
-        return result
+        stats = statistical_values(pep_result, fp_name)
+        return result, stats
         
