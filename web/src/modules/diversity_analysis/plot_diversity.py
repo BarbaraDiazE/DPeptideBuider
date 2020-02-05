@@ -19,11 +19,10 @@ from modules.diversity_analysis.column_source import column_source
 
 class Plot:
     
-    def __init__(self, result):
-        self.result = result
+    def __init__(self):
+        pass
     
-    def plot_similarity(self, parameter):
-        result = self.result
+    def plot_similarity(self, result, parameter):
         source1 = column_source(result, "FDA")
         source2 = column_source(result, "PPI")
         source3 = column_source(result, "MACRO")

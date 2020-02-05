@@ -1,9 +1,7 @@
 from django.shortcuts import render, render_to_response
-from django.http import HttpResponse
 from django.template import RequestContext
 
 import os, glob, csv
-import pandas as pd
 
 from bokeh.embed import components
 
@@ -26,11 +24,9 @@ class DiversityAnalysisView(APIView):
             result = FP(csv_name, fp_name).similarity(fp_name)
             print(result.head())
             print(result.Library.unique())
-            print(result.shape[0])
-            plot = Plot(result).plot_similarity(fp_name)
+            plot = Plot().plot_similarity(result, fp_name)
             script, div = components(plot)
             stats = Stat().statistical_values(result)
-            stats = stats.to_html()
             return render_to_response('plot_diversity.html', {'script': script, 'div': div, "stats":stats})
         return render(request,'diversity_analysis.html', context = form_dict)
 

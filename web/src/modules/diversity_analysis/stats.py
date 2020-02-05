@@ -17,4 +17,5 @@ class Stat:
         data = np.reshape(data, (6, len(libraries)))
         data = np.around(data, decimals=3)
         stats = pd.DataFrame(data = data, columns = libraries , index = ["min", "mean", "median", "std", "var", "max"])
+        stats = stats.to_html()
         return stats
