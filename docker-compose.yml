@@ -1,5 +1,24 @@
 version: '3'
 services: 
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: 'PeptideBuilderDB'
+      POSTGRES_USER: 'amino_acid'
+      POSTGRES_PASSWORD: 'willbepeptide'
+    networks:
+      - backend-tier
+      - web-tier  
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+    networks:
+      - backend-tier
+           
   web:
     build: ./web/
     container_name: peptide_builder
@@ -10,7 +29,9 @@ services:
     restart: unless-stopped
     networks: 
       - nginx_network
-    
+    depends_on:
+      - db
+  
   nginx:
     image: nginx
     ports:
@@ -26,3 +47,6 @@ services:
 networks: 
   nginx_network:
     driver: bridge
+  backend-tier:
+  web-tier:
+    

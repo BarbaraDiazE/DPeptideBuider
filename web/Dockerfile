@@ -10,8 +10,9 @@ RUN /opt/conda/envs/rdkit-env/bin/pip install -r requirements.txt
 
 ADD ./src/ .
 
-RUN /opt/conda/envs/rdkit-env/bin/python3 manage.py migrate; \
+RUN /opt/conda/envs/rdkit-env/bin/python3 manage.py makemigrations; \
+    /opt/conda/envs/rdkit-env/bin/python3 manage.py migrate; \
     /opt/conda/envs/rdkit-env/bin/python3 manage.py collectstatic --noinput; \
-    /opt/conda/envs/rdkit-env/bin/python3 population.py
+    /opt/conda/envs/rdkit-env/bin/python3 manage.py population 
 
 CMD [ "/src/docker-entrypoint.sh" ]
