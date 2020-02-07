@@ -7,7 +7,7 @@ import pandas as pd
 
 
 def compute_descriptors(smiles):
-
+    print("soy los smiles que recibe compute descriptors", len(smiles))
     smiles = list(map(lambda x: Chem.MolFromSmiles(x), smiles))
     CanonicalSmiles = list(map(lambda x: Chem.MolToSmiles(x), smiles))
     HBA = list(map(lambda x: Descriptors.NumHAcceptors(x), smiles))
