@@ -4,7 +4,6 @@ RUN conda create -c rdkit -n rdkit-env rdkit -y
 
 WORKDIR /src
 
-# set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 

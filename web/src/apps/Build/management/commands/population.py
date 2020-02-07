@@ -64,8 +64,8 @@ class Command(BaseCommand):
             "TYR",
             "GLY",
         ]
-        AminoAcid.objects.all().delete()
         DataAminoAcids.objects.all().delete()
+        AminoAcid.objects.all().delete()
         Oxygen.objects.all().delete()
         for i in range(len(list_aminoacids)):
             self.populate_amino_acid(list_aminoacids[i])

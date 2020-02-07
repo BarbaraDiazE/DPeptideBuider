@@ -45,29 +45,29 @@ def combine_linear_smiles(first, dataset, length, linear):
     """
     if length == 2:
         pep = len_2(first, dataset)
-        pep = list(map(lambda item: item + linear, pep))
+        linear_smiles = list(map(lambda item: item + linear, pep))
     elif length == 3:
         pep = len_2(first, dataset)
         pep = len_3(pep, dataset)
-        pep = list(map(lambda item: item + linear, pep))
+        linear_smiles = list(map(lambda item: item + linear, pep))
     elif length == 4:
-        pep2 = len_2(first, dataset)
-        pep3 = len_3(pep2, dataset)
-        pep4 = len_4(pep3, dataset)
-        linear_smiles = list(map(lambda item: item + linear, pep4))
+        pep = len_2(first, dataset)
+        pep = len_3(pep, dataset)
+        pep = len_4(pep, dataset)
+        linear_smiles = list(map(lambda item: item + linear, pep))
     elif length == 5:
         pep = len_2(first, dataset)
         pep = len_3(pep, dataset)
         pep = len_4(pep, dataset)
         pep = len_5(pep, dataset)
-        pep = list(map(lambda item: item + linear, pep))
+        linear_smiles = list(map(lambda item: item + linear, pep))
     elif length == 6:
         pep = len_2(first, dataset)
         pep = len_3(pep, dataset)
         pep = len_4(pep, dataset)
         pep = len_5(pep, dataset)
         pep = len_6(pep, dataset)
-        pep = list(map(lambda item: item + linear, pep))
+        linear_smiles = list(map(lambda item: item + linear, pep))
     else:
         pass
     return linear_smiles
@@ -81,29 +81,29 @@ def combine_cyclic_smiles(first, dataset, length, cyclic):
     """
     if length == 2:
         pep = cyclic_len_2(first, dataset)
-        pep = list(map(lambda item: item + cyclic, pep))
+        cyclic_smiles = list(map(lambda item: item + cyclic, pep))
     elif length == 3:
         pep = cyclic_len_2(first, dataset)
         pep = len_3(pep, dataset)
-        pep = list(map(lambda item: item + cyclic, pep))
+        cyclic_smiles = list(map(lambda item: item + cyclic, pep))
     elif length == 4:
-        pep2 = cyclic_len_2(first, dataset)
-        pep3 = len_3(pep2, dataset)
-        pep4 = len_4(pep3, dataset)
-        cyclic_smiles = list(map(lambda item: item + cyclic, pep4))
+        pep = cyclic_len_2(first, dataset)
+        pep = len_3(pep, dataset)
+        pep = len_4(pep, dataset)
+        cyclic_smiles = list(map(lambda item: item + cyclic, pep))
     elif length == 5:
         pep = cyclic_len_2(first, dataset)
         pep = len_3(pep, dataset)
         pep = len_4(pep, dataset)
         pep = len_5(pep, dataset)
-        pep = list(map(lambda item: item + cyclic, pep))
+        cyclic_smiles = list(map(lambda item: item + cyclic, pep))
     elif length == 6:
         pep = cyclic_len_2(first, dataset)
         pep = len_3(pep, dataset)
         pep = len_4(pep, dataset)
         pep = len_5(pep, dataset)
         pep = len_6(pep, dataset)
-        pep = list(map(lambda item: item + cyclic, pep))
+        cyclic_smiles = list(map(lambda item: item + cyclic, pep))
     else:
         pass
     return cyclic_smiles
@@ -111,14 +111,14 @@ def combine_cyclic_smiles(first, dataset, length, cyclic):
 
 def combine_abbreviations(first_abbreviation, abbreviations, length):
     if length == 2:
-        pep = len_2(first_abbreviation, abbreviations)
+        sequence = len_2(first_abbreviation, abbreviations)
     elif length == 3:
         pep = len_2(first_abbreviation, abbreviations)
-        pep = len_3(pep, abbreviations)
+        sequence = len_3(pep, abbreviations)
     elif length == 4:
-        pep2 = len_2(first_abbreviation, abbreviations)
-        pep3 = len_3(pep2, abbreviations)
-        sequence = len_4(pep3, abbreviations)
+        pep = len_2(first_abbreviation, abbreviations)
+        pep = len_3(pep, abbreviations)
+        sequence = len_4(pep, abbreviations)
     elif length == 5:
         pep = len_2(first_abbreviation, abbreviations)
         pep = len_3(pep, abbreviations)
@@ -129,7 +129,7 @@ def combine_abbreviations(first_abbreviation, abbreviations, length):
         pep = len_3(pep, abbreviations)
         pep = len_4(pep, abbreviations)
         pep = len_5(pep, abbreviations)
-        pep = len_6(pep, abbreviations)
+        sequence = len_6(pep, abbreviations)
     else:
         pass
     return sequence

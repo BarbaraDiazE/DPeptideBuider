@@ -41,7 +41,7 @@ class ServerViews(APIView):
 
 class CSVView(APIView):
     def get(self, request, csv_name):
-        data = pd.read_csv(f"generated_csv/{csv_name}")
+        data = pd.read_csv(f"generated_csv/{csv_name}", index_col = "Unnamed: 0")
         data_html = data.to_html()
         context = {"loaded_data": data_html}
         return render(request, "table.html", context)

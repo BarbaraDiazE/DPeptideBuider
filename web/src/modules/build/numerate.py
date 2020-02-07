@@ -92,7 +92,6 @@ class Numerate:
         dataset = self.get_dataset()
         first_abbreviation, abbreviations = self.get_abreviations()
         linear, cyclic = self.get_oxygen()
-        print("self.topology", self.topology)
         if len(self.topology) == 2:
             linear_peptides = combine_linear_smiles(first, dataset, self.length, linear)
             print("len linear smiles", len(linear_peptides))
@@ -138,9 +137,5 @@ class Numerate:
             "TPSA": TPSA,
             "MW": MW,
         }
-        print("numerae")
-        print(len(CanonicalSMILES), len(HBA), len(ids), len(libraries))
         DF = pd.DataFrame.from_dict(data)
-        print(DF.shape)
-        print(DF.head())
         return DF
