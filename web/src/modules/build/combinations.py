@@ -62,9 +62,8 @@ def combine_linear_smiles(first, dataset, length, linear):
         pep = len_5(pep, dataset)
         pep = len_6(pep, dataset)
         pep = list(map(lambda item: item + linear, pep))
-        return pep
     else:
-        pass:
+        pass
     return pep
     
 def combine_cyclic_smiles(first, dataset, length, cyclic):
@@ -99,7 +98,7 @@ def combine_cyclic_smiles(first, dataset, length, cyclic):
         pep = len_6(pep, dataset)
         pep = list(map(lambda item: item + cyclic, pep))
     else:
-        pass:
+        pass
     return pep
 
 def combine_abbreviations(first_abbreviation, abbreviations, length):
@@ -107,11 +106,11 @@ def combine_abbreviations(first_abbreviation, abbreviations, length):
         pep = len_2(first_abbreviation, abbreviations)
     elif length == 3:
         pep = len_2(first_abbreviation, abbreviations)
-        pep = len_3(pep,abbreviations)
+        pep = len_3(pep, abbreviations)
     elif length == 4:
-        pep2 = len_2(first_abbreviation, abbreviations)
-        pep3 = len_3(pep2, abbreviations)
-        pep4 = len_4(pep3, abbreviations)
+        pep = len_2(first_abbreviation, abbreviations)
+        pep = len_3(pep, abbreviations)
+        pep = len_4(pep, abbreviations)
     elif length == 5:
         pep = len_2(first_abbreviation, abbreviations)
         pep = len_3(pep, abbreviations)
@@ -124,6 +123,6 @@ def combine_abbreviations(first_abbreviation, abbreviations, length):
         pep = len_5(pep, abbreviations)
         pep = len_6(pep, abbreviations)
     else:
-        pass:
+        pass
     return pep
         
