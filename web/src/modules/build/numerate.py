@@ -35,10 +35,9 @@ class Numerate:
         return 
         dataset, list that contains amino acid smiles (methyladed and linear from database)
         """
-        # linear_qs = AminoAcid.objects.filter(amino_acid__in=self.linear).values_list(
-        #    "data__linear_smile"
-        # )
-        linear_qs = AminoAcid.objects.filter(amino_acid__in=self.linear)
+        linear_qs = AminoAcid.objects.filter(amino_acid__in=self.linear).values_list(
+            "data__linear_smile"
+        )
         print("linear_qs", linear_qs)
         methylated_qs = AminoAcid.objects.filter(
             amino_acid__in=self.methylated

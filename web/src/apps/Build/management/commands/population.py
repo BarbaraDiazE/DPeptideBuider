@@ -64,9 +64,14 @@ class Command(BaseCommand):
             "TYR",
             "GLY",
         ]
+        AminoAcid.objects.all().delete()
+        DataAminoAcids.objects.all().delete()
+        Oxygen.objects.all().delete()
         for i in range(len(list_aminoacids)):
             self.populate_amino_acid(list_aminoacids[i])
+            continue
         list_length = [2, 3, 4, 5, 6]
         for i in list_length:
             self.populate_oxygen(i)
+            continue
         self.stdout.write("Table populated")
