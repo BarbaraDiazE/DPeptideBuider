@@ -22,12 +22,11 @@ from apps.chemical_space.views import ChemicalSpaceView
 from apps.diversity_analysis.views import DiversityAnalysisView
 
 urlpatterns = [
-    url(r'^$', ServerViews.as_view(), name = "home page"),
-    url(r'^download_csv$', DownloadCSV.as_view()),
-    url(r'^csv/(?P<csv_name>.+)/$',CSVView.as_view()),
-    url(r'^chemspace/', ChemicalSpaceView.as_view()),
-    url(r'^diversity/', DiversityAnalysisView.as_view()),
-    url(r'^contact/', ContactView.as_view()),
-    path('admin/', admin.site.urls),
+    url(r"^$", ServerViews.as_view(), name="home page"),
+    url(r"^download_csv$", DownloadCSV.as_view()),
+    url(r"^csv/(?P<csv_name>.+)/$", CSVView.as_view()),
+    url(r"^chemspace/", ChemicalSpaceView.as_view()),
+    url(r"^diversity/", DiversityAnalysisView.as_view()),
+    url(r"^contact/", ContactView.as_view()),
+    path("admin/", admin.site.urls),
 ]
-

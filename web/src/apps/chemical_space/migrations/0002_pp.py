@@ -7,16 +7,42 @@ import multiselectfield.db.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('chemical_space', '0001_initial'),
+        ("chemical_space", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='PP',
+            name="PP",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('pca_pp', multiselectfield.db.fields.MultiSelectField(choices=[('Physicochemical properties', 'Physicochemical properties')], max_length=1, verbose_name='Phisicochemical')),
-                ('tsne_pp', multiselectfield.db.fields.MultiSelectField(choices=[('Physicochemical properties', 'Physicochemical properties')], max_length=1, verbose_name='Phisicochemical')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "pca_pp",
+                    multiselectfield.db.fields.MultiSelectField(
+                        choices=[
+                            ("Physicochemical properties", "Physicochemical properties")
+                        ],
+                        max_length=1,
+                        verbose_name="Phisicochemical",
+                    ),
+                ),
+                (
+                    "tsne_pp",
+                    multiselectfield.db.fields.MultiSelectField(
+                        choices=[
+                            ("Physicochemical properties", "Physicochemical properties")
+                        ],
+                        max_length=1,
+                        verbose_name="Phisicochemical",
+                    ),
+                ),
             ],
         ),
     ]

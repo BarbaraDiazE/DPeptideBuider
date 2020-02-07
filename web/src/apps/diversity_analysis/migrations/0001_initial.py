@@ -8,15 +8,36 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='SelectFingerprint',
+            name="SelectFingerprint",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('fp', multiselectfield.db.fields.MultiSelectField(blank=True, choices=[('MACCS Keys', 'MACCS Keys'), ('ECFP 4', 'ECFP 4'), ('ECFP 6', 'ECFP6'), ('Topological', 'Topological'), ('Atom Pair', 'Atom Pair')], max_length=46, verbose_name='Fingerprint')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "fp",
+                    multiselectfield.db.fields.MultiSelectField(
+                        blank=True,
+                        choices=[
+                            ("MACCS Keys", "MACCS Keys"),
+                            ("ECFP 4", "ECFP 4"),
+                            ("ECFP 6", "ECFP6"),
+                            ("Topological", "Topological"),
+                            ("Atom Pair", "Atom Pair"),
+                        ],
+                        max_length=46,
+                        verbose_name="Fingerprint",
+                    ),
+                ),
             ],
         ),
     ]

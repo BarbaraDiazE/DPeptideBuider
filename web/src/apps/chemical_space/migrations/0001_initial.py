@@ -8,16 +8,49 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='FP',
+            name="FP",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('pca_fp', multiselectfield.db.fields.MultiSelectField(choices=[('MACCS Keys', 'MACCS Keys'), ('ECFP 4', 'ECFP 4'), ('ECFP 6', 'ECFP6'), ('Topological', 'Topological'), ('Atom Pair', 'Atom Pair')], max_length=46, verbose_name='Fingerprint')),
-                ('tsne_fp', multiselectfield.db.fields.MultiSelectField(choices=[('MACCS Keys', 'MACCS Keys'), ('ECFP 4', 'ECFP 4'), ('ECFP 6', 'ECFP6'), ('Topological', 'Topological'), ('Atom Pair', 'Atom Pair')], max_length=46, verbose_name='Fingerprint')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "pca_fp",
+                    multiselectfield.db.fields.MultiSelectField(
+                        choices=[
+                            ("MACCS Keys", "MACCS Keys"),
+                            ("ECFP 4", "ECFP 4"),
+                            ("ECFP 6", "ECFP6"),
+                            ("Topological", "Topological"),
+                            ("Atom Pair", "Atom Pair"),
+                        ],
+                        max_length=46,
+                        verbose_name="Fingerprint",
+                    ),
+                ),
+                (
+                    "tsne_fp",
+                    multiselectfield.db.fields.MultiSelectField(
+                        choices=[
+                            ("MACCS Keys", "MACCS Keys"),
+                            ("ECFP 4", "ECFP 4"),
+                            ("ECFP 6", "ECFP6"),
+                            ("Topological", "Topological"),
+                            ("Atom Pair", "Atom Pair"),
+                        ],
+                        max_length=46,
+                        verbose_name="Fingerprint",
+                    ),
+                ),
             ],
         ),
     ]

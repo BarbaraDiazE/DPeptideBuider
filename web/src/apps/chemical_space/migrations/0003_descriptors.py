@@ -7,18 +7,70 @@ import multiselectfield.db.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('chemical_space', '0002_pp'),
+        ("chemical_space", "0002_pp"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Descriptors',
+            name="Descriptors",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('pca_fp', multiselectfield.db.fields.MultiSelectField(choices=[('MACCS Keys', 'MACCS Keys'), ('ECFP 4', 'ECFP 4'), ('ECFP 6', 'ECFP6'), ('Topological', 'Topological'), ('Atom Pair', 'Atom Pair')], max_length=46, verbose_name='Fingerprint')),
-                ('tsne_fp', multiselectfield.db.fields.MultiSelectField(choices=[('MACCS Keys', 'MACCS Keys'), ('ECFP 4', 'ECFP 4'), ('ECFP 6', 'ECFP6'), ('Topological', 'Topological'), ('Atom Pair', 'Atom Pair')], max_length=46, verbose_name='Fingerprint')),
-                ('pca_pp', multiselectfield.db.fields.MultiSelectField(choices=[('Physicochemical properties', 'Physicochemical properties')], max_length=1, verbose_name='Phisicochemical')),
-                ('tsne_pp', multiselectfield.db.fields.MultiSelectField(choices=[('Physicochemical properties', 'Physicochemical properties')], max_length=1, verbose_name='Phisicochemical')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "pca_fp",
+                    multiselectfield.db.fields.MultiSelectField(
+                        choices=[
+                            ("MACCS Keys", "MACCS Keys"),
+                            ("ECFP 4", "ECFP 4"),
+                            ("ECFP 6", "ECFP6"),
+                            ("Topological", "Topological"),
+                            ("Atom Pair", "Atom Pair"),
+                        ],
+                        max_length=46,
+                        verbose_name="Fingerprint",
+                    ),
+                ),
+                (
+                    "tsne_fp",
+                    multiselectfield.db.fields.MultiSelectField(
+                        choices=[
+                            ("MACCS Keys", "MACCS Keys"),
+                            ("ECFP 4", "ECFP 4"),
+                            ("ECFP 6", "ECFP6"),
+                            ("Topological", "Topological"),
+                            ("Atom Pair", "Atom Pair"),
+                        ],
+                        max_length=46,
+                        verbose_name="Fingerprint",
+                    ),
+                ),
+                (
+                    "pca_pp",
+                    multiselectfield.db.fields.MultiSelectField(
+                        choices=[
+                            ("Physicochemical properties", "Physicochemical properties")
+                        ],
+                        max_length=1,
+                        verbose_name="Phisicochemical",
+                    ),
+                ),
+                (
+                    "tsne_pp",
+                    multiselectfield.db.fields.MultiSelectField(
+                        choices=[
+                            ("Physicochemical properties", "Physicochemical properties")
+                        ],
+                        max_length=1,
+                        verbose_name="Phisicochemical",
+                    ),
+                ),
             ],
         ),
     ]

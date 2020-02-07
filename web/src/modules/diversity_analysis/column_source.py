@@ -5,6 +5,7 @@ import numpy as np
 import bokeh
 from bokeh.models import ColumnDataSource
 
+
 def column_source(result, Library):
     """
     input:
@@ -17,5 +18,5 @@ def column_source(result, Library):
     DF = result[result["Library"] == Library]
     X = np.array(DF["sim"])
     Y = np.array(DF["y"])
-        
-    return ColumnDataSource(dict(x = X, y = Y))
+
+    return ColumnDataSource(dict(x=X, y=Y))

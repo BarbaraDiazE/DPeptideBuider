@@ -4,6 +4,7 @@ column source, to allow bokeh plot
 import bokeh
 from bokeh.models import ColumnDataSource
 
+
 def column_source(result, Library):
     """
     input:
@@ -14,5 +15,5 @@ def column_source(result, Library):
     """
     DF = result[result["Library"] == Library]
     X = np.array(DF["sim"])
-    Y = np.array(DF["y"])   
-    return ColumnDataSource(dict(x = X, y = Y))
+    Y = np.array(DF["y"])
+    return ColumnDataSource(dict(x=X, y=Y))
