@@ -2,6 +2,10 @@ import pandas as pd
 import numpy as np
 
 def statistical_values(result, fp_name):
+    """
+    Output
+    stats, html table that contains similarity statistical values for all libraries 
+    """
     libraries = result.Library.unique()
     min_ = np.array(result.groupby(['Library']).sim.min())
     mean = np.array(result.groupby(['Library']).sim.mean())

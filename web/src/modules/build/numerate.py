@@ -79,9 +79,8 @@ class Numerate:
         dataset = self.get_dataset()
         first_abbreviation, abbreviations = self.get_abreviations()
         linear, cyclic = self.get_oxygen()
-        #for i in range(len(self.topology)):
+        print("self.topology", self.topology)
         if len(self.topology) == 2:
-            #(self.topology[0]) == "linear" and (self.topology[1]) == "cyclic":
             linear_peptides = combine_linear_smiles(first, dataset, self.length, linear)
             linear_abbreviations = combine_abbreviations(first_abbreviation, abbreviations, self.length)
             linear_library = ["linear" for _ in linear_peptides]
@@ -91,13 +90,19 @@ class Numerate:
             smiles = linear_peptides + cyclic_peptides
             ids = linear_abbreviations + cyclic_abbreviations
             libraries = linear_library + cyclic_library
+            print("len smiles", len(smiles))
             return smiles, ids, libraries
-        elif (self.topology[0]) == "linear":
+        else:
+            pass
+        if len(self.topology)==0 and self.topology[0] == "linear":
             linear_peptides = combine_linear_smiles(first, dataset, self.length, linear)
             linear_abbreviations = combine_abbreviations(first_abbreviation, abbreviations, self.length)
             linear_library = ["linear" for _ in linear_peptides]
+            print("len smiles", len(linear_peptides))
             return linear_peptides, linear_abbreviations, linear_library
-        elif (self.topology[0]) == "cyclic":
+        else:
+            pass
+        if len(self.topology)==0 and self.topology[0] == "cyclic":
             cyclic_peptides = combine_cyclic_smiles(first, dataset, self.length, cyclic)
             cyclic_abbreviations = combine_abbreviations(first_abbreviation, abbreviations, self.length)
             cyclic_library = ["cyclic" for _ in cyclic_peptides]
@@ -123,5 +128,9 @@ class Numerate:
                     "TPSA": TPSA,
                     "MW": MW 
                 }
+        print("numerae")
+        print(len(CanonicalSMILES), len(HBA), len(ids), len(libraries))
         DF = pd.DataFrame.from_dict(data)
+        print(DF.shape)
+        print(DF.head())
         return DF

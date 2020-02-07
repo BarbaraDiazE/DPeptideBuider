@@ -4,6 +4,7 @@ from bokeh.plotting import figure
 from bokeh.core.enums import LegendLocation
 import os
 from modules.chemical_space.column_source import column_source
+
 """
 Plot chemical space
 """
@@ -11,7 +12,7 @@ class Plot:
     def __init__(self, result):
         self.result = result
     
-    def plot_pca(self, parameter):
+    def plot_pca(self, parameter, a, b):
         result = self.result
         source1 = column_source(result, "FDA")
         source2 = column_source(result, "PPI")
@@ -26,10 +27,9 @@ class Plot:
                                         ("NAME","@N"),
                                         ])
         p = figure(title = "PCA based on: " + parameter[0],
-                x_axis_label = "PC 1", y_axis_label="PC 2",
+                x_axis_label = "PC 1" + "(" + str(a) + "%)", y_axis_label="PC 2" + "(" + str(a) + "%)",
                 x_range = (-7,7), y_range = (-7,7), tools = [hover], plot_width = 1000, plot_height = 800)
         p.add_tools(LassoSelectTool(), ZoomInTool(), ZoomOutTool(), SaveTool(), PanTool())
-        p.add_tools(SaveTool())
         FDA_plot = p.circle(x = "x", y = "y", source = source1, color = "darkslateblue", size = 5)
         PPI_plot = p.circle(x = "x", y = "y", source = source2, color = "yellowgreen", size = 5)
         MACRO_plot = p.circle(x = "x", y = "y", source = source3, color ="lightsteelblue", size = 5)
@@ -77,7 +77,6 @@ class Plot:
                 x_axis_label = "PC 1", y_axis_label="PC 2",
                 x_range = (-7,7), y_range = (-7,7), tools = [hover], plot_width = 1000, plot_height = 800)
         p.add_tools(LassoSelectTool(), ZoomInTool(), ZoomOutTool(), SaveTool(), PanTool())
-        p.add_tools(SaveTool())
         FDA_plot = p.circle(x = "x", y = "y", source = source1, color = "darkslateblue", size = 5)
         PPI_plot = p.circle(x = "x", y = "y", source = source2, color = "yellowgreen", size = 5)
         MACRO_plot = p.circle(x = "x", y = "y", source = source3, color ="lightsteelblue", size = 5)

@@ -9,7 +9,8 @@ services:
       POSTGRES_PASSWORD: 'willbepeptide'
     networks:
       - backend-tier
-      - web-tier  
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
 
   adminer:
     image: adminer
@@ -29,6 +30,7 @@ services:
     restart: unless-stopped
     networks: 
       - nginx_network
+      - backend-tier
     depends_on:
       - db
   
@@ -48,5 +50,7 @@ networks:
   nginx_network:
     driver: bridge
   backend-tier:
-  web-tier:
-    
+    driver: bridge
+
+volumes:
+  postgres_data:

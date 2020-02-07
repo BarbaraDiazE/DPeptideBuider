@@ -18,7 +18,8 @@ class performPCA:
         """
         output
             result: Data Frame with PCA result, 
-            model: PCA Model
+            a, variance PC 1
+            b, variance PC 2
         """
         numerated_libraries = pd.read_csv(f'generated_csv/{csv_name}', index_col= "Unnamed: 0")
         reference_libraries = pd.read_csv('modules/reference_libraries.csv', index_col= "Unnamed: 0")
@@ -32,14 +33,19 @@ class performPCA:
         model = sklearn_pca.fit(numerical_data)
         pca_result = pd.DataFrame(model.transform(numerical_data), columns=['PC 1','PC 2',"PC 3", 'PC 4','PC 5',"PC 6"])
         result = pd.concat([pca_result, ref], axis = 1)
-        #variance = list(model.explained_variance_ratio_)
-        #self.a = round(variance[0] * 100, 2)
-        #self.b = round(variance[1] * 100, 2)
-        return result, model
+        a = round(list(model.explained_variance_ratio_)[0] * 100, 2)
+        b = round(list(model.explained_variance_ratio_)[1] * 100, 2)
+        return result, a, b
 
     def pca_fingerprint(self, fp_matrix, ref, fp_name):
+        """
+        output
+            result: Data Frame with PCA result, 
+            a, variance PC 1
+            b, variance PC 2
+        """
         fp_name = fp_name[0].replace(' ', '')
-        reference_libraries = pd.read_csv(f'modules/reference_libraries_{fp_name}.csv', index_col= "Unnamed: 0")
+        reference_libraries = pd.read_csv(f'modules/exp_fp/reference_libraries_{fp_name}.csv', index_col= "Unnamed: 0")
         reference = reference_libraries.select_dtypes(exclude=['object']).as_matrix()
         numerical = np.concatenate((fp_matrix, reference), axis = 0)
         model = sklearn.decomposition.PCA(n_components=6, svd_solver = "full", whiten = True).fit(fp_matrix)
@@ -48,7 +54,6 @@ class performPCA:
         ref_final = np.concatenate((ref, ref_libraries), axis = 0)
         result = np.concatenate((pca_result, ref_final), axis = 1)
         result = pd.DataFrame(data=result, columns = ["PC 1", "PC 2", "PC 3", "PC 4", "PC 5", "PC 6", "Sequence", "Library"])
-        #variance = list(model.explained_variance_ratio_)
-        #self.a = round(variance[0] * 100, 2)
-        #self.b = round(variance[1] * 100, 2)
-        return result, model
+        a = round(list(model.explained_variance_ratio_)[0] * 100, 2)
+        b = round(list(model.explained_variance_ratio_)[1] * 100, 2)
+        return result, a, b

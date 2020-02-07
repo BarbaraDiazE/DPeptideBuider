@@ -5,12 +5,14 @@ import bokeh
 from bokeh.models import ColumnDataSource
 
 def column_source(result, Library):
-    X = list()
-    Y = list()
-    N = list()
+    """
+    input:
+        result (DataFrame)
+        Library (str)
+    Output:
+        ColumnDataSource (bokeh object)
+    """
     DF = result[result["Library"] == Library]
-    X = list(DF["PC 1"])
-    Y = list(DF["PC 2"])
-    N = list(DF["Sequence"])
-        
-    return ColumnDataSource(dict(x = X, y = Y, N = N))
+    X = np.array(DF["sim"])
+    Y = np.array(DF["y"])   
+    return ColumnDataSource(dict(x = X, y = Y))

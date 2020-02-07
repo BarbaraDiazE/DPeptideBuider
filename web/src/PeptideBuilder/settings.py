@@ -88,11 +88,11 @@ WSGI_APPLICATION = 'PeptideBuilder.wsgi.application'
 #}
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql', #actualozar el driver por pscog2
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'PeptideBuilderDB',
         'USER': 'amino_acid',
         'PASSWORD': 'willbepeptide',
-        'HOST': 5432,
+        'HOST': 'db',
         'PORT': 5432
     }
 }

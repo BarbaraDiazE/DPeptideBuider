@@ -55,5 +55,4 @@ class DownloadCSV(APIView):
 
 class ContactView(APIView):
     def get(self, request):
-        #context = {'contact': contact}
         return render(request, 'contact.html')
