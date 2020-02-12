@@ -36,7 +36,7 @@ class Plot:
         p = figure(
             title="PCA based on: " + parameter[0],
             x_axis_label="PC 1" + "(" + str(a) + "%)",
-            y_axis_label="PC 2" + "(" + str(a) + "%)",
+            y_axis_label="PC 2" + "(" + str(b) + "%)",
             x_range=(-7, 7),
             y_range=(-7, 7),
             tools=[hover],
