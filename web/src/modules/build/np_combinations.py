@@ -1,7 +1,5 @@
 import numpy as np
 
-# first = ["A", "B", "C", "D", "E"]
-
 
 def len_2(first, dataset):
     """
@@ -10,7 +8,6 @@ def len_2(first, dataset):
     output
     pep2, np.array
     """
-    # first = np.array(["A"])
     first = np.array(first)
     pep2 = np.core.defchararray.add(first, dataset)
     return pep2
@@ -48,7 +45,7 @@ def len_6(pep5, dataset):
     return pep6
 
 
-def combine_smiles(first, dataset, length, linear):
+def combine_smiles(first, dataset, length):
     """
     first, str with a simple amino acid
     dataset, list with a set of amino acids
@@ -56,29 +53,24 @@ def combine_smiles(first, dataset, length, linear):
     """
     if length == 2:
         pep = len_2(first, dataset)
-        # linear_smiles = list(map(lambda item: item + linear, pep.tolist()))
     elif length == 3:
         pep = len_2(first, dataset)
         pep = len_3(pep, dataset)
-        # linear_smiles = list(map(lambda item: item + linear, pep.tolist()))
     elif length == 4:
         pep = len_2(first, dataset)
         pep = len_3(pep, dataset)
         pep = len_4(pep, dataset)
-        # linear_smiles = list(map(lambda item: item + linear, pep.tolist()))
     elif length == 5:
         pep = len_2(first, dataset)
         pep = len_3(pep, dataset)
         pep = len_4(pep, dataset)
         pep = len_5(pep, dataset)
-        # linear_smiles = list(map(lambda item: item + linear, pep.tolist()))
     elif length == 6:
         pep = len_2(first, dataset)
         pep = len_3(pep, dataset)
         pep = len_4(pep, dataset)
         pep = len_5(pep, dataset)
         pep = len_6(pep, dataset)
-        # linear_smiles = list(map(lambda item: item + linear, pep.tolist()))
     else:
         pass
     return pep
@@ -86,33 +78,54 @@ def combine_smiles(first, dataset, length, linear):
 
 def combine_linear_smiles(pep, length, linear):
     if length == 2:
-        # pep = len_2(first, dataset)
         linear_smiles = list(map(lambda item: item + linear, pep.tolist()))
     elif length == 3:
-        # pep = len_2(first, dataset)
-        # pep = len_3(pep, dataset)
         linear_smiles = list(map(lambda item: item + linear, pep.tolist()))
     elif length == 4:
-        # pep = len_2(first, dataset)
-        # pep = len_3(pep, dataset)
-        # pep = len_4(pep, dataset)
         linear_smiles = list(map(lambda item: item + linear, pep.tolist()))
     elif length == 5:
-        # pep = len_2(first, dataset)
-        # pep = len_3(pep, dataset)
-        # pep = len_4(pep, dataset)
-        # pep = len_5(pep, dataset)
         linear_smiles = list(map(lambda item: item + linear, pep.tolist()))
     elif length == 6:
-        # pep = len_2(first, dataset)
-        # pep = len_3(pep, dataset)
-        # pep = len_4(pep, dataset)
-        # pep = len_5(pep, dataset)
-        # pep = len_6(pep, dataset)
         linear_smiles = list(map(lambda item: item + linear, pep.tolist()))
     else:
         pass
     return linear_smiles
+
+
+def combine_cyclic_smiles(pep, length, cyclic):
+    """
+    first, list with a simple amino acid
+    dataset, list with a set of amino acids
+    length = int
+    """
+    if length == 2:
+        pep = pep.tolist()
+        pep = list(map(lambda p: f'{"st"}{p}', pep))
+        pep = list(map(lambda p: p.replace("stN[", "N%99["), pep))
+        cyclic_smiles = list(map(lambda item: item + cyclic, pep))
+    elif length == 3:
+        pep = pep.tolist()
+        pep = list(map(lambda p: f'{"st"}{p}', pep))
+        pep = list(map(lambda p: p.replace("stN[", "N%99["), pep))
+        cyclic_smiles = list(map(lambda item: item + cyclic, pep))
+    elif length == 4:
+        pep = pep.tolist()
+        pep = list(map(lambda p: f'{"st"}{p}', pep))
+        pep = list(map(lambda p: p.replace("stN[", "N%99["), pep))
+        cyclic_smiles = list(map(lambda item: item + cyclic, pep))
+    elif length == 5:
+        pep = pep.tolist()
+        pep = list(map(lambda p: f'{"st"}{p}', pep))
+        pep = list(map(lambda p: p.replace("stN[", "N%99["), pep))
+        cyclic_smiles = list(map(lambda item: item + cyclic, pep))
+    elif length == 6:
+        pep = pep.tolist()
+        pep = list(map(lambda p: f'{"st"}{p}', pep))
+        pep = list(map(lambda p: p.replace("stN[", "N%99["), pep))
+        cyclic_smiles = list(map(lambda item: item + cyclic, pep))
+    else:
+        pass
+    return cyclic_smiles
 
 
 def combine_abbr(first_abbreviation, abbr, length):

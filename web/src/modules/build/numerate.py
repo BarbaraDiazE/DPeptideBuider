@@ -1,15 +1,11 @@
 import pandas as pd
 
 from apps.Build.models import AminoAcid, DataAminoAcids, Oxygen
-from .combinations import (
-    # combine_linear_smiles,
-    combine_cyclic_smiles,
-    # ,
-    # combine_abbr,
-)
+
 from .np_combinations import (
     combine_smiles,
     combine_linear_smiles,
+    combine_cyclic_smiles,
     combine_abbr,
 )
 from modules.descriptors.descriptors import compute_descriptors
@@ -95,35 +91,30 @@ class Numerate:
         dataset = self.get_dataset()
         first_abbreviation, abbr = self.get_abreviations()
         linear, cyclic = self.get_oxygen()
+        print("self.topology", self.topology)
+        print("self.topology[0]", self.topology[0])
+        print(len(self.topology))
         if len(self.topology) == 2:
-            pep = combine_smiles(first, dataset, self.length, linear)
+            pep = combine_smiles(first, dataset, self.length)
             linear_peptides = combine_linear_smiles(pep, self.length, linear)
-            print("linear peptides")
-            print(len(linear_peptides))
             linear_abbr = combine_abbr(first_abbreviation, abbr, self.length)
             linear_library = ["linear" for _ in linear_peptides]
-            cyclic_peptides = combine_cyclic_smiles(first, dataset, self.length, cyclic)
+            cyclic_peptides = combine_cyclic_smiles(pep, self.length, cyclic)
             cyclic_abbr = combine_abbr(first_abbreviation, abbr, self.length)
-            print("cyclic peptides")
-            print(len(cyclic_peptides))
             cyclic_library = ["cyclic" for _ in cyclic_peptides]
             smiles = linear_peptides + cyclic_peptides
-            print(smiles[:5])
-            print("linear abreviation", linear_abbr[:5])
-            print("cyclic abreviation", cyclic_abbr[:5])
             ids = linear_abbr + cyclic_abbr
-            print(ids[:5])
             libraries = linear_library + cyclic_library
-        elif len(self.topology) == 0 and self.topology[0] == "linear":
-            # smiles = combine_linear_smiles(first, dataset, self.length, linear)
-            pep = combine_smiles(first, dataset, self.length, linear)
+        elif len(self.topology) == 1 and self.topology[0] == "linear":
+            pep = combine_smiles(first, dataset, self.length)
             smiles = combine_linear_smiles(pep, self.length, linear)
             ids = combine_abbr(first_abbreviation, abbr, self.length)
-            libraries = ["linear" for _ in linear_peptides]
-        elif len(self.topology) == 0 and self.topology[0] == "cyclic":
-            smiles = combine_cyclic_smiles(first, dataset, self.length, cyclic)
+            libraries = ["linear" for _ in smiles]
+        elif len(self.topology) == 1 and self.topology[0] == "cyclic":
+            pep = combine_smiles(first, dataset, self.length)
+            smiles = combine_cyclic_smiles(pep, self.length, cyclic)
             ids = combine_abbr(first_abbreviation, abbr, self.length)
-            libraries = ["cyclic" for _ in cyclic_peptides]
+            libraries = ["cyclic" for _ in smiles]
         else:
             pass
         return smiles, ids, libraries
