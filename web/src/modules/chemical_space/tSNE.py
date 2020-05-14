@@ -32,44 +32,48 @@ class performTSNE:
             f"modules/reference_libraries.csv", index_col="Unnamed: 0"
         )
         ref_data = ref_data.sample(frac=0.2, replace=True, random_state=1992)
-        Data = pd.concat([numerated_libraries, ref_data], axis=0).reset_index()
-        Data =  Data.drop(["index"], axis = 1)
+        data = pd.concat([numerated_libraries, ref_data], axis=0).reset_index()
+        data = data.drop(["index"], axis=1)
         features = ["HBA", "HBD", "RB", "LOGP", "TPSA", "MW"]
         model = TSNE(
             n_components=2, init="pca", random_state=1992, angle=0.3, perplexity=30
-        ).fit_transform(Data[features].as_matrix())
+        ).fit_transform(data[features].as_matrix())
         tsne_result = np.array(model)
         _ = ["SMILES", "Sequence", "Library"]
-        total_id = Data[_].as_matrix()
-        result = np.concatenate((tsne_result, total_id), axis=1)       
+        total_id = data[_].as_matrix()
+        result = np.concatenate((tsne_result, total_id), axis=1)
         result = pd.DataFrame(
-            data=result, 
-            columns=["PC 1", "PC 2", "SMILES","Sequence", "Library"]
+            data=result, columns=["PC 1", "PC 2", "SMILES", "Sequence", "Library"]
         )
         return result
 
-    def tsne_fingerprint(self, fp_matrix, pep_id, fp_name):
+    def tsne_fingerprint(self, fp_matrix, ref_id, fp_name):
         """
         Input:
             fp_matrix: explicit fingerprint of numerated libraries
-            ref, id of numerated libraries
+            ref_id, id of numerated libraries and ref compounds
             fp_name, list, selected fp
         Output:
             result: DataFrame whit tSNE result
         """
         fp_name = fp_name[0].replace(" ", "")
-        ref_data = pd.read_csv(
-            f"modules/exp_fp/reference_libraries_{fp_name}.csv", index_col="Unnamed: 0"
-        )
-        reference_fp = ref_data.select_dtypes(exclude=["object"]).as_matrix()
-        total_fp = np.concatenate((fp_matrix, reference_fp), axis=0)
+        ####ref data ###
+        # ref_data = pd.read_csv(
+        #     f"modules/exp_fp/reference_libraries_{fp_name}.csv", index_col="Unnamed: 0"
+        # )
+        ####fingerprints###
+        # reference_fp = ref_data.select_dtypes(exclude=["object"]).as_matrix()
+        #
+        # total_fp = np.concatenate((fp_matrix, reference_fp), axis=0)
         model = TSNE(
             n_components=2, init="pca", random_state=1992, angle=0.3, perplexity=30
-        ).fit_transform(total_fp)
+        ).fit_transform(fp_matrix)
         tsne_result = np.array(model)
-        ref_id = ref_data.select_dtypes(include=["object"]).as_matrix()
-        total_id = np.concatenate((pep_id, ref_id), axis=0)
-        result = np.concatenate((tsne_result, total_id), axis=1)
+        ### id ###
+        # ref_id = ref_data.select_dtypes(include=["object"]).as_matrix()
+        # total_id = np.concatenate((pep_id, ref_id), axis=0)
+        result = np.concatenate((tsne_result, ref_id), axis=1)
+        #
         result = pd.DataFrame(
             data=result, columns=["PC 1", "PC 2", "Sequence", "Library"]
         )

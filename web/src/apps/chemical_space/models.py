@@ -2,9 +2,9 @@ from django.db import models
 from multiselectfield import MultiSelectField
 
 FP_Keys = (
-    ("MACCS Keys", "MACCS Keys"),
-    ("ECFP 4", "ECFP 4"),
-    ("ECFP 6", "ECFP6"),
+    ("Atom Pairs", "Atom Pairs"),
+    # ("ECFP 4", "ECFP 4"),
+    # ("ECFP 6", "ECFP6"),
 )
 
 PP_Keys = (("Physicochemical properties", "Physicochemical properties"),)

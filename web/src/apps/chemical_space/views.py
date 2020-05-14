@@ -12,6 +12,7 @@ from modules.chemical_space.pca import performPCA
 from modules.chemical_space.tSNE import performTSNE
 from modules.chemical_space.plot import Plot
 from modules.fingerprint.compute_fingerprint import FP
+from modules.fingerprint.AtomPair import comp_fp
 
 # Create your views here.
 class ChemicalSpaceView(APIView):
@@ -29,10 +30,14 @@ class ChemicalSpaceView(APIView):
                 return render_to_response("plot.html", {"script": script, "div": div})
             else:
                 pass
+            ######## TSNE update ###############3
             if len(form.tsne_fp) > 0:  # TSNE FINGERPRINT
                 fp_name = form.tsne_fp
-                matrix_fp, ref = FP(csv_name, fp_name).compute_asmatrix()
-                result = performTSNE().tsne_fingerprint(matrix_fp, ref, fp_name)
+                print(fp_name)
+                ap_result, pep_id = comp_fp(csv_name)
+                print(type(ap_result))
+                # matrix_fp, ref = FP(csv_name, fp_name).compute_asmatrix()
+                result = performTSNE().tsne_fingerprint(ap_result, pep_id, fp_name)
                 print(result.head())
                 plot = Plot(result).plot_tsne(fp_name)
                 script, div = components(plot)
