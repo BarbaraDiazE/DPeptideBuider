@@ -62,24 +62,15 @@ class performPCA:
             a, variance PC 1
             b, variance PC 2
         """
-        fp_name = fp_name[0].replace(" ", "")
-        reference_libraries = pd.read_csv(
-            f"modules/exp_fp/reference_libraries_{fp_name}.csv", index_col="Unnamed: 0"
-        )
-        reference = reference_libraries.select_dtypes(exclude=["object"]).as_matrix()
-        numerical = np.concatenate((fp_matrix, reference), axis=0)
+        # fp_name = fp_name[0].replace(" ", "")
         model = sklearn.decomposition.PCA(
             n_components=6, svd_solver="full", whiten=True
         ).fit(fp_matrix)
         pca_result = pd.DataFrame(
-            model.transform(numerical),
+            model.transform(fp_matrix),
             columns=["PC 1", "PC 2", "PC 3", "PC 4", "PC 5", "PC 6"],
         )
-        ref_libraries = reference_libraries.select_dtypes(
-            include=["object"]
-        ).as_matrix()
-        ref_final = np.concatenate((ref, ref_libraries), axis=0)
-        result = np.concatenate((pca_result, ref_final), axis=1)
+        result = np.concatenate((pca_result, ref), axis=1)
         result = pd.DataFrame(
             data=result,
             columns=[
