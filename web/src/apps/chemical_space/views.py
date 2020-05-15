@@ -12,7 +12,7 @@ from modules.chemical_space.pca import performPCA
 from modules.chemical_space.tSNE import performTSNE
 from modules.chemical_space.plot import Plot
 from modules.fingerprint.compute_fingerprint import FP
-from modules.fingerprint.AtomPair import comp_fp
+from modules.fingerprint.AtomPair import Bit_Count
 
 # Create your views here.
 class ChemicalSpaceView(APIView):
@@ -23,8 +23,12 @@ class ChemicalSpaceView(APIView):
             form = form.save()
             if len(form.pca_fp) > 0:  # PCA FINGERPRINT
                 fp_name = form.pca_fp
-                ap_result, pep_id = comp_fp(csv_name)
-                result, a, b = performPCA().pca_fingerprint(ap_result, pep_id, fp_name)
+                feature_matrix, pep_id = Bit_Count(csv_name, fp_name).feature_matrix(
+                    fp_name
+                )
+                result, a, b = performPCA().pca_fingerprint(
+                    feature_matrix, pep_id, fp_name
+                )
                 plot = Plot(result).plot_pca(fp_name, a, b)
                 script, div = components(plot)
                 return render_to_response("plot.html", {"script": script, "div": div})
@@ -34,10 +38,10 @@ class ChemicalSpaceView(APIView):
             if len(form.tsne_fp) > 0:  # TSNE FINGERPRINT
                 fp_name = form.tsne_fp
                 print(fp_name)
-                ap_result, pep_id = comp_fp(csv_name)
-                print(type(ap_result))
-                # matrix_fp, ref = FP(csv_name, fp_name).compute_asmatrix()
-                result = performTSNE().tsne_fingerprint(ap_result, pep_id, fp_name)
+                feature_matrix, pep_id = Bit_Count(csv_name, fp_name).feature_matrix(
+                    fp_name
+                )
+                result = performTSNE().tsne_fingerprint(feature_matrix, pep_id, fp_name)
                 print(result.head())
                 plot = Plot(result).plot_tsne(fp_name)
                 script, div = components(plot)

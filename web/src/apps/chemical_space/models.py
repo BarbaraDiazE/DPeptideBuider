@@ -3,8 +3,7 @@ from multiselectfield import MultiSelectField
 
 FP_Keys = (
     ("Atom Pairs", "Atom Pairs"),
-    # ("ECFP 4", "ECFP 4"),
-    # ("ECFP 6", "ECFP6"),
+    ("ECFP 6", "ECFP 6"),
 )
 
 PP_Keys = (("Physicochemical properties", "Physicochemical properties"),)
