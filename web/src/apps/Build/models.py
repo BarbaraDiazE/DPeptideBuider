@@ -51,6 +51,27 @@ Keys = (
     ("TYR", "TYR"),
     ("GLY", "GLY"),
 )
+Met_keys = (
+    ("ALA", "ALA"),
+    ("CYS", "CYS"),
+    ("ASP", "ASP"),
+    ("GLU", "GLU"),
+    ("PHE", "PHE"),
+    ("HIS", "HIS"),
+    ("ILE", "ILE"),
+    ("LYS", "LYS"),
+    ("LEU", "LEU"),
+    ("MET", "MET"),
+    ("ASN", "ASN"),
+    ("GLN", "GLN"),
+    ("ARG", "ARG"),
+    ("SER", "SER"),
+    ("THR", "THR"),
+    ("VAL", "VAL"),
+    ("TRP", "TRP"),
+    ("TYR", "TYR"),
+    ("GLY", "GLY"),
+)
 topology = (("linear", "linear"), ("cyclic", "cyclic"))
 
 
@@ -60,7 +81,7 @@ class DataFormulary(models.Model):
         verbose_name="Linear", choices=Keys, max_choices=20, blank=True
     )
     methylated = MultiSelectField(
-        verbose_name="Methylated", choices=Keys, max_choices=20, blank=True
+        verbose_name="Methylated", choices=Met_keys, max_choices=20, blank=True
     )
     topology = MultiSelectField(
         verbose_name="Topology", choices=topology, max_choices=2, blank=True

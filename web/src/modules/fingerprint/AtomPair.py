@@ -25,8 +25,10 @@ class Bit_Count:
             f"modules/reference_libraries.csv", index_col="Unnamed: 0"
         )
         peps = pd.read_csv(f"generated_csv/{csv_name}", index_col="Unnamed: 0")
+        if peps.shape[0] > 1000:
+            peps = peps.sample(n=1000, replace=True, random_state=1992)
         data = pd.concat([ref_comp, peps], axis=0)
-        data = data.sample(frac=0.3, replace=True, random_state=1992)
+        # data = data.sample(frac=0.3, replace=True, random_state=1992)
         self.data = data
         self.diccionario = {
             "ECFP 6": self.ecfp6(),
