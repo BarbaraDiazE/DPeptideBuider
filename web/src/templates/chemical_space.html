@@ -1,79 +1,90 @@
 <!DOCTYPE html>
 {% load staticfiles %}
 <html>
-        <head>
-                <title>Chemical space</title>
-                <link rel="stylesheet" href= "{% static "css\mystyle.css" %}" />
-        </head>
-        <body>
-            <div class = "container"><!--Chemical space-->
-                        <h3>
-                                <a href="/">Back</a>
-                        </h3>
-                        <h2>Chemical space</h2>
-                        
-            </div>
-        </body>
-        <body>
-            <form method="post"> {% csrf_token %}
-            <div class = "container"></div> <!--Structure Based-->
-                    <h3>Structure Based</h3>    
-                            <div class="dropdown"><!--PCA-->
-                                    <label>PCA</label>
-                                    <button onclick="myFunction()" class="dropbtn">Options</button>
-                                    <div class="dropdown-content">
-                                            {{ form.pca_fp }}
-                                    </div>
-                            </div>
-                            <div class="dropdown"><!--tSNE-->
-                                    <label>tSNE</label>
-                                    <button onclick="myFunction()" class="dropbtn">Options</button>
-                                    <div class="dropdown-content">
-                                            {{ form.tsne_fp }}
-                                    </div>
-                            </div>              
-            </div>
-            <div class = "container"></div> <!--Property based-->
-                    <h3>Properties Based</h3>    
-                            <div class="dropdown"><!--PCA-->
-                                    <label>PCA</label>
-                                    <button onclick="myFunction()" class="dropbtn">Options</button>
-                                    <div class="dropdown-content">
-                                            {{ form.pca_pp }}
-                                    </div>
-                            </div>
-                            <div class="dropdown"><!--tSNE-->
-                                    <label>tSNE</label>
-                                    <button onclick="myFunction()" class="dropbtn">Options</button>
-                                    <div class="dropdown-content">
-                                            {{ form.tsne_pp }}
-                                    </div>
-                            </div>             
-            </div>
-            <div class = "container">
-                    <input type="submit" value="Visualize"  onclick="alert('ready to visualize chemical space?!')">   
-            </div>
-            </form>
-        </body>
-        <script>
-            /* When the user clicks on the button, 
-            toggle between hiding and showing the dropdown content */
-            function myFunction() {
-              document.getElementById("myDropdown").classList.toggle("show");
-            }
-            
-            // Close the dropdown if the user clicks outside of it
-            window.onclick = function(event) {
-              if (!event.target.matches('.dropbtn')) {
-                var dropdowns = document.getElementsByClassName("dropdown-content");
-                var i;
-                for (i = 0; i < dropdowns.length; i++) {
-                  var openDropdown = dropdowns[i];
-                  if (openDropdown.classList.contains('show')) {
-                    openDropdown.classList.remove('show');
-                  }
+
+<head>
+        <title>“Chemical Space</title>
+        <link rel="stylesheet" href="{% static "css\mystyle.css" %}" />
+</head>
+
+<body>
+        <div class="container">
+                <!--Chemical space-->
+                <h3>
+                        <a href="/">Back</a>
+                </h3>
+                <h2>Visualization of chemical space</h2>
+
+        </div>
+</body>
+
+<body>
+        <form method="post"> {% csrf_token %}
+                <div class="container"></div>
+                <!--Structure Based-->
+                <h3>Structure Based</h3>
+                <div class="dropdown">
+                        <!--PCA-->
+                        <label>PCA</label>
+                        <button onclick="myFunction()" class="dropbtn">Options</button>
+                        <div class="dropdown-content">
+                                {{ form.pca_fp }}
+                        </div>
+                </div>
+                <div class="dropdown">
+                        <!--tSNE-->
+                        <label>tSNE</label>
+                        <button onclick="myFunction()" class="dropbtn">Options</button>
+                        <div class="dropdown-content">
+                                {{ form.tsne_fp }}
+                        </div>
+                </div>
+                </div>
+                <div class="container"></div>
+                <!--Property based-->
+                <h3>Properties Based</h3>
+                <div class="dropdown">
+                        <!--PCA-->
+                        <label>PCA</label>
+                        <button onclick="myFunction()" class="dropbtn">Options</button>
+                        <div class="dropdown-content">
+                                {{ form.pca_pp }}
+                        </div>
+                </div>
+                <div class="dropdown">
+                        <!--tSNE-->
+                        <label>tSNE</label>
+                        <button onclick="myFunction()" class="dropbtn">Options</button>
+                        <div class="dropdown-content">
+                                {{ form.tsne_pp }}
+                        </div>
+                </div>
+                </div>
+                <div class="container">
+                        <input type="submit" value="Visualize" onclick="alert('ready to visualize chemical space?!')">
+                </div>
+        </form>
+</body>
+<script>
+        /* When the user clicks on the button, 
+        toggle between hiding and showing the dropdown content */
+        function myFunction() {
+                document.getElementById("myDropdown").classList.toggle("show");
+        }
+
+        // Close the dropdown if the user clicks outside of it
+        window.onclick = function (event) {
+                if (!event.target.matches('.dropbtn')) {
+                        var dropdowns = document.getElementsByClassName("dropdown-content");
+                        var i;
+                        for (i = 0; i < dropdowns.length; i++) {
+                                var openDropdown = dropdowns[i];
+                                if (openDropdown.classList.contains('show')) {
+                                        openDropdown.classList.remove('show');
+                                }
+                        }
                 }
-              }
-            }
-            </script>            
+        }
+</script>
+
 </html>
