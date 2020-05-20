@@ -40,14 +40,11 @@ def get_mw(mol):
 
 
 def compute_descriptors(smiles):
-    print("soy los smiles que recibe compute descriptors", type(smiles), len(smiles))
     np_smiles = np.array(smiles)
-    # smiles
     pool = mp.Pool(mp.cpu_count())
     smiles = pool.map(get_smiles, [x for x in np_smiles])
     pool.close()
     np_molecules = np.array(smiles)
-    # CanonicalSmiles = list(map(lambda x: Chem.MolToSmiles(x), smiles))
     pool = mp.Pool(mp.cpu_count())
     CanonicalSmiles = pool.map(get_cann_smiles, [mol for mol in np_molecules])
     HBA = pool.map(get_hba, [mol for mol in np_molecules])
