@@ -1,20 +1,20 @@
 h1{
   color: darkslategray;
   font-size: 40px;
-  font: "Verdana";
+  font-family: Arial, Helvetica, sans-serif;
   text-align: center;
 }
 
 h2{
   color: teal;
   font-size: 30px;
-  font: "Verdana";
+  font-family: Arial, Helvetica, sans-serif;
   text-align: center;
 }
 h3{
   color: darkslategray;
   font-size: 20px;
-  font: "Verdana";
+  font-family: Arial, Helvetica, sans-serif;
   text-align: justify;
   margin-left: 50px;
   margin-right: 50px
@@ -22,21 +22,21 @@ h3{
 h4{
   color: teal;
   font-size: 18px;
-  font: "Verdana";
+  font-family: Arial, Helvetica, sans-serif;
   text-align: justify;
 }
 h5{
   color: teal;
   font-size: 18px;
-  font: "Verdana";
+  font-family: Arial, Helvetica, sans-serif;
   text-align: right;
 }
 
 a{
   color:teal;
   font-size: 18px;
-  font: "Verdana";
-}
+  font-family: Arial, Helvetica, sans-serif;
+  }
 .container{
   align-content: center;
   display: inline;
@@ -52,7 +52,7 @@ a{
     border-radius: 4px;
     border: none;
     cursor: pointer;
-    font: "Verdana";
+    font-family: Arial, Helvetica, sans-serif;
     align-content: center;
     text-align: center;
     display: inline-flex;
@@ -66,8 +66,8 @@ a{
   
 .dropdown {
     display: inline-block;
-    font: "verdana";
-    font-size: 18px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
     color: teal;
     border-radius: 4px;
     margin-left: 50px;
@@ -88,7 +88,7 @@ a{
 .dropdown-content a {
     color: darkslategray;
     padding: 12px 16px;
-    font: "Verdana";
+    font-family: Arial, Helvetica, sans-serif;
     display: inline-block;
   }
   
@@ -112,7 +112,7 @@ input{
   display: inline-block;
   border-radius: 4px;
   font-size: 14px;
-  font: "Verdana";
+  font-family: Arial, Helvetica, sans-serif;
   margin-left: 50px;
   margin-right: 50px
 }

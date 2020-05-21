@@ -53,18 +53,19 @@
 
   img {
     display: inline-block;
-    /* margin-left: 10px; */
+    margin-left: 50px;
   }
 </style>
 
 <body>
   <div class="container">
     <h1 style="text-align: left">
-      <img style='vertical-align:middle' margin-left=20px src="{% static "/dtools.png"   %}" alt="Dtools" width="150"
+      <img style='vertical-align:middle' margin-left=100px src="{% static "/dtools.png"   %}" alt="Dtools" width="150"
         height="100">
       D-Peptide Builder
     </h1>
-    <h3>This application is part of D-Tools: Tools for cheminformatics.The website allows you to enumerate
+    <h3>This application is part of D-Tools: Tools for cheminformatics.The website allows
+      you to enumerate
       combinatorial libraries <br>
       of peptides</h3>
   </div>
@@ -122,7 +123,7 @@
       <h3>Step 3. Select length</h3>
       <h4>{{ form.length }}</h4>
       <h3>Step 4. Enumerate peptide libraries</h3>
-      <input type="submit" value="Submit" onclick="alert('peptides are under constructions!')">
+      <input type="submit" value="Submit" onclick="alert('peptides are under construction!')">
     </div>
   </form>
 

@@ -17,7 +17,7 @@ class FP:
         self.fp_name = fp_name[0]
         self.Data = pd.read_csv(f"generated_csv/{csv_name}", index_col="Unnamed: 0")
         if self.Data.shape[0] > 1001:
-            self.Data = self.Data.sample(500, replace=True, random_state=1992)
+            self.Data = self.Data.sample(1000, replace=True, random_state=1992)
         _ = ["Sequence", "Library"]
         self.ref = self.Data[_].as_matrix()
         self.diccionario = {
