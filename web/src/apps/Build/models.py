@@ -85,6 +85,6 @@ class DataFormulary(models.Model):
         verbose_name="Methylated", choices=Met_keys, max_choices=20, blank=True
     )
     topology = MultiSelectField(
-        verbose_name="Topology", choices=topology, max_choices=2, blank=True
+        verbose_name="Topology", choices=topology, max_choices=2
     )
     length = models.IntegerField(verbose_name="Length", name="length")

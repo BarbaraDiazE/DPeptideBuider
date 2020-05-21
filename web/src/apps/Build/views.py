@@ -19,9 +19,8 @@ class ServerViews(APIView):
         }
         if form.is_valid():
             form = form.save()
-            n = Numerate(
-                form.first[0], form.linear, form.methylated, form.topology, form.length
-            )
+            print("soy form", form)
+            n = Numerate(form.linear, form.methylated, form.topology, form.length)
             DF = n.write_databases()
             now = datetime.now().strftime("%Y%m%d_%H%M%S")
             filename = f"database_{now}.csv"

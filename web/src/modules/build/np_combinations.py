@@ -24,6 +24,15 @@ def len_2(epep, first):
 def combine(epep, eds):
     """
     input, 
+    epep: sequences from len_2 
+    eds: element of dataset
+    """
+    return f"{epep}{'('}{eds}"
+
+
+def combine_a(epep, eds):
+    """
+    input, 
     eds: element of dataset
     epep: sequences from len_2 
     """
@@ -58,63 +67,26 @@ def len_6(pep5, dataset):
     return pep6
 
 
-# def combine_smiles(first, dataset, length):
-#     """
-#     first, str with a simple amino acid
-#     dataset, list with a set of amino acids
-#     length = int
-#     """
-#     if length == 2:
-#         pep = len_2(first, dataset)
-#     elif length == 3:
-#         pep = len_2(first, dataset)
-#         pep = len_3(pep, dataset)
-#     elif length == 4:
-#         pep = len_2(first, dataset)
-#         pep = pep.tolist()
-#         print("type(pep)", type(pep))
-#         ###paralelizacion###
-#         res1 = []
-#         for eds in dataset:
-#             print("eds", eds)
-#             # res1.append()
-#             print(parallelize_func(len_3, pep, eds=eds))
-#         print("total res1", res1)
-#         ###
-#         res1 = np.array([res1])
-#         # pep = len_3(res1, dataset)
-#         pep = len_4(res1, dataset)
-#     elif length == 5:
-#         pep = len_2(first, dataset)
-#         pep = len_3(pep, dataset)
-#         pep = len_4(pep, dataset)
-#         pep = len_5(pep, dataset)
-#     elif length == 6:
-#         pep = len_2(first, dataset)
-#         pep = len_3(pep, dataset)
-#         pep = len_4(pep, dataset)
-#         pep = len_5(pep, dataset)
-#         pep = len_6(pep, dataset)
-#     else:
-#         pass
-#     return pep
-
-
-def combine_smiles(first, dataset, length):
+def combine_smiles(dataset, length):
     """
-    first, str with a simple amino lengthacid
     dataset, list with a set of amino acids
     length = int
     """
+    pep = [dataset[0]]
     dataset = np.array(dataset)
     if length == 2:
         pool = mp.Pool(mp.cpu_count())
-        f_comb = [pool.apply(len_2, args=(element, first)) for element in dataset]
+        pep2 = list()
+        for eds in dataset:
+            pep2 = pep2 + [pool.apply(combine, args=(epep, eds)) for epep in pep]
         pool.close()
+        f_comb = pep2
     elif length == 3:
         ### 2 elements #######
         pool = mp.Pool(mp.cpu_count())
-        pep2 = [pool.apply(len_2, args=(element, first)) for element in dataset]
+        pep2 = list()
+        for eds in dataset:
+            pep2 = pep2 + [pool.apply(combine, args=(epep, eds)) for epep in pep]
         pool.close()
         pep2 = np.array(pep2)
         ###### 3 elements#########
@@ -124,12 +96,14 @@ def combine_smiles(first, dataset, length):
             f_comb = f_comb + [pool.apply(combine, args=(epep, eds)) for epep in pep2]
         pool.close()
     elif length == 4:
-        ### 2 elements ###
+        ### 2 elements #######
         pool = mp.Pool(mp.cpu_count())
-        pep2 = [pool.apply(len_2, args=(element, first)) for element in dataset]
+        pep2 = list()
+        for eds in dataset:
+            pep2 = pep2 + [pool.apply(combine, args=(epep, eds)) for epep in pep]
         pool.close()
-        ### 3 elements ###
         pep2 = np.array(pep2)
+        ###### 3 elements#########
         pool = mp.Pool(mp.cpu_count())
         pep3 = list()
         for eds in dataset:
@@ -145,7 +119,9 @@ def combine_smiles(first, dataset, length):
     elif length == 5:
         ### 2 elements ###
         pool = mp.Pool(mp.cpu_count())
-        pep2 = [pool.apply(len_2, args=(element, first)) for element in dataset]
+        pep2 = list()
+        for eds in dataset:
+            pep2 = pep2 + [pool.apply(combine, args=(epep, eds)) for epep in pep]
         pool.close()
         ### 3 elements ###
         pep2 = np.array(pep2)
@@ -173,8 +149,11 @@ def combine_smiles(first, dataset, length):
     elif length == 6:
         ### 2 elements ###
         pool = mp.Pool(mp.cpu_count())
-        pep2 = [pool.apply(len_2, args=(element, first)) for element in dataset]
+        pep2 = list()
+        for eds in dataset:
+            pep2 = pep2 + [pool.apply(combine, args=(epep, eds)) for epep in pep]
         pool.close()
+        pep2 = np.array(pep2)
         ### 3 elements ###
         pep2 = np.array(pep2)
         pool = mp.Pool(mp.cpu_count())
@@ -255,41 +234,50 @@ def combine_cyclic_smiles(f_comb, length, cyclic):
     return cyclic_smiles
 
 
-def combine_abbr(first_ab, abbr, length):
+def combine_abbr(abbr, length):
     """
-    first_ab, str with a simple amino lengthacid
     abbr, list with a set of amino acids
     length = int
     """
+    pep = [abbr[0]]
     abbr = np.array(abbr)
     print("abbr", abbr)
     if length == 2:
         pool = mp.Pool(mp.cpu_count())
-        f_comb = [pool.apply(len_2, args=(element, first_ab)) for element in abbr]
-        pool.close()
-    elif length == 3:
-        ### 2 elements #######
-        pool = mp.Pool(mp.cpu_count())
-        pep2 = [pool.apply(len_2, args=(element, first)) for element in abbr]
-        pool.close()
-        pep2 = np.array(pep2)
-        ###### 3 elements#########
-        pool = mp.Pool(mp.cpu_count())
-        f_comb = list()
+        pep2 = list()
         for eds in abbr:
-            f_comb = f_comb + [pool.apply(combine, args=(epep, eds)) for epep in pep2]
+            pep2 = pep2 + [pool.apply(combine_a, args=(epep, eds)) for epep in pep]
+            print("temporal pep2", pep2)
         pool.close()
-    elif length == 4:
+        sequence = pep2
+    elif length == 3:
         ### 2 elements ###
         pool = mp.Pool(mp.cpu_count())
-        pep2 = [pool.apply(len_2, args=(element, first_ab)) for element in abbr]
+        pep2 = list()
+        for eds in abbr:
+            pep2 = pep2 + [pool.apply(combine_a, args=(epep, eds)) for epep in pep]
         pool.close()
         ### 3 elements ###
         pep2 = np.array(pep2)
         pool = mp.Pool(mp.cpu_count())
         pep3 = list()
         for eds in abbr:
-            pep3 = pep3 + [pool.apply(combine, args=(epep, eds)) for epep in pep2]
+            pep3 = pep3 + [pool.apply(combine_a, args=(epep, eds)) for epep in pep2]
+        pool.close()
+        sequence = pep3
+    elif length == 4:
+        ### 2 elements ###
+        pool = mp.Pool(mp.cpu_count())
+        pep2 = list()
+        for eds in abbr:
+            pep2 = pep2 + [pool.apply(combine_a, args=(epep, eds)) for epep in pep]
+        pool.close()
+        ### 3 elements ###
+        pep2 = np.array(pep2)
+        pool = mp.Pool(mp.cpu_count())
+        pep3 = list()
+        for eds in abbr:
+            pep3 = pep3 + [pool.apply(combine_a, args=(epep, eds)) for epep in pep2]
         pool.close()
         ### 4 elements ###
         pep3 = np.array(pep3)
@@ -297,95 +285,74 @@ def combine_abbr(first_ab, abbr, length):
         sequence = list()
         for eds in abbr:
             sequence = sequence + [
-                pool.apply(combine, args=(epep, eds)) for epep in pep3
+                pool.apply(combine_a, args=(epep, eds)) for epep in pep3
             ]
         pool.close()
     elif length == 5:
         ### 2 elements ###
         pool = mp.Pool(mp.cpu_count())
-        pep2 = [pool.apply(len_2, args=(element, first_ab)) for element in abbr]
+        pep2 = list()
+        for eds in abbr:
+            pep2 = pep2 + [pool.apply(combine_a, args=(epep, eds)) for epep in pep]
         pool.close()
         ### 3 elements ###
         pep2 = np.array(pep2)
         pool = mp.Pool(mp.cpu_count())
         pep3 = list()
         for eds in abbr:
-            pep3 = pep3 + [pool.apply(combine, args=(epep, eds)) for epep in pep2]
+            pep3 = pep3 + [pool.apply(combine_a, args=(epep, eds)) for epep in pep2]
         pool.close()
         ### 4 elements ###
         pep3 = np.array(pep3)
         pool = mp.Pool(mp.cpu_count())
         pep4 = list()
         for eds in abbr:
-            pep4 = pep4 + [pool.apply(combine, args=(epep, eds)) for epep in pep3]
+            pep4 = pep4 + [pool.apply(combine_a, args=(epep, eds)) for epep in pep3]
         pool.close()
         ### 5 elements ###
         pep4 = np.array(pep4)
         pool = mp.Pool(mp.cpu_count())
         pep5 = list()
         for eds in abbr:
-            pep5 = pep5 + [pool.apply(combine, args=(epep, eds)) for epep in pep4]
+            pep5 = pep5 + [pool.apply(combine_a, args=(epep, eds)) for epep in pep4]
         pool.close()
         # pep5 = np.array(pep5)
         sequence = pep5
     elif length == 6:
         ### 2 elements ###
         pool = mp.Pool(mp.cpu_count())
-        pep2 = [pool.apply(len_2, args=(element, first_ab)) for element in abbr]
+        pep2 = list()
+        for eds in abbr:
+            pep2 = pep2 + [pool.apply(combine_a, args=(epep, eds)) for epep in pep]
         pool.close()
         ### 3 elements ###
         pep2 = np.array(pep2)
         pool = mp.Pool(mp.cpu_count())
         pep3 = list()
         for eds in abbr:
-            pep3 = pep3 + [pool.apply(combine, args=(epep, eds)) for epep in pep2]
+            pep3 = pep3 + [pool.apply(combine_a, args=(epep, eds)) for epep in pep2]
         pool.close()
         ### 4 elements ###
         pep3 = np.array(pep3)
         pool = mp.Pool(mp.cpu_count())
         pep4 = list()
         for eds in abbr:
-            pep4 = pep4 + [pool.apply(combine, args=(epep, eds)) for epep in pep3]
+            pep4 = pep4 + [pool.apply(combine_a, args=(epep, eds)) for epep in pep3]
         pool.close()
         ### 5 elements ###
         pep4 = np.array(pep4)
         pool = mp.Pool(mp.cpu_count())
         pep5 = list()
         for eds in abbr:
-            pep5 = pep5 + [pool.apply(combine, args=(epep, eds)) for epep in pep4]
+            pep5 = pep5 + [pool.apply(combine_a, args=(epep, eds)) for epep in pep4]
         pool.close()
-        # pep5 = np.array(pep5)
-        f_comb = pep5
         ### 6 elements ###
         pep5 = np.array(pep5)
         pool = mp.Pool(mp.cpu_count())
         pep6 = list()
         for eds in abbr:
-            pep6 = pep6 + [pool.apply(combine, args=(epep, eds)) for epep in pep5]
+            pep6 = pep6 + [pool.apply(combine_a, args=(epep, eds)) for epep in pep5]
         pool.close()
-        # pep5 = np.array(pep5)
         sequence = pep6
     return sequence
-    # if length == 2:
-    #     sequence = len_2(first_abbreviation, abbr)
-    # elif length == 3:
-    #     pep = len_2(first_abbreviation, abbr)
-    #     sequence = len_3(pep, abbr)
-    # elif length == 4:
-    #     pep = len_2(first_abbreviation, abbr)
-    #     pep = len_3(pep, abbr)
-    #     sequence = len_4(pep, abbr)
-    # elif length == 5:
-    #     pep = len_2(first_abbreviation, abbr)
-    #     pep = len_3(pep, abbr)
-    #     pep = len_4(pep, abbr)
-    #     sequence = len_5(pep, abbr)
-    # elif length == 6:
-    #     pep = len_2(first_abbreviation, abbr)
-    #     pep = len_3(pep, abbr)
-    #     pep = len_4(pep, abbr)
-    #     pep = len_5(pep, abbr)
-    #     sequence = len_6(pep, abbr)
-    # else:
-    #     pass
-    # return sequence.tolist()
+

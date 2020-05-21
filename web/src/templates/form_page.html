@@ -83,14 +83,14 @@
   <!--Amino Acids-->
   <form method="post"> {% csrf_token %}
     <h3>Step 1. Select amino acids</h3>
-    <div class="dropdown">
-      <!--First Smiles-->
-      <label>First position</label>
-      <button onclick="myFunction()" class="dropbtn">Options</button>
-      <div class="dropdown-content">
-        {{ form.first }}
-      </div>
+    <!-- <div class="dropdown">
+      first amino acid
+    <label>First position</label>
+    <button onclick="myFunction()" class="dropbtn">Options</button>
+    <div class="dropdown-content">
+      {{ form.first }}
     </div>
+    </div> -->
     <div class="dropdown">
       <!--Linear Smiles-->
       <label>Linear</label>
