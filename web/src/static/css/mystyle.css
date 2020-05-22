@@ -60,7 +60,7 @@ a{
     text-align: center;
     display: inline-flex;
     margin-left: 70px;
-    /* margin-right: 50px */
+    margin-right: 50px
   }
   
 .dropbtn:hover, .dropbtn:focus {
@@ -74,7 +74,7 @@ a{
     color: teal;
     border-radius: 4px;
     margin-left: 70px;
-    /* margin-right: 50px */
+    margin-right: 50px
   }
   
 .dropdown-content {
