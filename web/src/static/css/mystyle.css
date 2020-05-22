@@ -3,33 +3,38 @@ h1{
   font-size: 40px;
   font-family: Arial, Helvetica, sans-serif;
   text-align: center;
+  margin-left: 70px;
+  margin-right: 70px;
+  margin-top: 0px;
 }
 
-h2{
-  color: teal;
-  font-size: 30px;
-  font-family: Arial, Helvetica, sans-serif;
-  text-align: center;
-}
 h3{
   color: darkslategray;
   font-size: 20px;
   font-family: Arial, Helvetica, sans-serif;
   text-align: justify;
-  margin-left: 50px;
-  margin-right: 50px
+  margin-left: 70px;
+  margin-right: 70px;
+}
+h2{
+  color: darkslategray;
+  font-size: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: justify;
 }
 h4{
   color: teal;
   font-size: 18px;
   font-family: Arial, Helvetica, sans-serif;
   text-align: justify;
+  margin-left: 70px;
+  margin-right: 70px
 }
 h5{
   color: teal;
   font-size: 18px;
   font-family: Arial, Helvetica, sans-serif;
-  text-align: right;
+  text-align: justify;
 }
 
 a{
@@ -40,8 +45,6 @@ a{
 .container{
   align-content: center;
   display: inline;
-  margin-left: 50px;
-  margin-right: 50px
 }
 
 .dropbtn {
@@ -56,8 +59,8 @@ a{
     align-content: center;
     text-align: center;
     display: inline-flex;
-    margin-left: 50px;
-    margin-right: 50px
+    margin-left: 70px;
+    /* margin-right: 50px */
   }
   
 .dropbtn:hover, .dropbtn:focus {
@@ -70,8 +73,8 @@ a{
     font-size: 16px;
     color: teal;
     border-radius: 4px;
-    margin-left: 50px;
-    margin-right: 50px
+    margin-left: 70px;
+    /* margin-right: 50px */
   }
   
 .dropdown-content {
@@ -113,8 +116,7 @@ input{
   border-radius: 4px;
   font-size: 14px;
   font-family: Arial, Helvetica, sans-serif;
-  margin-left: 50px;
-  margin-right: 50px
+  margin-left: 70px;
 }
 
 .table {

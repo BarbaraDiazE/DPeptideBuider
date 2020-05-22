@@ -7,20 +7,27 @@
   <link rel="stylesheet" href="{% static "css\mystyle.css" %}" />
 </head>
 <style>
+  div {
+    margin-right: 50px;
+    margin-left: 50px;
+    margin-top: 10px;
+  }
+
   .sidenav {
     width: 300px;
     position: absolute;
     z-index: 1;
     /* top: 250px; */
-    left: 1100px;
+    left: 1000px;
     /* background: lightsteelblue; */
     overflow-x: hidden;
     padding: 8px 0;
-    margin-right: 100px;
+    /* margin-right: 100px; */
+    margin-top: 20px
   }
 
   .sidenav h3 {
-    padding: 8px 4px 8px 4px;
+    padding: 4px 0px 20px 00px;
     text-decoration: none;
     font-size: 26px;
     color: teal;
@@ -29,7 +36,7 @@
   }
 
   .sidenav a {
-    padding: 8px 4px 20px 50px;
+    padding: 10px 5px 20px 00px;
     text-decoration: none;
     font-size: 20px;
     color: teal;
@@ -43,35 +50,24 @@
   }
 
   .main {
-    margin-left: 20px;
-    margin-right: 20px;
+    margin-left: 60px;
+    /* margin-right: 60px; */
     /* Same width as the sidebar + left position in px */
     font-size: 28px;
     /* Increased text to enable scrolling */
-    padding: 0px 10px;
+    /* padding: 0px 10px; */
   }
 
   img {
     display: inline-block;
-    margin-left: 50px;
+    margin-right: 0px;
   }
 </style>
 
 <body>
-  <div class="container">
-    <h1 style="text-align: left">
-      <img style='vertical-align:middle' margin-left=100px src="{% static "/dtools.png"   %}" alt="Dtools" width="150"
-        height="100">
-      D-Peptide Builder
-    </h1>
-    <h3>This application is part of D-Tools: Tools for cheminformatics.The website allows
-      you to enumerate
-      combinatorial libraries <br>
-      of peptides</h3>
-  </div>
-
   <div class="sidenav">
-    <h3>Chemoinformatic tools</h3>
+    <img style='vertical-align:middle' src="{% static "/dtools.png"   %}" alt="Dtools" width="150" height="100">
+    <h2>Chemoinformatic tools</h2>
     <a href="/chemspace">Chemical Space</a>
     <a href="/diversity">Diversity Analysis</a>
     <a href="/contact">Contact</a>
@@ -81,16 +77,16 @@
 <body>
   <div class="container"></div>
   <!--Amino Acids-->
+  <h1 style="text-align: left">
+    D-Peptide Builder
+    <!-- <img style='vertical-align:middle' src="{% static "/dtools.png"   %}"
+      alt="Dtools" width="150" height="100"> -->
+  </h1>
+  <h3>A chemoinformatic tool to enumerate combinatorial libraries
+    of peptides</h3>
+  <br>
   <form method="post"> {% csrf_token %}
     <h3>Step 1. Select amino acids</h3>
-    <!-- <div class="dropdown">
-      first amino acid
-    <label>First position</label>
-    <button onclick="myFunction()" class="dropbtn">Options</button>
-    <div class="dropdown-content">
-      {{ form.first }}
-    </div>
-    </div> -->
     <div class="dropdown">
       <!--Linear Smiles-->
       <label>Linear</label>
@@ -121,9 +117,12 @@
     <div class="container">
       <!--Length and submit-->
       <h3>Step 3. Select length</h3>
-      <h4>{{ form.length }}</h4>
+      <h5>{{ form.length }}</h5>
       <h3>Step 4. Enumerate peptide libraries</h3>
       <input type="submit" value="Submit" onclick="alert('peptides are under construction!')">
+      <br>
+      <h4>This application is part of D-Tools: Tools for cheminformatics and was developed by Bárbara I. Díaz-Eufracio
+      </h4>
     </div>
   </form>
 
