@@ -17,7 +17,13 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url
 
-from apps.Build.views import ServerViews, CSVView, DownloadCSV, ContactView
+from apps.Build.views import (
+    ServerViews,
+    CSVView,
+    DownloadCSV,
+    ContactView,
+    UserGuideView,
+)
 from apps.chemical_space.views import ChemicalSpaceView
 from apps.diversity_analysis.views import DiversityAnalysisView
 
@@ -28,5 +34,6 @@ urlpatterns = [
     url(r"^chemspace/", ChemicalSpaceView.as_view()),
     url(r"^diversity/", DiversityAnalysisView.as_view()),
     url(r"^contact/", ContactView.as_view()),
+    url(r"^userguide/", UserGuideView.as_view()),
     path("admin/", admin.site.urls),
 ]

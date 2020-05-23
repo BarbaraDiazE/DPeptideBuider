@@ -61,3 +61,8 @@ class DownloadCSV(APIView):
 class ContactView(APIView):
     def get(self, request):
         return render(request, "contact.html")
+
+
+class UserGuideView(APIView):
+    def get(self, request):
+        return render(request, "userguide.html")
