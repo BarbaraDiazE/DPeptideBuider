@@ -13,25 +13,59 @@
 <body>
     <div class="container">
         <br></br>
-        <h2>User Guide</h2>
-        <br></br>
+        <h1 style="text-align: left">User Guide</h1>
+        <!-- <br> -->
     </div>
     <div class="container">
         <h3>Numerate combinatorial peptide libraries</h3>
         <h4>Fill out the form in home page</h4>
         <br>
+        <img style="vertical-align:middle;margin:0px 70px" src="{% static "/homepage.png"   %}" alt="Dtools" width="600"
+            height="400">
         <h4> <b>Step 1.</b> Move the mouse over an "options" button, choose desired options from
             dropdown list</h4>
-        <h4>Linear: Select amino acid dataset</h4>
-        <h4>Methylated: Select amino acid with N-Methylation</h4>
-        <br>
+        <h3>Linear: Select amino acid dataset</h3>
+        <h3>Methylated: Select amino acid with N-Methylation</h3>
+        <!-- <br> -->
         <h4><b>Step 2.</b> From dropdown list, select a single topology, or both of them.</h4>
-        <br>
+        <!-- <br> -->
         <h4><b>Step 3. </b> Select a number between 2 and 6 to set up the peptide length.</h4>
-        <br>
+        <!-- <br> -->
         <h4><b>Step 4.</b> click the “Submit” button to perform the enumaration </h4>
         <br>
         <h4>Libraries will appear in a new window, like the one at next screenshot.</h4>
+        <img style="vertical-align:middle;margin:0px 70px" src="{% static "/table.png"   %}" alt="Dtools" width="600"
+            height="400">
+        <br>
+        <h3>Save database</h3>
+        <h4>Click <b>“Download”</b> button, database will be downloaded as a .csv file.</h4>
+        <h4>Click <b>“home”</b> to return main page.</h4>
+        <br>
+        <h3>Visualization of chemical space</h3>
+        <h4>Select<b>“Chemical Space”</b> option on the side bar.</h4>
+        <h4>This section allow visualize chemical space by PCA and tSNE from
+            physicochemical properties and different fingerprints. Options are displayed on the
+            next window.</h4>
+        <h4>Select <b>“Chemical Space”</b> option on the side bar.</h4>
+        <h4>This section allow visualize chemical space by PCA and tSNE from
+            physicochemical properties and different fingerprints. Options are displayed on the
+            next window.</h4>
+        <img style="vertical-align:middle;margin:0px 70px" src="{% static "/selectchemspace.png"   %}" alt="Dtools"
+            width="600" height="400">
+        <h4>Once desired choices are selected, click the button “Visualize”. An interactive plot
+            will be render in a new window.</h4>
+        <img style="vertical-align:middle;margin:0px 70px" src="{% static "/plotchemspace.png"   %}" alt="Dtools"
+            width="600" height="400">
+        <h4>Toolbar include zoom in, zoom out and save options.</h4>
+        <h4>At legent section libraries hide and appear on click.</h4>
+        <h4>In the plot, placing the cursor in a single point, coordinates and name of a single
+            point are render on an alert window.</h4>
+        <h4>Note: tSNE visualization is computed from libraries sample, if you need prefer
+            visualization builded from entire libraries, or with a different dataset, contact our
+            research group by mail (medinajl@unam.mx or dieb@comunidad.unam.mx).</h4>
+        <h3>Diversity Analysis</h3>
+        <h4>"Options" button display a dropdown list with Fingerprints implemented. Similarity
+            plot and statistical values will render in a new window.</h4>
     </div>
 </body>
 
