@@ -77,8 +77,7 @@
     <!-- <img style='vertical-align:middle' src="{% static "/dtools.png"   %}"
       alt="Dtools" width="150" height="100"> -->
   </h1>
-  <h3>A chemoinformatic tool to enumerate combinatorial libraries
-    of peptides</h3>
+  <h3>A chemoinformatic tool to enumerate combinatorial libraries of up to pentapeptides</h3>
   <br>
   <form method="post"> {% csrf_token %}
     <h3>Step 1. Select amino acids</h3>
@@ -111,7 +110,7 @@
     </div>
     <div class="container">
       <!--Length and submit-->
-      <h3>Step 3. Select length</h3>
+      <h3>Step 3. Select length (2-5)</h3>
       <h5>{{ form.length }}</h5>
       <h3>Step 4. Enumerate peptide libraries</h3>
       <input type="submit" value="Submit" onclick="alert('peptides are under construction!')">
