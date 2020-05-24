@@ -174,7 +174,7 @@ def combine_cyclic_smiles(f_comb, length, cyclic):
     """
     if length == 2:
         pep = list(map(lambda p: f'{"st"}{p}', f_comb))
-        pep = list(map(lambda p: p.replace("stN", "N%99"), pep))
+        pep = list(map(lambda p: p.replace("stN[", "N%99["), pep))
         cyclic_smiles = list(map(lambda item: item + cyclic, pep))
     elif length == 3:
         pep = list(map(lambda p: f'{"st"}{p}', f_comb))
@@ -182,15 +182,15 @@ def combine_cyclic_smiles(f_comb, length, cyclic):
         cyclic_smiles = list(map(lambda item: item + cyclic, pep))
     elif length == 4:
         pep = list(map(lambda p: f'{"st"}{p}', f_comb))
-        pep = list(map(lambda p: p.replace("stN", "N%99"), pep))
+        pep = list(map(lambda p: p.replace("stN[", "N%99["), pep))
         cyclic_smiles = list(map(lambda item: item + cyclic, pep))
     elif length == 5:
         pep = list(map(lambda p: f'{"st"}{p}', f_comb))
-        pep = list(map(lambda p: p.replace("stN", "N%99"), pep))
+        pep = list(map(lambda p: p.replace("stN[", "N%99["), pep))
         cyclic_smiles = list(map(lambda item: item + cyclic, pep))
     elif length == 6:
         pep = list(map(lambda p: f'{"st"}{p}', f_comb))
-        pep = list(map(lambda p: p.replace("stN", "N%99"), pep))
+        pep = list(map(lambda p: p.replace("stN[", "N%99["), pep))
         cyclic_smiles = list(map(lambda item: item + cyclic, pep))
     else:
         pass

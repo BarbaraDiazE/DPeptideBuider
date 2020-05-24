@@ -61,7 +61,7 @@ dict_amino_acid = {
         "linear_smile": "N[C@@H]([C@@H](C)CC)C",
         "linear_abbreviation": "I",
         "methylated_smile": "N(C)[C@@H]([C@@H](C)CC)C",
-        "methylated_abbreviation": "I",
+        "methylated_abbreviation": "I(M)",
     },
     "LYS": {
         "name": "LYS",
@@ -115,7 +115,7 @@ dict_amino_acid = {
         "linear_smile": "N[C@@H](CCC(N)O)C",
         "linear_abbreviation": "Q",
         "methylated_smile": "N(C)[C@@H](CCC(N)O)C",
-        "methylated_abbreviation": "Q",
+        "methylated_abbreviation": "Q(M)",
     },
     "ARG": {
         "name": "ARG",
