@@ -19,5 +19,5 @@ exec "$@"
 /opt/conda/envs/rdkit-env/bin/gunicorn \
     PeptideBuilder.wsgi \
     --bind 0.0.0.0:8000 \
-    --timeout 1200 \
+    --timeout 3600 \
     --workers 4 \
