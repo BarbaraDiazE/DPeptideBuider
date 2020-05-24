@@ -2,20 +2,10 @@ import numpy as np
 import multiprocessing as mp
 
 
-# def len_2(first, dataset):
-#     """
-#     input,
-#     first:list, selected amino acids
-#     output
-#     pep2, np.array
-#     """
-#     first = np.array(first)
-#     pep2 = np.core.defchararray.add(first, dataset)
-#     return pep2
 def len_2(epep, first):
     """
     input, 
-    first: first aminoacid selected
+    first: amino acid at first position
     epep: element of dataset
     """
     return f"{first}{epep}"
@@ -24,7 +14,7 @@ def len_2(epep, first):
 def combine(epep, eds):
     """
     input, 
-    epep: sequences from len_2 
+    epep: element of pep (pep is sequence from previous combination) 
     eds: element of dataset
     """
     return f"{epep}{'('}{eds}"
@@ -32,39 +22,12 @@ def combine(epep, eds):
 
 def combine_a(epep, eds):
     """
-    input, 
+    generate sequence (peptides' ID)
+    input,
+    epep: element of pep (pep is sequence from previous combination) 
     eds: element of dataset
-    epep: sequences from len_2 
     """
     return f"{epep}{eds}"
-
-
-def len_3(epep, eds):
-    return f"{epep}{eds}"
-
-
-def len_4(pep3, dataset):
-    pep4 = np.empty(0)
-    for i in dataset:
-        i = np.core.defchararray.add(pep3, np.array(i))
-        pep4 = np.concatenate((pep4, i), axis=None)
-    return pep4
-
-
-def len_5(pep4, dataset):
-    pep5 = np.empty(0)
-    for i in dataset:
-        i = np.core.defchararray.add(pep4, np.array(i))
-        pep5 = np.concatenate((pep5, i), axis=None)
-    return pep5
-
-
-def len_6(pep5, dataset):
-    pep6 = np.empty(0)
-    for i in dataset:
-        i = np.core.defchararray.add(pep5, np.array(i))
-        pep6 = np.concatenate((pep6, i), axis=None)
-    return pep6
 
 
 def combine_smiles(dataset, length):

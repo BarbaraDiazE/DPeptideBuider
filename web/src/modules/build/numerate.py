@@ -17,24 +17,15 @@ class Numerate:
     """
 
     def __init__(self, linear, methylated, topology, length):
-        # self.first = first
         self.linear = linear
         self.methylated = methylated
         self.topology = topology
         self.length = length
 
-    # def get_first(self):
-    #     """
-    #     return, first(smiles from database)
-    #     """
-    #     # _ = AminoAcid.objects.filter(amino_acid=self.first)[0]
-    #     first = DataAminoAcids.objects.filter(name=_).all()[0].first_smile
-    #     return first
-
     def get_dataset(self):
         """
         return 
-        dataset, list that contains amino acid smiles (methyladed and linear from database)
+        dataset, list that contains amino acid SMILES (methyladed and linear from database)
         """
         linear_qs = AminoAcid.objects.filter(amino_acid__in=self.linear).values_list(
             "data__linear_smile"
@@ -53,10 +44,6 @@ class Numerate:
         return
         first_abbreviation and  abbr, letter representation for amino acids selected
         """
-        # _ = AminoAcid.objects.filter(amino_acid=self.first)[0]
-        # first_abbreviation = (
-        #     DataAminoAcids.objects.filter(name=_).all()[0].first_abbreviation
-        # )
         linear_abbr_qs = AminoAcid.objects.filter(
             amino_acid__in=self.linear
         ).values_list("data__linear_abbreviation")
@@ -86,13 +73,10 @@ class Numerate:
         ids, sequence peptide representation
         libraries, list with libraries' name
         """
-        # first = self.get_first()
         dataset = self.get_dataset()
         abbr = self.get_abreviations()
         linear, cyclic = self.get_oxygen()
         print("self.topology", self.topology)
-        print("self.topology[0]", self.topology[0])
-        print(len(self.topology))
         if len(self.topology) == 2:
             pep = combine_smiles(dataset, self.length)
             linear_peptides = combine_linear_smiles(pep, self.length, linear)
@@ -136,6 +120,5 @@ class Numerate:
             "TPSA": TPSA,
             "MW": MW,
         }
-        idx = [i + 1 for i in range(len(CanonicalSMILES))]
         DF = pd.DataFrame.from_dict(data=data)
         return DF
