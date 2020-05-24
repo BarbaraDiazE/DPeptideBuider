@@ -34,11 +34,11 @@ class Plot:
         source7 = column_source(result, "cyclic")
         hover = HoverTool(tooltips=[("PCA 1", "$x"), ("PCA 2", "$y"), ("NAME", "@N"),])
         p = figure(
-            title="PCA based on: " + parameter[0],
+            title="PCA based on " + parameter[0],
             x_axis_label="PC 1" + "(" + str(a) + "%)",
             y_axis_label="PC 2" + "(" + str(b) + "%)",
-            x_range=(-7, 7),
-            y_range=(-7, 7),
+            x_range=(-4, 8),
+            y_range=(-4, 8),
             tools=[hover],
             plot_width=1000,
             plot_height=800,
@@ -98,8 +98,8 @@ class Plot:
             title="tSNE based on " + parameter[0],
             x_axis_label="PC 1",
             y_axis_label="PC 2",
-            x_range=(-7, 7),
-            y_range=(-7, 7),
+            x_range=(-101, 101),
+            y_range=(-101, 101),
             tools=[hover],
             plot_width=1000,
             plot_height=800,

@@ -60,7 +60,6 @@ def ref_similarity(Data, name, Library):
     ###Updata function
     fp = atom_pair_fp(_)
     print("ya calcule fp")
-    # calcular similitud
     sim, y = compute_similarity(fp)
     print("ya calcule la similitud")
     # referencia
@@ -74,7 +73,6 @@ def ref_similarity(Data, name, Library):
 
 
 Data = pd.read_csv("modules/reference_libraries.csv", index_col="Unnamed: 0")
-# print(Data.head())
 print(Data.Library.unique())
 DF_FDA = ref_similarity(Data, "Atom Pair", "FDA")
 print("calcule FDA")
