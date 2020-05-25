@@ -1,13 +1,7 @@
 from django.db import models
 from multiselectfield import MultiSelectField
 
-FP_Keys = (
-    ("MACCS Keys", "MACCS Keys"),
-    ("ECFP 4", "ECFP 4"),
-    ("ECFP 6", "ECFP6"),
-    ("Topological", "Topological"),
-    ("Atom Pair", "Atom Pair"),
-)
+FP_Keys = (("Atom Pair", "Atom Pair"),)
 
 
 class SelectFingerprint(models.Model):
