@@ -19,7 +19,6 @@ class ServerViews(APIView):
         }
         if form.is_valid():
             form = form.save()
-            print("soy form", form)
             n = Numerate(form.linear, form.methylated, form.topology, form.length)
             DF = n.write_databases()
             now = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -40,7 +39,8 @@ class ServerViews(APIView):
 
 class CSVView(APIView):
     def get(self, request, csv_name):
-        data = pd.read_csv(f"generated_csv/{csv_name}", index_col="Unnamed: 0")
+        data = pd.read_csv(f"generated_csv/{csv_name}", index_col="compound")
+        data = data.drop("Unnamed: 0", axis=1)
         data_html = data.to_html()
         context = {"loaded_data": data_html}
         return render(request, "table.html", context)

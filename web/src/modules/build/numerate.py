@@ -109,7 +109,9 @@ class Numerate:
         """
         smiles, ids, libraries = self.numerate()
         CanonicalSMILES, HBA, HBD, RB, LOGP, TPSA, MW = compute_descriptors(smiles)
+        idx = [i + 1 for i in range(len(CanonicalSMILES))]
         data = {
+            "compound": idx,
             "SMILES": CanonicalSMILES,
             "Sequence": ids,
             "Library": libraries,
@@ -121,4 +123,6 @@ class Numerate:
             "MW": MW,
         }
         DF = pd.DataFrame.from_dict(data=data)
+        print(DF.columns)
+        print(DF.head())
         return DF
