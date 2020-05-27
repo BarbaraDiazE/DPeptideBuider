@@ -107,7 +107,6 @@ def combine_smiles(dataset, length):
         for eds in dataset:
             pep5 = pep5 + [pool.apply(combine, args=(epep, eds)) for epep in pep4]
         pool.close()
-        # pep5 = np.array(pep5)
         f_comb = pep5
     elif length == 6:
         ### 2 elements ###
@@ -138,7 +137,6 @@ def combine_smiles(dataset, length):
         for eds in dataset:
             pep5 = pep5 + [pool.apply(combine, args=(epep, eds)) for epep in pep4]
         pool.close()
-        # pep5 = np.array(pep5)
         f_comb = pep5
         ### 6 elements ###
         pep5 = np.array(pep5)

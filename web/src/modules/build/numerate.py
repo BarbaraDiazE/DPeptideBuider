@@ -123,6 +123,4 @@ class Numerate:
             "MW": MW,
         }
         DF = pd.DataFrame.from_dict(data=data)
-        print(DF.columns)
-        print(DF.head())
         return DF
