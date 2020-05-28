@@ -24,7 +24,7 @@ class Bit_Count:
         ref_comp = pd.read_csv(
             f"modules/reference_libraries.csv", index_col="Unnamed: 0"
         )
-        peps = pd.read_csv(f"generated_csv/{csv_name}", index_col="Unnamed: 0")
+        peps = pd.read_csv(f"generated_csv/{csv_name}", index_col="compound")
         if peps.shape[0] > 1000:
             peps = peps.sample(n=1000, replace=True, random_state=1992)
         data = pd.concat([ref_comp, peps], axis=0)

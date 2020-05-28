@@ -1,4 +1,5 @@
 import pandas as pd
+import csv
 
 from apps.Build.models import AminoAcid, DataAminoAcids, Oxygen
 
@@ -102,25 +103,34 @@ class Numerate:
             pass
         return smiles, ids, libraries
 
-    def write_databases(self):
+    def db_generator(self):
+        smiles, ids, libraries = self.numerate()
+        CanonicalSMILES, HBA, HBD, RB, LOGP, TPSA, MW = compute_descriptors(smiles)
+        idx = (i + 1 for i in range(len(CanonicalSMILES)))
+        for row in zip(
+            idx, CanonicalSMILES, ids, libraries, HBA, HBD, RB, LOGP, TPSA, MW
+        ):
+            yield row
+
+    def write_databases(self, path):
         """
         return 
         DF, Dataframe with numerated libraries, and physicochemical descriptors
         """
-        smiles, ids, libraries = self.numerate()
-        CanonicalSMILES, HBA, HBD, RB, LOGP, TPSA, MW = compute_descriptors(smiles)
-        idx = [i + 1 for i in range(len(CanonicalSMILES))]
-        data = {
-            "compound": idx,
-            "SMILES": CanonicalSMILES,
-            "Sequence": ids,
-            "Library": libraries,
-            "HBA": HBA,
-            "HBD": HBD,
-            "RB": RB,
-            "LOGP": LOGP,
-            "TPSA": TPSA,
-            "MW": MW,
-        }
-        DF = pd.DataFrame.from_dict(data=data)
-        return DF
+        header = [
+            "compound",
+            "SMILES",
+            "Sequence",
+            "Library",
+            "HBA",
+            "HBD",
+            "RB",
+            "LOGP",
+            "TPSA",
+            "MW",
+        ]
+
+        with open(path, "w") as csv_file:
+            writer = csv.writer(csv_file)
+            writer.writerow(header)
+            writer.writerows(self.db_generator())

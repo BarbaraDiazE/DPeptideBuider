@@ -33,6 +33,8 @@ services:
       - backend-tier
     depends_on:
       - db
+    volumes:
+      - "./web/src:/src"
   
   nginx:
     image: nginx
