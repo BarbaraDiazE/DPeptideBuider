@@ -1,6 +1,7 @@
 from django.db import models
 from django import forms
 from multiselectfield import MultiSelectField
+from django.contrib.postgres.fields import HStoreField
 
 
 class AminoAcid(models.Model):
@@ -88,3 +89,16 @@ class DataFormulary(models.Model):
         verbose_name="Topology", choices=topology, max_choices=2
     )
     length = models.IntegerField(verbose_name="Length", name="length")
+
+
+# class NumeratedPep(models.Model):
+#     """
+#     session, now
+#     data, dict, numerated
+#     """
+
+#     session = models.CharField(max_length=200)
+#     data = HStoreField()
+
+#     def __str__(self):
+#         return self.session
