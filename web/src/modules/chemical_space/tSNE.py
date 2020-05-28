@@ -22,7 +22,7 @@ class performTSNE:
             result: DataFrame whit tSNE result
         """
         numerated_libraries = pd.read_csv(
-            f"generated_csv/{csv_name}", index_col="Unnamed: 0"
+            f"generated_csv/{csv_name}", index_col="compounds"
         )
         if numerated_libraries.shape[0] > 1001:
             numerated_libraries = numerated_libraries.sample(

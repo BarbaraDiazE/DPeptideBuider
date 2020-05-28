@@ -22,7 +22,7 @@ class performPCA:
             b, variance PC 2
         """
         numerated_libraries = pd.read_csv(
-            f"generated_csv/{csv_name}", index_col="Unnamed: 0"
+            f"generated_csv/{csv_name}", index_col="compound"
         )
         reference_libraries = pd.read_csv(
             "modules/reference_libraries.csv", index_col="Unnamed: 0"

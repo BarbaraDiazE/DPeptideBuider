@@ -19,9 +19,6 @@ class ChemicalSpaceView(APIView):
     def post(self, request):
         form = Chem_space_form(request.POST)
         csv_name = request.session["csv_name"]
-        print("*" * 20)
-        print(request.session)
-        print("*" * 20)
         if form.is_valid():
             form = form.save()
             if len(form.pca_fp) > 0:  # PCA FINGERPRINT
