@@ -1,0 +1,4 @@
+#numerated libraries
+web/src/generated_csv/*
+
+*/__pycache__/
