@@ -4,7 +4,7 @@
 
 <head>
     <title>User guide</title>
-    <link rel="stylesheet" href="{% static "css\mystyle.css" %}" />
+    <link rel="stylesheet" href="{% static "css\userguide.css" %}" />
 </head>
 <style>
 
@@ -19,35 +19,57 @@
         <!-- <br> -->
     </div>
     <div class="container">
-        <h4>This is a concise guide that summarizes the main features of D-Peptide Builder. </h4>
+        <h4 margin:0px 200px 0px 200px>This is a concise guide that summarizes the main features of D-Peptide Builder.
+        </h4>
         <!--  -->
+        <br>
         <h3>Access the server </h3>
-        <h4>The server is hosted at http://132.248.103.152:4000/. We suggest using Chrome or Firefox web browsers. You
-            will see the next home page. </h4>
+        <h4>The server is hosted at <a href="http://132.248.103.152:4000/"> http://132.248.103.152:4000/</a>.
+            We suggest using Chrome or Firefox web browsers.
+            You will see the next home page.</h4>
+        <img style="vertical-align:middle;margin:0px 70px" src="{% static "/homepage.png"   %}" alt="Dtools" width="800"
+            height="400">
         <!--  -->
+        <br>
+        <br>
         <h3>Numerate libraries</h3>
-        <h4>Fill out the form in home page</h4>
-        <br>
-        <img style="vertical-align:middle;margin:0px 70px" src="{% static "/homepage.png"   %}" alt="Dtools" width="600"
-            height="400">
-        <h4> <b>Step 1.</b> Move the mouse over an "options" button, choose desired options from
-            dropdown list</h4>
-        <h3 style="margin:0px 140px">Non-methylated: Select amino acid dataset</h3>
-        <h3 style="margin:0px 140px">N-Methylated: Select amino acid with N-Methylation</h3>
-        <!-- <br> -->
-        <h4><b>Step 2.</b> From dropdown list, select a single topology, or both of them.</h4>
-        <!-- <br> -->
-        <h4><b>Step 3. </b> Select a number between 2 and 5 to set the peptide length.</h4>
-        <!-- <br> -->
-        <h4><b>Step 4.</b> Click the “Submit” button to perform the enumaration </h4>
-        <h4>Numerated libraries will appear in a new window, similat to the one at next screenshot.</h4>
-        <img style="vertical-align:middle;margin:0px 70px" src="{% static "/table.png"   %}" alt="Dtools" width="600"
-            height="400">
+        <h4>Fill out the form in home page.</h4>
         <br>
         <!--  -->
-        <h3>Save database</h3>
-        <h4>Click <b>“Download”</b> button, database will be downloaded as a .csv file.</h4>
-        <h4>Click <b>“home”</b> to return main page.</h4>
+        <table style="width:100%">
+            <tr>
+                <th><img style="vertical-align:middle;margin:0px 70px" src="{% static "/form.png"   %}" alt="Dtools"
+                        width="600" height="400"></th>
+                <th>
+                    <h4 style="margin:40px 200px 10px 10px"> <b>Step 1.</b> Move the mouse over an "options" button,
+                        choose desired options from
+                        dropdown list.</h4>
+                    <h3 style="margin:40px 200px 10px 10px">Non-methylated: Select amino acid dataset.</h3>
+                    <h3 style="margin:40px 200px 10px 10px">N-Methylated: Select amino acid with N-Methylation.</h3>
+                    <h4 style="margin:40px 200px 10px 10px"><b>Step 2.</b> From dropdown list, select a single topology,
+                        or both of them.</h4>
+                    <h4 style="margin:40px 200px 10px 10px"><b>Step 3.</b> Select a number between 2 and 5 to set the
+                        peptide length.</h4>
+                    <h4 style="margin:40px 200px 10px 10px"><b>Step 4.</b> Click the “Submit” button to perform the
+                        enumaration. </h4>
+                </th>
+            </tr>
+        </table>
+        <!--  -->
+        <h4>Numerated libraries will appear in a new window, similar to the one at next screenshot.</h4>
+        <br>
+        <table style="width:100%">
+            <tr>
+                <th><img style="vertical-align:middle;margin:0px 70px" src="{% static "/table.png"   %}" alt="Dtools"
+                        width="600" height="400"></th>
+                <th>
+                    <h3 style="margin:40px 200px 10px 10px">Save database</h3>
+                    <h4 style="margin:40px 200px 10px 10px">Click <b>“Download CSV”</b> button,the database will be
+                        downloaded as a .csv file.</h4>
+                    <h4 style="margin:40px 200px 10px 10px">Click <b>“home”</b> to return main page.</h4>
+                </th>
+            </tr>
+        </table>
         <br>
         <!--  -->
         <h3>Visualization of chemical space</h3>
@@ -55,19 +77,31 @@
         <h4>This section allow visualize chemical space by PCA and tSNE from
             physicochemical properties and Atom Pairs fingerprint. Options are displayed on the
             next window.</h4>
-        <img style="vertical-align:middle;margin:0px 70px" src="{% static "/selectchemspace.png"   %}" alt="Dtools"
+        <img style="vertical-align:middle;margin:0px 100px" src="{% static "/selectchemspace.png"   %}" alt="Dtools"
             width="600" height="400">
         <h4>Once desired choice is selected, click the button “Visualize”. An interactive plot
             will be render in a new window.</h4>
-        <img style="vertical-align:middle;margin:0px 70px" src="{% static "/plotchemspace.png"   %}" alt="Dtools"
-            width="600" height="400">
-        <h4 style="margin:0px 140px">Toolbar include zoom in, zoom out and save options.</h4>
-        <h4 style="margin:0px 140px"> At legent section libraries hide and appear on click.</h4>
-        <h4 style="margin:0px 140px">In the plot, placing the cursor in a single point, coordinates and name of a single
-            point are render on an alert window.</h4>
-        <h4>Note: To compare the chemical space of numerated data sets with other reference libraries contact our
-            group (medinajl@unam.mx or dieb@comunidad.unam.mx).
-        </h4>
+        <!--  -->
+        <table style="width:100%">
+            <tr>
+                <th><img style="vertical-align:middle;margin:0px 70px" src="{% static "/plotchemspace.png"   %}"
+                        alt="Dtools" width="600" height="400"></th>
+                <th>
+                    <h4 style="margin:40px 200px 10px 10px">Toolbar include zoom in, zoom out and save options.</h4>
+                    <h4 style="margin:40px 200px 10px 10px"> At legent section libraries hide and appear on click.</h4>
+                    <h4 style="margin:40px 200px 10px 10px">In the plot, placing the cursor in a single point,
+                        coordinates and name
+                        of a single
+                        point are render on an alert window.</h4>
+                </th>
+            </tr>
+        </table>
+        <!--  -->
+        <h4>
+            Note: To compare the chemical space of numerated data sets with other reference
+            libraries contact our group (medinajl@unam.mx or dieb@comunidad.unam.mx).
+            The full contact information is at
+            <a href="http://132.248.103.152:4000/contact/"> 132.248.103.152:4000/contact</a>. </h4>
         <!--  -->
         <h3>Diversity Analysis</h3>
         <h4>"Options" button display a dropdown list, select "Atom Pair" and click "Perform Analysis".Similarity
