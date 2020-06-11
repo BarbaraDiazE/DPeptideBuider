@@ -22,7 +22,7 @@ class performTSNE:
             result: DataFrame whit tSNE result
         """
         numerated_libraries = pd.read_csv(
-            f"generated_csv/{csv_name}", index_col="compounds"
+            f"generated_csv/{csv_name}", index_col="compound"
         )
         if numerated_libraries.shape[0] > 1001:
             numerated_libraries = numerated_libraries.sample(
@@ -57,23 +57,11 @@ class performTSNE:
             result: DataFrame whit tSNE result
         """
         fp_name = fp_name[0].replace(" ", "")
-        ####ref data ###
-        # ref_data = pd.read_csv(
-        #     f"modules/exp_fp/reference_libraries_{fp_name}.csv", index_col="Unnamed: 0"
-        # )
-        ####fingerprints###
-        # reference_fp = ref_data.select_dtypes(exclude=["object"]).as_matrix()
-        #
-        # total_fp = np.concatenate((fp_matrix, reference_fp), axis=0)
         model = TSNE(
             n_components=2, init="pca", random_state=1992, angle=0.3, perplexity=30
         ).fit_transform(fp_matrix)
         tsne_result = np.array(model)
-        ### id ###
-        # ref_id = ref_data.select_dtypes(include=["object"]).as_matrix()
-        # total_id = np.concatenate((pep_id, ref_id), axis=0)
         result = np.concatenate((tsne_result, ref_id), axis=1)
-        #
         result = pd.DataFrame(
             data=result, columns=["PC 1", "PC 2", "Sequence", "Library"]
         )
