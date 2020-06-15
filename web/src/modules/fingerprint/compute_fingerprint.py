@@ -2,6 +2,7 @@
 import numpy as np
 import pandas as pd
 import itertools as it
+import multiprocessing as mp
 
 import rdkit
 from rdkit import Chem, DataStructs
@@ -12,22 +13,32 @@ from rdkit.Chem.AtomPairs import Pairs
 from modules.diversity_analysis.stats import statistical_values
 
 
+def get_smiles(i):
+    return Chem.MolFromSmiles(i)
+
+
+def atom_pairs(i):
+    return Pairs.GetAtomPairFingerprintAsBitVect(i)
+
+
 class FP:
     def __init__(self, csv_name, fp_name):
         self.fp_name = fp_name[0]
         self.Data = pd.read_csv(f"generated_csv/{csv_name}", index_col="compound")
         if self.Data.shape[0] > 1001:
             print("data > 1001 componds")
-            self.Data = self.Data.sample(2000, replace=True, random_state=1992)
+            self.Data = self.Data.sample(500, replace=True, random_state=1992)
         _ = ["Sequence", "Library"]
         self.ref = self.Data[_].as_matrix()
-        self.diccionario = {
-            "Atom Pair": self.atom_pair_fp(),
-        }
 
     def atom_pair_fp(self):
-        ms = [Chem.MolFromSmiles(i) for i in self.Data.SMILES]
-        fp = [Pairs.GetAtomPairFingerprintAsBitVect(x) for x in ms]
+        smiles = self.Data.SMILES
+        pool = mp.Pool(mp.cpu_count())
+        ms = pool.map(get_smiles, [item for item in smiles])
+        pool.close()
+        pool = mp.Pool(mp.cpu_count())
+        fp = pool.map(atom_pairs, [item for item in ms])
+        pool.close()
         return fp
 
     def compute_similarity(self, df_fp, library):
@@ -37,16 +48,17 @@ class FP:
         y, array, cdf
         """
         fp = df_fp[df_fp["Library"] == library].fp
-        sim = np.around(
-            [
-                DataStructs.FingerprintSimilarity(y, x)
-                for x, y in it.combinations(fp, 2)
-            ],
-            decimals=2,
-        )
+        _ = list(it.combinations(fp, 2))
+        # sim = np.around(
+        #     [
+        #         DataStructs.FingerprintSimilarity(y, x)
+        #         for x, y in it.combinations(fp, 2)
+        #     ],
+        #     decimals=2,
+        # )
+        sim = np.array([DataStructs.FingerprintSimilarity(y, x) for x, y in _])
         sim.sort()
         y = np.arange(1, len(sim) + 1) / len(sim)  # eje y
-        y = np.around(y, decimals=2)
         return sim, y
 
     def similarity(self, fp_name):
@@ -57,7 +69,7 @@ class FP:
         """
         fp_name = fp_name[0].replace(" ", "")
         # compute fp
-        fp = self.diccionario[self.fp_name]
+        fp = self.atom_pair_fp()
         df_fp = pd.DataFrame.from_dict({"fp": fp, "Library": self.Data.Library})
         # compute similarity
         sim_linear, y_linear = self.compute_similarity(df_fp, "linear")
