@@ -36,7 +36,13 @@ class performTSNE:
         data = data.drop(["index"], axis=1)
         features = ["HBA", "HBD", "RB", "LOGP", "TPSA", "MW"]
         model = TSNE(
-            n_components=2, init="pca", random_state=1992, angle=0.3, perplexity=30
+            n_components=2,
+            init="pca",
+            random_state=1992,
+            angle=0.3,
+            perplexity=30,
+            n_iter=1000,
+            n_jobs=6,
         ).fit_transform(data[features].as_matrix())
         tsne_result = np.array(model)
         _ = ["SMILES", "Sequence", "Library"]
@@ -58,7 +64,13 @@ class performTSNE:
         """
         fp_name = fp_name[0].replace(" ", "")
         model = TSNE(
-            n_components=2, init="pca", random_state=1992, angle=0.3, perplexity=30
+            n_components=2,
+            init="pca",
+            random_state=1992,
+            angle=0.3,
+            perplexity=30,
+            n_iter=1000,
+            n_jobs=6,
         ).fit_transform(fp_matrix)
         tsne_result = np.array(model)
         result = np.concatenate((tsne_result, ref_id), axis=1)
