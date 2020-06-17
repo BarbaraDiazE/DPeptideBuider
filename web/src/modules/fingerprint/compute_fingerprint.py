@@ -21,15 +21,16 @@ def atom_pairs(i):
     return Pairs.GetAtomPairFingerprintAsBitVect(i)
 
 
+def paired_sim(i):
+    return DataStructs.FingerprintSimilarity(i[0], i[1])
+
+
 class FP:
     def __init__(self, csv_name, fp_name):
         self.fp_name = fp_name[0]
         self.Data = pd.read_csv(f"generated_csv/{csv_name}", index_col="compound")
-        if self.Data.shape[0] > 1001:
-            print("data > 1001 componds")
-            self.Data = self.Data.sample(500, replace=True, random_state=1992)
-        _ = ["Sequence", "Library"]
-        self.ref = self.Data[_].as_matrix()
+        if self.Data.shape[0] > 500:
+            self.Data = self.Data.sample(150, replace=True, random_state=1992)
 
     def atom_pair_fp(self):
         smiles = self.Data.SMILES
@@ -43,6 +44,9 @@ class FP:
 
     def compute_similarity(self, df_fp, library):
         """
+        input
+        df_fp, Dataframe (fingerprint, and library)
+        library, str
         return
         sim, array,  paired similarity
         y, array, cdf
@@ -56,9 +60,14 @@ class FP:
         #     ],
         #     decimals=2,
         # )
-        sim = np.array([DataStructs.FingerprintSimilarity(y, x) for x, y in _])
+        pool = mp.Pool(mp.cpu_count())
+        sim = pool.map(paired_sim, [item for item in _])
+        pool.close()
+        sim = np.around(sim, decimals=3)
         sim.sort()
-        y = np.arange(1, len(sim) + 1) / len(sim)  # eje y
+        l = len(sim)
+        y = np.arange(1, l + 1) / l  # eje y
+        y = np.around(y, decimals=3)
         return sim, y
 
     def similarity(self, fp_name):
@@ -71,6 +80,7 @@ class FP:
         # compute fp
         fp = self.atom_pair_fp()
         df_fp = pd.DataFrame.from_dict({"fp": fp, "Library": self.Data.Library})
+        print("df_fp esta listo")
         # compute similarity
         sim_linear, y_linear = self.compute_similarity(df_fp, "linear")
         sim_cyclic, y_cyclic = self.compute_similarity(df_fp, "cyclic")
