@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "apps.Build",
     "apps.chemical_space",
     "apps.diversity_analysis",
+    "apps.ppi_predictor"
 ]
 
 MIDDLEWARE = [

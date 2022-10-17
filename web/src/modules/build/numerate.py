@@ -1,4 +1,3 @@
-import pandas as pd
 import csv
 
 from apps.Build.models import AminoAcid, DataAminoAcids, Oxygen
