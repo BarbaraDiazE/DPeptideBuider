@@ -1,7 +1,7 @@
 bokeh>=0.12.13
 Django==2.1
 django-multiselectfield==0.1.8
-djangorestframework==3.8.2
+djangorestframework==3.11.2
 numpy>=1.15.0
 pandas>=0.23.4
 rest-pandas
