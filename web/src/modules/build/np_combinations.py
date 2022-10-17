@@ -51,7 +51,6 @@ def combine_smiles(dataset, length):
             pep2 = pep2 + [pool.apply(combine, args=(epep, eds)) for epep in pep]
         pool.close()
         pep2 = np.array(pep2)
-        ###### 3 elements#########
         pool = mp.Pool(mp.cpu_count())
         f_comb = list()
         for eds in dataset:

@@ -11,6 +11,7 @@ RUN /opt/conda/envs/rdkit-env/bin/python -m pip install --upgrade pip
 ADD config/requirements.txt .
 RUN /opt/conda/envs/rdkit-env/bin/pip install -r requirements.txt
 
-ADD ./src/ .
+COPY src/ .
+RUN tar -xvzf trained_models.tar.gz
 
-ENTRYPOINT [ "/src/docker-entrypoint.sh" ]
+ENTRYPOINT [ "./docker-entrypoint.sh" ]

@@ -1,0 +1,10 @@
+{   "filter": "ensemble_ecfp6_2.pkl",
+    "target1" : "LFA / ICAM",
+    "target2" :  "Bromodomain / Histone",
+    "target3" :  "BCL2-Like / BAX",
+    "target4" :  "XIAP / Smac",
+    "target5" :  "LEDGF / IN",
+    "target6" :  "CD80 / CD28",
+    "target7" :  "MDM2-Like / P53",
+    "target8" :  "CD4 / gp120"
+}

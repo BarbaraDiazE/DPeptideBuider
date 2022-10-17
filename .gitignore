@@ -1,6 +1,7 @@
 #numerated libraries
 web/src/generated_csv/*
-
+#models
+web/src/trained_models/*
 */__pycache__/
 *.py[cod]
 *$py.class

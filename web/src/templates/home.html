@@ -1,0 +1,82 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>PPI predictor</title>
+  <!-- CSS -->
+  <link rel="stylesheet" href="{% static "css\home.css" %}"/>
+  <!-- Bootsptrap -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <!-- Ajax -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <!-- JSEM -->
+  <script src="{% static "js\JSME\jsme\jsme.nocache.js" %}"></script>
+  <script>
+    function jsmeOnLoad() {
+      jsmeApplet = new JSApplet.JSME("jsme_container", "500px", "520px", {
+        //optional parameters
+        options: "query,hydrogens",
+      });
+      document.JME = jsmeApplet;
+    }
+
+    function getSmiles() {
+      var data = document.JME.smiles();
+      document.getElementById("jme_output").value = data;
+    }
+  </script>
+</head>
+
+<body>
+  <h2 class="homeTittle">PPI predictor</h2>
+  <div class="topnav">
+    <a class="active" href="/home">Home</a>
+    <a class="peptide builder" href="/peptide">D-Peptide Builder</a>
+<!--    <a href="#dtools">D-tools</a>-->
+    <a href="#about">About</a>
+    <a href="/contact">Contact</a>
+  </div>
+
+  <script type=text/javascript>
+    $(document).ready(function () {
+      $(".buttonSearch").click(function () {
+        const smiles = jsmeApplet.smiles();
+        $.ajax({
+          url: "/input_structure",
+          data: { smiles: smiles},
+          // type: "POST",
+          success: function (data) {
+            $("#error-list").html(
+              '<p style="color:brown">Esta es la respuesta del succes</p>'
+            );
+            console.log('success handler');
+            if (data.resultTable) {
+              console.log(data);
+              $('#resultTable').replaceWith(data.resultTable)
+              $('#smiles').text(data.smiles)}
+          },
+        });
+      });
+    });
+  </script>
+
+
+  <div class="containerDraw">
+      <form method="POST" action="" >
+          <div id="jsme_container"></div>
+              <input type="button" class="buttonSearch" value="Predict" />
+      </form>
+    </div>
+    <div class="containerTable">
+      <div id="resultTable"></div>
+  </div>
+<script
+    src="https://code.jquery.com/jquery-3.4.1.js"
+    integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+    crossorigin="anonymous"
+></script>
+<div class="footer">
+  <p>This application was developed as part of D-Tools: Tools for chemoinformatics.</p>
+</div>
+</body>
+</html>
