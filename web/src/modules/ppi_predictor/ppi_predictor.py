@@ -13,7 +13,7 @@ class PPIPrediction:
         self.test_smiles = test_smiles
 
     @staticmethod
-    def load_model(model_filename):
+    def load_model(model_filename: str):
         return joblib.load(os.path.join(f"{MODELS_PATH}", model_filename))
 
     def test_data(self):
@@ -23,7 +23,7 @@ class PPIPrediction:
             test_data = "Please insert a valid structure"
         return test_data
 
-    def prediction(self, model_filename):
+    def prediction(self, model_filename: str):
         model = self.load_model(model_filename)
         test_data = self.test_data()
         try:
@@ -61,5 +61,4 @@ class PPIPrediction:
 
 def molecule_prediction(smiles: str):
     data = PPIPrediction(smiles).activity_against_target()
-    print("## LINE 62 ##")
     return data

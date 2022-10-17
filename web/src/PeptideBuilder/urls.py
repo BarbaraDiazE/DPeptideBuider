@@ -19,12 +19,12 @@ from apps.ppi_predictor.views import InputStructure, ServerHome
 urlpatterns = [
     url(r"^home/", ServerHome.as_view()),
     url(r"^input_structure/", InputStructure.as_view()),
-    url(r"^peptide/", ServerViews.as_view()),
+    url(r"^peptides/csv/(?P<csv_name>.+)/$", CSVView.as_view()),
+    url(r"^peptides/contact/$", ContactView.as_view()),
+    url(r"^peptides/", ServerViews.as_view()),
     url(r"^download_csv$", DownloadCSV.as_view()),
-    url(r"^csv/(?P<csv_name>.+)/$", CSVView.as_view()),
     url(r"^chemspace/", ChemicalSpaceView.as_view()),
     url(r"^diversity/", DiversityAnalysisView.as_view()),
-    url(r"^contact/", ContactView.as_view()),
     url(r"^userguide/", UserGuideView.as_view()),
     path("admin/", admin.site.urls),
 ]

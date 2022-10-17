@@ -21,15 +21,15 @@ class ServerViews(APIView):
             form = form.save()
             now = datetime.now().strftime("%Y%m%d_%H%M%S")
             filename = f"database_{now}.csv"
-            route = f"generated_csv/{filename}"
-
+            route = f"/src/generated_csv/{filename}"
             numerate = Numerate(
                 form.linear, form.methylated, form.topology, form.length
             )
             numerate.write_databases(path=route)
             gc.collect()
             request.session["csv_name"] = filename
-            return redirect(f"csv/{filename}/")
+            return redirect(f"/peptides/csv/{filename}/")
+            # return redirect(f"peptides/contact/")
         return render(request, "form_page.html", context=form_dict)
 
     def get(self, request):
@@ -42,20 +42,21 @@ class ServerViews(APIView):
 
 class CSVView(APIView):
     def get(self, request, csv_name):
-        data = pd.read_csv(f"generated_csv/{csv_name}", nrows=100, index_col="compound")
+        print("line45")
+        print("class CSV view")
+        data = pd.read_csv(f"/src/generated_csv/{csv_name}", nrows=100, index_col="compound")
+        print("line 47")
         print(data.columns)
         data_html = data.to_html()
         context = {"loaded_data": data_html}
-
         gc.collect()
-
         return render(request, "table.html", context)
 
 
 class DownloadCSV(APIView):
     def get(self, request):
         csv_name = request.session["csv_name"]
-        filename = f"generated_csv/{csv_name}"
+        filename = f"/src/generated_csv/{csv_name}"
         with open(filename, "rb") as csv_file:
             response = HttpResponse(csv_file, content_type="text/csv")
             response[

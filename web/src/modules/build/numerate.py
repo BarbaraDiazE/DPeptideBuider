@@ -30,7 +30,6 @@ class Numerate:
         linear_qs = AminoAcid.objects.filter(amino_acid__in=self.linear).values_list(
             "data__linear_smile"
         )
-        print("linear_qs", linear_qs)
         methylated_qs = AminoAcid.objects.filter(
             amino_acid__in=self.methylated
         ).values_list("data__methylated_smile")
@@ -76,7 +75,6 @@ class Numerate:
         dataset = self.get_dataset()
         abbr = self.get_abreviations()
         linear, cyclic = self.get_oxygen()
-        print("self.topology", self.topology)
         if len(self.topology) == 2:
             pep = combine_smiles(dataset, self.length)
             linear_peptides = combine_linear_smiles(pep, self.length, linear)
@@ -104,10 +102,10 @@ class Numerate:
 
     def db_generator(self):
         smiles, ids, libraries = self.numerate()
-        CanonicalSMILES, HBA, HBD, RB, LOGP, TPSA, MW = compute_descriptors(smiles)
-        idx = (i + 1 for i in range(len(CanonicalSMILES)))
+        canonical_smiles, HBA, HBD, RB, LOGP, TPSA, MW = compute_descriptors(smiles)
+        idx = (i + 1 for i in range(len(canonical_smiles)))
         for row in zip(
-            idx, CanonicalSMILES, ids, libraries, HBA, HBD, RB, LOGP, TPSA, MW
+            idx, canonical_smiles, ids, libraries, HBA, HBD, RB, LOGP, TPSA, MW
         ):
             yield row
 
