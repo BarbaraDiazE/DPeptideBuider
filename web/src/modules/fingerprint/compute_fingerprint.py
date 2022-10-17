@@ -42,7 +42,8 @@ class FP:
         pool.close()
         return fp
 
-    def compute_similarity(self, df_fp, library):
+    @staticmethod
+    def compute_similarity(df_fp, library):
         """
         input
         df_fp, Dataframe (fingerprint, and library)

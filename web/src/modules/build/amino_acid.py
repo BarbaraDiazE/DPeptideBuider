@@ -181,4 +181,3 @@ dict_amino_acid = {
         "methylated_abbreviation": "G(M)",
     },
 }
-

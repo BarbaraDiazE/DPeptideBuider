@@ -25,14 +25,14 @@ def compute_similarity(fp):
     return sim, y
 
 
-def maccskeys_fp(Data):
-    ms = [Chem.MolFromSmiles(i) for i in Data.SMILES]
+def maccskeys_fp(data):
+    ms = [Chem.MolFromSmiles(i) for i in data.SMILES]
     fp = [MACCSkeys.GenMACCSKeys(x) for x in ms]
     return fp
 
 
-def ecfp4_fp(Data):
-    ms = [Chem.MolFromSmiles(i) for i in Data.SMILES]
+def ecfp4_fp(data):
+    ms = [Chem.MolFromSmiles(i) for i in data.SMILES]
     fp = [AllChem.GetMorganFingerprintAsBitVect(x, 2) for x in ms]
     return fp
 
@@ -43,30 +43,28 @@ def ecfp6_fp(Data):
     return fp
 
 
-def topological_fp(Data):
-    ms = [Chem.MolFromSmiles(i) for i in Data.SMILES]
+def topological_fp(data):
+    ms = [Chem.MolFromSmiles(i) for i in data.SMILES]
     fp = [FingerprintMols.FingerprintMol(x) for x in ms]
     return fp
 
 
-def atom_pair_fp(Data):
-    ms = [Chem.MolFromSmiles(i) for i in Data.SMILES]
+def atom_pair_fp(data):
+    ms = [Chem.MolFromSmiles(i) for i in data.SMILES]
     fp = [Pairs.GetAtomPairFingerprintAsBitVect(x) for x in ms]
     return fp
 
 
-def ref_similarity(Data, name, Library):
-    _ = Data[Data["Library"] == Library]
-    ###Updata function
+def ref_similarity(data, name, library):
+    _ = data[data["Library"] == library]
     fp = atom_pair_fp(_)
-    print("ya calcule fp")
+    print("fp has been calculated")
     sim, y = compute_similarity(fp)
-    print("ya calcule la similitud")
-    # referencia
+    print("similarity has been calculated")
     df_dict = {
         "sim": sim,
         "y": y,
-        "Library": [Library for i in range(len(sim))],
+        "Library": [library for i in range(len(sim))],
     }
     df = pd.DataFrame.from_dict(df_dict)
     return df

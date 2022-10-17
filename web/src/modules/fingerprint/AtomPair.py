@@ -18,7 +18,7 @@ def fp_matrix(fp):
     return matrix_fp
 
 
-class Bit_Count:
+class BitCount:
     def __init__(self, csv_name, fp_name):
         self.fp_name = fp_name[0]
         ref_comp = pd.read_csv(

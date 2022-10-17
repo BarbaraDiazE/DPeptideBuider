@@ -1,8 +1,8 @@
 from django import forms
-from apps.chemical_space.models import Descriptors, FP_Keys, PP_Keys
+from apps.chemical_space.models import Descriptors
 
 
-class Chem_space_form(forms.ModelForm):
+class ChemSpaceForm(forms.ModelForm):
     class Meta:
         model = Descriptors
         fields = (

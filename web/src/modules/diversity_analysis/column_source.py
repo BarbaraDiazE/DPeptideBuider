@@ -2,11 +2,10 @@
 column source, to allow bokeh plot
 """
 import numpy as np
-import bokeh
 from bokeh.models import ColumnDataSource
 
 
-def column_source(result, Library):
+def column_source(result, library):
     """
     input:
         result (DataFrame)
@@ -15,8 +14,8 @@ def column_source(result, Library):
         ColumnDataSource (bokeh object)
     """
 
-    DF = result[result["Library"] == Library]
-    X = np.array(DF["sim"])
-    Y = np.array(DF["y"])
+    df = result[result["Library"] == library]
+    x_axis = np.array(df["sim"])
+    y_axis = np.array(df["y"])
 
-    return ColumnDataSource(dict(x=X, y=Y))
+    return ColumnDataSource(dict(x=x_axis, y=y_axis))

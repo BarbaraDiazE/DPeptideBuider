@@ -1,7 +1,5 @@
 from django.db import models
-from django import forms
 from multiselectfield import MultiSelectField
-from django.contrib.postgres.fields import HStoreField
 
 
 class AminoAcid(models.Model):
@@ -21,7 +19,7 @@ class DataAminoAcids(models.Model):
     methylated_abbreviation = models.CharField(max_length=5)
 
     def __str__(self):
-        return self.name.amino_acid
+        return self.name.name
 
 
 class Oxygen(models.Model):

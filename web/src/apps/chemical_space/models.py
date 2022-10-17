@@ -17,8 +17,8 @@ class Descriptors(models.Model):
         verbose_name="Fingerprint", choices=FP_Keys, max_choices=1, blank=True
     )
     pca_pp = MultiSelectField(
-        verbose_name="Phisicochemical", choices=PP_Keys, max_choices=1, blank=True
+        verbose_name="Physicochemical", choices=PP_Keys, max_choices=1, blank=True
     )
     tsne_pp = MultiSelectField(
-        verbose_name="Phisicochemical", choices=PP_Keys, max_choices=1, blank=True
+        verbose_name="Physicochemical", choices=PP_Keys, max_choices=1, blank=True
     )
