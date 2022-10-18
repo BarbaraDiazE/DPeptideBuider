@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-{% load staticfiles %}
+{% load static %}
 <html>
-
 <head>
-        <title>Peptide Builder</title>
+        <title>Database</title>
         <link rel="stylesheet" href="{% static "css\mystyle.css" %}" />
 </head>
 <style>
@@ -41,12 +40,16 @@
         }
 </style>
 <div class="container">
-        <h2>Peptide numerated libraries</h2>
+        <h2>Peptides numerated libraries</h2>
 </div>
 <div class="container">
-        <h3><a href="/">Home</a></h3>
+        <h3>
+                <a
+                        href="/peptides">D-Peptide Builder
+                </a>
+        </h3>
         <h5>
-                <input type="button" value="Download CSV" onclick="window.location.href='/download_csv'">
+                <input type="button" value="Download Database" onclick="window.location.href='/download_csv'">
         </h5>
 
         <body>
@@ -65,5 +68,4 @@
                 are rendered on the
                 previous table. Please Download CSV to visualize the entire library.</h4>
 </div>
-
 </body>

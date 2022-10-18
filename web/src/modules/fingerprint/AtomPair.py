@@ -9,8 +9,10 @@ from rdkit import Chem, DataStructs
 from rdkit.Chem.AtomPairs import Pairs
 
 
-def fp_matrix(fp):
+def fp_matrix(fp) -> np.array:
     matrix_fp = []
+    print("line14")
+    print(type(fp))
     for f in fp:
         arr = np.zeros((1,))
         DataStructs.ConvertToNumpyArray(f, arr)
@@ -24,7 +26,8 @@ class BitCount:
         ref_comp = pd.read_csv(
             f"modules/reference_libraries.csv", index_col="Unnamed: 0"
         )
-        peps = pd.read_csv(f"generated_csv/{csv_name}", index_col="compound")
+        print(ref_comp.head(2))
+        peps = pd.read_csv(f"/src/generated_csv/{csv_name}", index_col="compound")
         if peps.shape[0] > 1000:
             peps = peps.sample(n=1000, replace=True, random_state=1992)
         data = pd.concat([ref_comp, peps], axis=0)
@@ -57,7 +60,6 @@ class BitCount:
             ids_to_update = np.where(vect_rep == True)
             vect_rep = 1 * vect_rep
             vect_rep = np.array(vect_rep).astype(int)
-            # replace indices with bict values
             vect_rep[ids_to_update] = list(item.values())
             feature_matrix.append(vect_rep)
         return feature_matrix
@@ -68,8 +70,8 @@ class BitCount:
         feature_matrix = fp_matrix(fp)
         return feature_matrix
 
-    def feature_matrix(self, fp_name):
+    def feature_matrix(self, fp_name: str):
         feature_matrix = self.diccionario[self.fp_name]
         features = ["Sequence", "Library"]
-        ref_id = self.data[features].as_matrix()
+        ref_id = self.data[features].values
         return feature_matrix, ref_id

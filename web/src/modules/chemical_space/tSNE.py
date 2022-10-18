@@ -22,7 +22,7 @@ class performTSNE:
             result: DataFrame whit tSNE result
         """
         numerated_libraries = pd.read_csv(
-            f"generated_csv/{csv_name}", index_col="compound"
+            f"/src/generated_csv/{csv_name}", index_col="compound"
         )
         if numerated_libraries.shape[0] > 1001:
             numerated_libraries = numerated_libraries.sample(
@@ -43,10 +43,10 @@ class performTSNE:
             perplexity=30,
             n_iter=1000,
             n_jobs=6,
-        ).fit_transform(data[features].as_matrix())
+        ).fit_transform(data[features].values)
         tsne_result = np.array(model)
         _ = ["SMILES", "Sequence", "Library"]
-        total_id = data[_].as_matrix()
+        total_id = data[_].values
         result = np.concatenate((tsne_result, total_id), axis=1)
         result = pd.DataFrame(
             data=result, columns=["PC 1", "PC 2", "SMILES", "Sequence", "Library"]

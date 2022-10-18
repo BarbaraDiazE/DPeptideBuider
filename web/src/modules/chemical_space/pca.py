@@ -12,7 +12,7 @@ from sklearn.preprocessing import StandardScaler
 
 class performPCA:
     def __init__(self):
-        pass
+        self.columns = ["PC 1", "PC 2", "PC 3", "PC 4", "PC 5", "PC 6"]
 
     def pca_descriptors(self, csv_name):
         """
@@ -22,7 +22,7 @@ class performPCA:
             b, variance PC 2
         """
         numerated_libraries = pd.read_csv(
-            f"generated_csv/{csv_name}", index_col="compound"
+            f"/src/generated_csv/{csv_name}", index_col="compound"
         )
         reference_libraries = pd.read_csv(
             "modules/reference_libraries.csv", index_col="Unnamed: 0"
@@ -48,7 +48,7 @@ class performPCA:
         model = sklearn_pca.fit(numerical_data)
         pca_result = pd.DataFrame(
             model.transform(numerical_data),
-            columns=["PC 1", "PC 2", "PC 3", "PC 4", "PC 5", "PC 6"],
+            columns=self.columns,
         )
         result = pd.concat([pca_result, ref], axis=1)
         a = round(list(model.explained_variance_ratio_)[0] * 100, 2)
@@ -68,7 +68,7 @@ class performPCA:
         ).fit(fp_matrix)
         pca_result = pd.DataFrame(
             model.transform(fp_matrix),
-            columns=["PC 1", "PC 2", "PC 3", "PC 4", "PC 5", "PC 6"],
+            columns=self.columns,
         )
         result = np.concatenate((pca_result, ref), axis=1)
         result = pd.DataFrame(
@@ -86,4 +86,6 @@ class performPCA:
         )
         a = round(list(model.explained_variance_ratio_)[0] * 100, 2)
         b = round(list(model.explained_variance_ratio_)[1] * 100, 2)
+        print("line 89")
+        print("si me ejecuto")
         return result, a, b

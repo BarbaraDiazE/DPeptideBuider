@@ -1,4 +1,4 @@
-bokeh>=0.12.13
+bokeh==2.3.3
 Django==2.1
 django-multiselectfield==0.1.8
 djangorestframework==3.8.2

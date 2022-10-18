@@ -1,4 +1,4 @@
-from bokeh.io import show, output_file
+# from bokeh.io import show, output_file
 from bokeh.models import (
     ColumnDataSource,
     LassoSelectTool,
@@ -11,7 +11,6 @@ from bokeh.models import (
 )
 from bokeh.plotting import figure
 from bokeh.core.enums import LegendLocation
-import os
 from modules.chemical_space.column_source import column_source
 
 """
@@ -32,7 +31,7 @@ class Plot:
         source5 = column_source(result, "FDA PEP")
         source6 = column_source(result, "linear")
         source7 = column_source(result, "cyclic")
-        hover = HoverTool(tooltips=[("PCA 1", "$x"), ("PCA 2", "$y"), ("NAME", "@N"),])
+        hover = HoverTool(tooltips=[("PCA 1", "$x"), ("PCA 2", "$y"), ("NAME", "@N"), ])
         p = figure(
             title="PCA based on " + parameter[0],
             x_axis_label="PC 1" + "(" + str(a) + "%)",

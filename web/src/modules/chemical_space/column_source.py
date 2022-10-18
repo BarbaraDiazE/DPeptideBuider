@@ -5,16 +5,16 @@ import numpy as np
 from bokeh.models import ColumnDataSource
 
 
-def column_source(result, Library):
+def column_source(result, library: str):
     """
     input:
         result (DataFrame)
-        Library (str)
+        library (str)
     Output:
         ColumnDataSource (bokeh object)
     """
-    DF = result[result["Library"] == Library]
-    X = np.array(DF["PC 1"])
-    Y = np.array(DF["PC 2"])
-    N = np.array(DF["Sequence"])
-    return ColumnDataSource(dict(x=X, y=Y, N=N))
+    df = result[result["Library"] == library]
+    x_axis = np.array(df["PC 1"])
+    y_axis = np.array(df["PC 2"])
+    n = np.array(df["Sequence"])
+    return ColumnDataSource(dict(x=x_axis, y=y_axis, N=n))

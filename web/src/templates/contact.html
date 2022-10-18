@@ -1,67 +1,38 @@
 <!DOCTYPE html>
-{% load staticfiles %}
+{% load static %}
 <html>
-
 <head>
+        <link rel="stylesheet" href="{% static "css\home.css" %}"/>
         <title>Contact</title>
-        <link rel="stylesheet" href="{% static "css\mystyle.css" %}" />
 </head>
-<style>
-        h2 {
-                color: teal;
-                font-size: 30px;
-                font: "Verdana";
-                text-align: left;
-                margin-left: 80px;
-                margin-right: 80px
-        }
-
-        h3 {
-                color: darkslategray;
-                font-size: 20px;
-                font: "Verdana";
-                text-align: left;
-                margin-left: 100px;
-                margin-right: 100px
-        }
-
-        h4 {
-                color: darkslategray;
-                font-size: 20px;
-                font: "Verdana";
-                text-align: left;
-                margin-left: 100px;
-                margin-right: 100px
-        }
-
-        table {
-                border-collapse: collapse;
-        }
-</style>
 
 <body>
-        <div class="container">
-                <br></br>
-                <h2>Contact</h2>
-        </div>
-        <div class="container">
-                <h3>José L. Medina-Franco</h3>
-                <h3>School of Chemistry, UNAM. Building F, office 309</h3>
-                <h3>DIFACQUIM</h3>
-                <h3>Email: medinajl@unam.mx</h3>
-                <br>
-                <h3>Bárbara I. Díaz-Eufracio</h3>
-                <h3>School of Chemistry, UNAM. Building F</h3>
-                <h3>DIFACQUIM</h3>
-                <h3>Email: dieb@comunidad.unam.mx</h3>
-                <h3>If you use the server please cite: Díaz-Eufracio BI, Palomino-Hernández O,
-                        Arredondo-Sánchez A, Medina-Franco JL. D‐Peptide Builder: A Web Service to
-                        Enumerate, Analyze, and Visualize the Chemical Space of Combinatorial Peptide
-                        Libraries. Molecular Informatics 2020, in press.<a
-                                href="https://onlinelibrary.wiley.com/doi/abs/10.1002/minf.202000035"> DOI:
-                                10.1002/minf.202000035</a> </h3>
-                <h4><a href="https://www.difacquim.com/"> www.difacquim.com</a></h4>
-        </div>
-</body>
+        <div class="topnav">
+    <a href="/home">Home</a>
+    <a href="#dtools">D-tools</a>
+    <a href="#about">About</a>
+    <a class="active" href="/peptides/contact">Contact</a>
+</div>
+<h3 class="contactTittle">Contact</h3>
+<p class = contact-text>Your feedback is important for us.
+    Send us a message for issues, feedback or requests.
+</p>
+<div class="container">
+<div class="card">
+    <div class="card-container">
+        <p><pcard>Jose L. Medina-Franco</pcard></p>
+        <p><a href="mailto:medinajl@gmail.com">Medina@gmail.com</a></p>
+    </div>
+</div>
+<div class="card">
+    <div class="card-container">
+        <p><pcard>Barbara I. Diaz-Eufracio</pcard></p>
+        <p><a href="mailto:dieb@comunidad.unam.mx">dieb@comunidad.unam.mx</a></p>
+    </div>
+</div>
+</div>
+<div class="footer">
+    <p>This application was developed as part of D-Tools: Tools for cheminformatics.</p>
+</div>
 
 </html>

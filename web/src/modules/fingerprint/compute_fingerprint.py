@@ -28,7 +28,7 @@ def paired_sim(i):
 class FP:
     def __init__(self, csv_name, fp_name):
         self.fp_name = fp_name[0]
-        self.Data = pd.read_csv(f"generated_csv/{csv_name}", index_col="compound")
+        self.Data = pd.read_csv(f"/src/generated_csv/{csv_name}", index_col="compound")
         if self.Data.shape[0] > 500:
             self.Data = self.Data.sample(150, replace=True, random_state=1992)
 

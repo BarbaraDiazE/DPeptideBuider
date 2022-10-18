@@ -17,7 +17,7 @@ class ChemicalSpaceView(APIView):
         csv_name = request.session["csv_name"]
         if form.is_valid():
             form = form.save()
-            if len(form.pca_fp) > 0:  # PCA FINGERPRINT
+            if len(form.pca_fp) > 0:
                 fp_name = form.pca_fp
                 feature_matrix, pep_id = BitCount(csv_name, fp_name).feature_matrix(
                     fp_name
@@ -25,6 +25,9 @@ class ChemicalSpaceView(APIView):
                 result, a, b = performPCA().pca_fingerprint(
                     feature_matrix, pep_id, fp_name
                 )
+                print("line 28")
+                print("fp name", fp_name)
+                print(result.head(2))
                 plot = Plot(result).plot_pca(fp_name, a, b)
                 script, div = components(plot)
                 return render_to_response("plot.html", {"script": script, "div": div})

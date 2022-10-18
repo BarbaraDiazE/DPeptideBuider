@@ -29,24 +29,19 @@ class ServerViews(APIView):
             gc.collect()
             request.session["csv_name"] = filename
             return redirect(f"/peptides/csv/{filename}/")
-            # return redirect(f"peptides/contact/")
-        return render(request, "form_page.html", context=form_dict)
+        return render(request, "dpeptide_builder.html", context=form_dict)
 
     def get(self, request):
         form = InputForm()
         form_dict = {
             "form": form,
         }
-        return render(request, "form_page.html", context=form_dict)
+        return render(request, "dpeptide_builder.html", context=form_dict)
 
 
 class CSVView(APIView):
     def get(self, request, csv_name):
-        print("line45")
-        print("class CSV view")
         data = pd.read_csv(f"/src/generated_csv/{csv_name}", nrows=100, index_col="compound")
-        print("line 47")
-        print(data.columns)
         data_html = data.to_html()
         context = {"loaded_data": data_html}
         gc.collect()
