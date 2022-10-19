@@ -1,0 +1,65 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>PPI predictor</title>
+  <!-- CSS -->
+  <link rel="stylesheet" href="{% static "css\home.css" %}"/>
+  <!-- Bootsptrap -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <!-- Ajax -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <!-- JSEM -->
+  <script src="{% static "js\JSME\jsme\jsme.nocache.js" %}"></script>
+  <script>
+    function jsmeOnLoad() {
+      jsmeApplet = new JSApplet.JSME("jsme_container", "400px", "420px", {
+        //optional parameters
+        options: "query,hydrogens",
+      });
+      document.JME = jsmeApplet;
+    }
+    function getSmiles() {
+      var data = document.JME.smiles();
+      document.getElementById("jme_output").value = data;
+    }
+  </script>
+</head>
+
+<body>
+  <h2 class="homeTittle">PPI Chemical space</h2>
+  <div class="topnav">
+    <a class="ppi-predictor" href="/home">PPI Predictor</a>
+    <a class="peptide builder" href="/peptides">D-Peptide Builder</a>
+    <a class="active" href="/ppi/chemicalspace/">PPI Chemical Space</a>
+    <a class="contact" href="/peptides/contact/">Contact</a>
+  </div>
+
+  <script type=text/javascript>
+    $(document).ready(function () {
+      $(".buttonSearch").click(function () {
+        const smiles = jsmeApplet.smiles();
+        console.log(smiles);
+        document.cookie = `smiles=${jsmeApplet.smiles()}`
+      });
+    });
+  </script>
+
+
+  <div class="containerDraw">
+      <form method="POST" action="" >
+          <div id="jsme_container"></div>
+              <input type="submit" class="buttonSearch" value="Visualize" />
+      </form>
+    </div>
+
+<script
+    src="https://code.jquery.com/jquery-3.4.1.js"
+    integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+    crossorigin="anonymous"
+></script>
+<div class="footer">
+  <p>This application was developed as part of D-Tools: Tools for chemoinformatics.</p>
+</div>
+</body>
+</html>

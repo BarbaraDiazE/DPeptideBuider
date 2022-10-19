@@ -41,11 +41,12 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "multiselectfield",
-    "rest_framework",
+"rest_framework",
     "apps.Build",
     "apps.chemical_space",
     "apps.diversity_analysis",
-    "apps.ppi_predictor"
+    "apps.ppi_predictor",
+    "apps.ppi_chemical_space"
 ]
 
 MIDDLEWARE = [
