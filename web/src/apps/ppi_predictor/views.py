@@ -1,5 +1,4 @@
 from django.shortcuts import render, render_to_response, redirect
-# from django.template import RequestContext
 from rest_framework.views import APIView
 from django.http import JsonResponse
 from modules.ppi_predictor.ppi_predictor import molecule_prediction

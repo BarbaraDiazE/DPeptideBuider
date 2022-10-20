@@ -6,7 +6,7 @@ from bokeh.embed import components
 from apps.ppi_chemical_space.forms import PPIChemSpaceForm
 from modules.ppi_chemical_space.pca import PcaFP
 from modules.ppi_chemical_space.tSNE import performTSNE
-from modules.ppi_chemical_space.plot import Plot
+from modules.ppi_chemical_space.ipp_plot import PPIPlot
 from modules.fingerprint.compute_fingerprint import FP
 from modules.fingerprint.AtomPair import BitCount
 
@@ -19,10 +19,10 @@ class PPIChemicalSpaceView(APIView):
 # class SinglePPIChemicalSpaceView(APIView):
 #     def get(self, request):
     def post(self, request):
-        smiles = request.COOKIES.get("smiles")
+        test_smiles = request.COOKIES.get("smiles")
         print("line 22")
-        print(smiles)
-        if smiles:
+        print(test_smiles)
+        if test_smiles:
             print("tengo que calcular la descripcion")
             root_ = f"/src"
             input_file_ = "reference_database_ecfp6.csv"
@@ -30,17 +30,17 @@ class PPIChemicalSpaceView(APIView):
             id_columns = [
                 "Library",
                 "SMILES",
-                "id",
                 "chembl_id"
             ]
-            result, a, b = PcaFP(root_, input_file_, target, id_columns).pca_fingerprint()
+            pca = PcaFP(root_, input_file_, target, id_columns, test_smiles)
+            result, a, b, a_name = pca.pca_fingerprint()
             print("line 28")
             print(result.head(2))
-            fp_name = "ECFP6"
+            fp_name = ["ECFP6",]
             print(result.head(2))
-            plot = Plot(result).plot_pca(fp_name, a, b)
+            plot = PPIPlot(result).plot_pca(fp_name, a, b, a_name)
             script, div = components(plot)
-            return  render_to_response("plot.html", {"script": script, "div": div})
+            return render_to_response("plot.html", {"script": script, "div": div})
         #     if len(form.tsne_fp) > 0:
         #         fp_name = form.tsne_fp
         #         print(fp_name)
@@ -59,7 +59,7 @@ class PPIChemicalSpaceView(APIView):
         #         return render_to_response("plot.html", {"script": script, "div": div})
         #     else:
         #         pass
-        #     if len(form.tsne_pp) > 0:  # TSNE DESCRIPTORS
+        #     if len(form.tsne_pp) > 0:  # t-SNE DESCRIPTORS
         #         result = performTSNE().tsne_descriptors(csv_name)
         #         plot = Plot(result).plot_tsne(["physicochemical properties"])
         #         script, div = components(plot)

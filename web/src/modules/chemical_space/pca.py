@@ -86,6 +86,4 @@ class performPCA:
         )
         a = round(list(model.explained_variance_ratio_)[0] * 100, 2)
         b = round(list(model.explained_variance_ratio_)[1] * 100, 2)
-        print("line 89")
-        print("si me ejecuto")
         return result, a, b
