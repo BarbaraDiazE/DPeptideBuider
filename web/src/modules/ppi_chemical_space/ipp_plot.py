@@ -27,7 +27,6 @@ class PPIPlot:
         src3 = column_source(result, "MACRO")
         src4 = column_source(result, "NP")
         src5 = column_source(result, "FDA PEP")
-        # src6 = column_source(result, "ppi_molecule")
         src6 = column_source(result, "Test Compound")
         hover = HoverTool(
             tooltips=[
@@ -85,15 +84,14 @@ class PPIPlot:
 
         return p
 
-    def plot_tsne(self, parameter):
+    def plot_tsne(self, parameter, algorithm_name: str):
         result = self.result
         src1 = column_source(result, "FDA")
         src2 = column_source(result, "PPI")
         src3 = column_source(result, "MACRO")
         src4 = column_source(result, "NP")
         src5 = column_source(result, "FDA PEP")
-        # src = column_source(result, "linear")
-        # src7 = column_source(result, "cyclic")
+        src6 = column_source(result, "Test Compound")
         hover = HoverTool(
             tooltips=[
                 ("PCA 1", "$x"),
@@ -114,21 +112,26 @@ class PPIPlot:
         p.add_tools(
             LassoSelectTool(), ZoomInTool(), ZoomOutTool(), SaveTool(), PanTool()
         )
-        FDA_plot = p.circle(x="x", y="y", source=src1, size=5, color="darkslateblue")
-        PPI_plot = p.circle(x="x", y="y", source=src2, size=5, color="yellowgreen")
-        MACRO_plot = p.circle(x="x", y="y", source=src3, size=5, color="lightsteelblue")
-        NP_plot = p.circle(x="x", y="y", source=src4, size=5, color="olive")
-        PEP_FDA_plot = p.circle(x="x", y="y", source=src5, size=5, color="lightcoral")
-
+        fda_plot = p.circle(
+            x="x",
+            y="y",
+            size=5,
+            source=src1,
+            color="darkslateblue",
+        )
+        ppi_plot = p.circle(x="x", y="y", size=5, source=src2, color="yellowgreen")
+        macro_plot = p.circle(x="x", y="y", size=5, source=src3, color="lightsteelblue")
+        np_plot = p.circle(x="x", y="y", source=src4, size=5, color="olive")
+        pep_fda_plot = p.circle(x="x", y="y", source=src5, size=5, color="lightcoral")
+        ppi_molecule_plot = p.circle(x="x", y="y", size=5, source=src6, color="red")
         legend = Legend(
             items=[
-                ("FDA", [FDA_plot]),
-                ("PPI", [PPI_plot]),
-                ("MACRO", [MACRO_plot]),
-                ("NP", [NP_plot]),
-                ("PEP FDA", [PEP_FDA_plot]),
-                ("LIN", [LIN_plot]),
-                ("CYC", [CYC_plot]),
+                ("FDA", [fda_plot]),
+                ("PPI", [ppi_plot]),
+                ("MACRO", [macro_plot]),
+                ("NP", [np_plot]),
+                ("PEP FDA", [pep_fda_plot]),
+                ("Test molecule", [ppi_molecule_plot]),
             ],
             location="center",
             orientation="vertical",

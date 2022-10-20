@@ -22,8 +22,6 @@ def loadings(model, numerical_descriptors):
 class PcaFP:
     def __init__(self, root, input_file, target, id_columns, smiles):
         data = pd.read_csv(f"{root}/modules/{input_file}", low_memory=False)
-        # print("line24")
-        # print(data.dtypes)
         test_df = get_test_molecule_data(smiles)
         # print(test_df.head())
         # print("line 26")

@@ -5,69 +5,54 @@ from bokeh.embed import components
 
 from apps.ppi_chemical_space.forms import PPIChemSpaceForm
 from modules.ppi_chemical_space.pca import PcaFP
-from modules.ppi_chemical_space.tSNE import performTSNE
+from modules.ppi_chemical_space.tSNE import TsneFP
 from modules.ppi_chemical_space.ipp_plot import PPIPlot
 from modules.fingerprint.compute_fingerprint import FP
 from modules.fingerprint.AtomPair import BitCount
 
 
 class PPIChemicalSpaceView(APIView):
-
     def get(self, request):
         return render(request, "ppi_chemical_space.html")
 
-# class SinglePPIChemicalSpaceView(APIView):
-#     def get(self, request):
     def post(self, request):
-        test_smiles = request.COOKIES.get("smiles")
-        print("line 22")
-        print(test_smiles)
+        cookie_value = request.COOKIES.get("myCookie")
+        values = cookie_value.split("&")
+        test_smiles = values[0].split("=")[1].replace("'", "")
+        algorithm = values[1].split("=")[1].replace("'", "")
         if test_smiles:
-            print("tengo que calcular la descripcion")
             root_ = f"/src"
             input_file_ = "reference_database_ecfp6.csv"
             target = "library"
-            id_columns = [
-                "Library",
-                "SMILES",
-                "chembl_id"
+            fp_name = [
+                "ECFP6",
             ]
-            pca = PcaFP(root_, input_file_, target, id_columns, test_smiles)
-            result, a, b, a_name = pca.pca_fingerprint()
-            print("line 28")
-            print(result.head(2))
-            fp_name = ["ECFP6",]
-            print(result.head(2))
-            plot = PPIPlot(result).plot_pca(fp_name, a, b, a_name)
-            script, div = components(plot)
-            return render_to_response("plot.html", {"script": script, "div": div})
-        #     if len(form.tsne_fp) > 0:
-        #         fp_name = form.tsne_fp
-        #         print(fp_name)
-        #         feature_matrix, pep_id = BitCount(csv_name, fp_name).feature_matrix(
-        #             fp_name
-        #         )
-        #         result = performTSNE().tsne_fingerprint(feature_matrix, pep_id, fp_name)
-        #         print(result.head())
-        #         plot = Plot(result).plot_tsne(fp_name)
-        #         script, div = components(plot)
-        #         return render_to_response("plot.html", {"script": script, "div": div})
-        #     if len(form.pca_pp) > 0:  # PCA DESCRIPTORS
-        #         result, a, b = performPCA().pca_descriptors(csv_name)
-        #         plot = Plot(result).plot_pca(["physicochemical properties"], a, b)
-        #         script, div = components(plot)
-        #         return render_to_response("plot.html", {"script": script, "div": div})
-        #     else:
-        #         pass
-        #     if len(form.tsne_pp) > 0:  # t-SNE DESCRIPTORS
-        #         result = performTSNE().tsne_descriptors(csv_name)
-        #         plot = Plot(result).plot_tsne(["physicochemical properties"])
-        #         script, div = components(plot)
-        #         return render_to_response("plot.html", {"script": script, "div": div})
-        #     else:
-        #         pass
-        # else:
-        #     print("no idea")
+            try:
+                if algorithm == "Visualize PCA":
+                    id_columns = ["Library", "SMILES", "chembl_id"]
+                    pca = PcaFP(root_, input_file_, target, id_columns, test_smiles)
+                    result, a, b, a_name = pca.pca_fingerprint()
+                    plot = PPIPlot(result).plot_pca(fp_name, a, b, a_name)
+                    script, div = components(plot)
+                    return render_to_response(
+                        "plot.html", {"script": script, "div": div}
+                    )
+                if algorithm == "Visualize t-SNE":
+                    id_columns = [
+                        "Library",
+                        "SMILES",
+                        "chembl_id",
+                    ]
+                    test_smiles = "CC(=O)NC1=CC=C(C=C1)O"
+                    tsne = TsneFP(root_, input_file_, target, id_columns, test_smiles)
+                    result, a_name = tsne.tsne_fingerprint()
+                    plot = PPIPlot(result).plot_tsne(fp_name, a_name)
+                    script, div = components(plot)
+                    return render_to_response(
+                        "plot.html", {"script": script, "div": div}
+                    )
+            except Exception as e:
+                print(e)
         return render(request, "ppi_chemical_space.html")
 
     def get(self, request):

@@ -1,6 +1,6 @@
 import pandas as pd
 from modules.ppi_chemical_space.compute_ecfp6 import ECFP6
-
+# local execution
 # from compute_ecfp6 import ECFP6
 
 def get_test_molecule_data(smiles) -> pd.DataFrame:
