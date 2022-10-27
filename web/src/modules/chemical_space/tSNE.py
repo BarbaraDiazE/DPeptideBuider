@@ -1,7 +1,8 @@
 """
-perform tSNE analysis
+perform tSNE analysis for DPeptideChemical Space
 """
 
+from re import T
 import pandas as pd
 import numpy as np
 
@@ -10,7 +11,12 @@ from sklearn import datasets, decomposition
 from sklearn.manifold import TSNE
 
 
-class performTSNE:
+# local execution
+from ecfp6 import BitCount
+from data_manipulation import DataManipulation
+
+
+class performTSNE(DataManipulation, BitCount):
     def __init__(self):
         pass
 
@@ -53,16 +59,16 @@ class performTSNE:
         )
         return result
 
-    def tsne_fingerprint(self, fp_matrix, ref_id, fp_name):
+    def tsne_fingerprint(self, root: str, csv_name: str):
         """
         Input:
-            fp_matrix: explicit fingerprint of numerated libraries
-            ref_id, id of numerated libraries and ref compounds
-            fp_name, list, selected fp
+            root:
+            csv_name
         Output:
             result: DataFrame whit tSNE result
         """
-        fp_name = fp_name[0].replace(" ", "")
+        fp_data = self.merge_libraries_ecfp6(root, csv_name)
+        numerical_data = self.get_numerical_data_fp(fp_data)
         model = TSNE(
             n_components=2,
             init="pca",
@@ -71,10 +77,32 @@ class performTSNE:
             perplexity=30,
             n_iter=1000,
             n_jobs=6,
-        ).fit_transform(fp_matrix)
-        tsne_result = np.array(model)
-        result = np.concatenate((tsne_result, ref_id), axis=1)
-        result = pd.DataFrame(
-            data=result, columns=["PC 1", "PC 2", "Sequence", "Library"]
+        ).fit_transform(numerical_data)
+        tsne_result = pd.DataFrame(
+            data=np.array(model),
+            columns=["PC 1", "PC2"],
         )
+        tsne_result = tsne_result.round(2)
+        id_data = self.get_id_data(fp_data)
+        result = np.concatenate((id_data, tsne_result), axis=1)
+        result = pd.DataFrame(
+            data=result,
+            columns=[
+                "Library",
+                "SMILES",
+                "chembl_id",
+                "PC 1",
+                "PC 2",
+            ],
+        )
+        print(result.head(2))
+        print(result.iloc[0])
         return result
+
+
+if __name__ == "__main__":
+    # Define variables
+    root_ = f"/home/babs/Documents/DIFACQUIM/DPeptideBuider/web/src"
+    filename = "database_20221017_154321.csv"
+    pca = performTSNE()
+    result = pca.tsne_fingerprint(root_, filename)

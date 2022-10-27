@@ -1,5 +1,5 @@
 """
-Perform PCA analysis
+Perform PCA analysis for DpeptideChemical Space
 """
 
 import pandas as pd
@@ -9,48 +9,20 @@ import sklearn
 from sklearn import datasets, decomposition
 from sklearn.preprocessing import StandardScaler
 
-# local
+# local execution
 from ecfp6 import BitCount
+from data_manipulation import DataManipulation
 
 
-class performPCA(BitCount):
+class performPCA(DataManipulation, BitCount):
     def __init__(self):
         self.columns = ["PC 1", "PC 2", "PC 3", "PC 4", "PC 5", "PC 6"]
+        super().__init__()
+    
 
-    def merge_libraries_ecfp6(self, root, csv_name):
-        """Merge numerated libraries with reference libraries"""
-        numerated_libraries = pd.read_csv(
-            f"{root}/generated_csv/{csv_name}",
-            # index_col="compound"
-            index_col=False,
-        )
-        numerated_libraries = numerated_libraries[["SMILES", "Library", "Sequence"]]
-        numerated_libraries = numerated_libraries.rename(
-            columns={"SMILES": "SMILES", "Library": "Library", "Sequence": "chembl_id"}
-        )
-        numerated_libraries = self.feature_matrix(numerated_libraries)
-        r_filename = "reference_database_ecfp6.csv"
-        reference_libraries = pd.read_csv(
-            f"{root}/modules/{r_filename}", low_memory=False
-        )
-        data = pd.concat(
-            [numerated_libraries, reference_libraries], axis=0, ignore_index=True
-        )
-        return data
+    
 
-    @property
-    def molecular_descriptors(self):
-        molecular_descriptor = ["HBA", "HBD", "RB", "LOGP", "TPSA", "MW"]
-        return molecular_descriptor
-
-    @property
-    def id_columns(self):
-        id_columns = [
-            "Library",
-            "SMILES",
-            "chembl_id",
-        ]
-        return id_columns
+    
 
     def pca_descriptors(self):
         """
@@ -85,15 +57,9 @@ class performPCA(BitCount):
         numerical_data = self.data[descriptors]
         return numerical_data
 
-    def get_id_data(self, data):
-        return data[self.id_columns]
+    
 
-    def get_numerical_data_fp(self, data) -> pd.DataFrame:
-        descriptors = data.columns.to_list()
-        for i in self.id_columns:
-            descriptors.remove(i)
-        numerical_data = data[descriptors]
-        return numerical_data
+    
 
     def pca_fingerprint(self, root, csv_name):
         """
@@ -111,6 +77,7 @@ class performPCA(BitCount):
             model.transform(numerical_data),
             columns=self.columns,
         )
+        pca_result = pca_result.round(2)
         a = round(list(model.explained_variance_ratio_)[0] * 100, 2)
         b = round(list(model.explained_variance_ratio_)[1] * 100, 2)
         id_data = self.get_id_data(fp_data)
