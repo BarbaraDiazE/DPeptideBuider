@@ -16,50 +16,31 @@ from data_manipulation import DataManipulation
 
 class performPCA(DataManipulation, BitCount):
     def __init__(self):
-        self.columns = ["PC 1", "PC 2", "PC 3", "PC 4", "PC 5", "PC 6"]
         super().__init__()
-    
 
-    
-
-    
-
-    def pca_descriptors(self):
+    def pca_descriptors(self, root: str, csv_name: str):
         """
         output
             result: Data Frame with PCA result,
             a, variance PC 1
             b, variance PC 2
         """
-        feature_names = self.molecular_descriptors  # configure manual if necessary
-        # _ = ["SMILES", "Sequence", "Library"]
-        # ref = Data[_]
-        # numerical_data = pd.DataFrame(
-        # StandardScaler().fit_transform(Data[feature_names])
-        # )
-        # sklearn_pca = sklearn.decomposition.PCA(
-        # n_components=6, svd_solver="full", whiten=True
-        # )
-        # model = sklearn_pca.fit(numerical_data)
-        # pca_result = pd.DataFrame(
-        # model.transform(numerical_data),
-        # columns=self.columns,
-        # )
-        # result = pd.concat([pca_result, ref], axis=1)
-        # a = round(list(model.explained_variance_ratio_)[0] * 100, 2)
-        # b = round(list(model.explained_variance_ratio_)[1] * 100, 2)
-        # return result, a, b
-
-    def get_numerical_data(self):
-        descriptors = self.data.columns.to_list()
-        for i in self.id_columns:
-            descriptors.remove(i)
-        numerical_data = self.data[descriptors]
-        return numerical_data
-
-    
-
-    
+        descriptors_data = self.merge_libraries_descriptors(root, csv_name)
+        numerical_data = self.get_numerical_data_fp(descriptors_data)
+        model = sklearn.decomposition.PCA(
+            n_components=6, svd_solver="full", whiten=True
+        ).fit(numerical_data)
+        pca_result = pd.DataFrame(
+            data=model.transform(numerical_data),
+            columns=self.pc_columns,
+        )
+        id_data = self.get_id_data(descriptors_data)
+        result = np.concatenate([id_data, pca_result], axis=1)
+        result = pd.DataFrame(data=result, columns=self.pca_result_columns)
+        a = round(list(model.explained_variance_ratio_)[0] * 100, 2)
+        b = round(list(model.explained_variance_ratio_)[1] * 100, 2)
+        algorithm_name = "PCA"
+        return result, a, b, algorithm_name
 
     def pca_fingerprint(self, root, csv_name):
         """
@@ -69,33 +50,24 @@ class performPCA(DataManipulation, BitCount):
             b, variance PC 2
         """
         fp_data = self.merge_libraries_ecfp6(root, csv_name)
+        print("line 78")
+        print(fp_data.head())
         numerical_data = self.get_numerical_data_fp(fp_data)
+        print("numerical_data")
+        print(numerical_data.head(2))
         model = sklearn.decomposition.PCA(
             n_components=6, svd_solver="full", whiten=True
         ).fit(numerical_data)
         pca_result = pd.DataFrame(
             model.transform(numerical_data),
-            columns=self.columns,
+            columns=self.pc_columns,
         )
         pca_result = pca_result.round(2)
         a = round(list(model.explained_variance_ratio_)[0] * 100, 2)
         b = round(list(model.explained_variance_ratio_)[1] * 100, 2)
         id_data = self.get_id_data(fp_data)
-        result = np.concatenate((id_data, pca_result), axis=1)
-        result = pd.DataFrame(
-            data=result,
-            columns=[
-                "Library",
-                "SMILES",
-                "chembl_id",
-                "PC 1",
-                "PC 2",
-                "PC 3",
-                "PC 4",
-                "PC 5",
-                "PC 6",
-            ],
-        )
+        result = np.concatenate([id_data, pca_result], axis=1)
+        result = pd.DataFrame(data=result, columns=self.pca_result_columns)
         a = round(list(model.explained_variance_ratio_)[0] * 100, 2)
         b = round(list(model.explained_variance_ratio_)[1] * 100, 2)
         algorithm_name = "PCA"
@@ -108,5 +80,5 @@ if __name__ == "__main__":
     root_ = f"/home/babs/Documents/DIFACQUIM/DPeptideBuider/web/src"
     filename = "database_20221017_154321.csv"
     pca = performPCA()
-    result, a, b, al = pca.pca_fingerprint(root_, filename)
+    result, a, b, al = pca.pca_descriptors(root_, filename)
     print(a, b)

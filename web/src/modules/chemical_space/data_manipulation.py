@@ -83,6 +83,8 @@ class DataManipulation:
             f"{root}/generated_csv/{csv_name}",
             index_col=False,
         )
+        numerated_libraries = numerated_libraries.drop(["compound"], axis = 1)
+        print("line 87", numerated_libraries.columns)
         numerated_libraries = numerated_libraries.rename(
             columns={
                 "SMILES": "SMILES",
@@ -96,10 +98,14 @@ class DataManipulation:
                 "MW": "MW",
             }
         )
-        r_filename = "reference_database_ecfp6.csv"
+        r_filename = "reference_database_descriptors.csv"
         reference_libraries = pd.read_csv(
-            f"{root}/modules/{r_filename}", low_memory=False
+            f"{root}/modules/{r_filename}",
+            index_col='Unnamed: 0', 
+            low_memory=False
         )
+        print("line 105")
+        print(reference_libraries.columns)
         data = pd.concat(
             [numerated_libraries, reference_libraries], axis=0, ignore_index=True
         )
