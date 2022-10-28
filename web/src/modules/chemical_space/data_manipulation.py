@@ -53,6 +53,17 @@ class DataManipulation:
         return columns
 
     @property
+    def tsne_result_columns(self):
+        columns = [
+            "Library",
+            "SMILES",
+            "chembl_id",
+            "PC 1",
+            "PC 2",
+        ]
+        return columns
+
+    @property
     def molecular_descriptors(self):
         molecular_descriptor = ["HBA", "HBD", "RB", "LOGP", "TPSA", "MW"]
         return molecular_descriptor
@@ -83,8 +94,7 @@ class DataManipulation:
             f"{root}/generated_csv/{csv_name}",
             index_col=False,
         )
-        numerated_libraries = numerated_libraries.drop(["compound"], axis = 1)
-        print("line 87", numerated_libraries.columns)
+        numerated_libraries = numerated_libraries.drop(["compound"], axis=1)
         numerated_libraries = numerated_libraries.rename(
             columns={
                 "SMILES": "SMILES",
@@ -100,12 +110,8 @@ class DataManipulation:
         )
         r_filename = "reference_database_descriptors.csv"
         reference_libraries = pd.read_csv(
-            f"{root}/modules/{r_filename}",
-            index_col='Unnamed: 0', 
-            low_memory=False
+            f"{root}/modules/{r_filename}", index_col="Unnamed: 0", low_memory=False
         )
-        print("line 105")
-        print(reference_libraries.columns)
         data = pd.concat(
             [numerated_libraries, reference_libraries], axis=0, ignore_index=True
         )

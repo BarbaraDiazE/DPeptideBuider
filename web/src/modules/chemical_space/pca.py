@@ -19,12 +19,6 @@ class performPCA(DataManipulation, BitCount):
         super().__init__()
 
     def pca_descriptors(self, root: str, csv_name: str):
-        """
-        output
-            result: Data Frame with PCA result,
-            a, variance PC 1
-            b, variance PC 2
-        """
         descriptors_data = self.merge_libraries_descriptors(root, csv_name)
         numerical_data = self.get_numerical_data_fp(descriptors_data)
         model = sklearn.decomposition.PCA(
@@ -34,6 +28,7 @@ class performPCA(DataManipulation, BitCount):
             data=model.transform(numerical_data),
             columns=self.pc_columns,
         )
+        pca_result = pca_result.round(2)
         id_data = self.get_id_data(descriptors_data)
         result = np.concatenate([id_data, pca_result], axis=1)
         result = pd.DataFrame(data=result, columns=self.pca_result_columns)
@@ -50,11 +45,7 @@ class performPCA(DataManipulation, BitCount):
             b, variance PC 2
         """
         fp_data = self.merge_libraries_ecfp6(root, csv_name)
-        print("line 78")
-        print(fp_data.head())
         numerical_data = self.get_numerical_data_fp(fp_data)
-        print("numerical_data")
-        print(numerical_data.head(2))
         model = sklearn.decomposition.PCA(
             n_components=6, svd_solver="full", whiten=True
         ).fit(numerical_data)
