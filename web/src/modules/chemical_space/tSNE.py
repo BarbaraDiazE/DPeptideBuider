@@ -9,10 +9,13 @@ import numpy as np
 import sklearn
 from sklearn.manifold import TSNE
 
+# django execution
+from modules.chemical_space.ecfp6 import BitCount
+from modules.chemical_space.data_manipulation import DataManipulation
 
 # local execution
-from ecfp6 import BitCount
-from data_manipulation import DataManipulation
+# from ecfp6 import BitCount
+# from data_manipulation import DataManipulation
 
 
 class performTSNE(DataManipulation, BitCount):

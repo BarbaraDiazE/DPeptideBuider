@@ -1,3 +1,4 @@
+from calendar import c
 from django.shortcuts import render, render_to_response, redirect
 from django.template import RequestContext
 from rest_framework.views import APIView
@@ -7,55 +8,51 @@ from apps.chemical_space.forms import ChemSpaceForm
 from modules.chemical_space.pca import performPCA
 from modules.chemical_space.tSNE import performTSNE
 from modules.chemical_space.plot import Plot
-from modules.fingerprint.compute_fingerprint import FP
-from modules.fingerprint.AtomPair import BitCount
 
 
 class ChemicalSpaceView(APIView):
     def post(self, request):
         form = ChemSpaceForm(request.POST)
         csv_name = request.session["csv_name"]
+        root_ = f"/src"
         if form.is_valid():
             form = form.save()
+            ### PCA FP ###
             if len(form.pca_fp) > 0:
                 fp_name = form.pca_fp
-                feature_matrix, pep_id = BitCount(csv_name, fp_name).feature_matrix(
-                    fp_name
-                )
-                result, a, b = performPCA().pca_fingerprint(
-                    feature_matrix, pep_id, fp_name
-                )
-                print("line 28")
-                print("fp name", fp_name)
-                print(result.head(2))
-                plot = Plot(result).plot_pca(fp_name, a, b)
+                result, a, b, al_name = performPCA().pca_fingerprint(root_, csv_name)
+                plot = Plot().plot_pca(result, a, b, al_name)
                 script, div = components(plot)
                 return render_to_response("plot.html", {"script": script, "div": div})
             else:
                 pass
+            ### TSNE FP ###
             if len(form.tsne_fp) > 0:
                 fp_name = form.tsne_fp
-                print(fp_name)
-                feature_matrix, pep_id = BitCount(csv_name, fp_name).feature_matrix(
-                    fp_name
+                result, al_name = performTSNE().tsne_fingerprint(root_, csv_name)
+                plot = Plot().plot_tsne(result, al_name)
+                script, div = components(plot)
+                return render_to_response(
+                    "plot_dpeptides.html", {"script": script, "div": div}
                 )
-                result = performTSNE().tsne_fingerprint(feature_matrix, pep_id, fp_name)
-                print(result.head())
-                plot = Plot(result).plot_tsne(fp_name)
+            ### PCA DESCRIPTORS ###
+            if len(form.pca_pp) > 0:
+                result, a, b, al_name = performPCA().pca_descriptors(root_, csv_name)
+                plot = Plot().plot_pca(result, a, b, al_name)
                 script, div = components(plot)
-                return render_to_response("plot.html", {"script": script, "div": div})
-            if len(form.pca_pp) > 0:  # PCA DESCRIPTORS
-                result, a, b = performPCA().pca_descriptors(csv_name)
-                plot = Plot(result).plot_pca(["physicochemical properties"], a, b)
-                script, div = components(plot)
-                return render_to_response("plot.html", {"script": script, "div": div})
+                return render_to_response(
+                    "plot_dpeptides.html", {"script": script, "div": div}
+                )
             else:
                 pass
+            ### TSNE DESCRIPTORS ###
             if len(form.tsne_pp) > 0:  # TSNE DESCRIPTORS
-                result = performTSNE().tsne_descriptors(csv_name)
-                plot = Plot(result).plot_tsne(["physicochemical properties"])
+                result, al_name = performTSNE().tsne_descriptors(root_, csv_name)
+                plot = Plot().plot_tsne(result, al_name)
                 script, div = components(plot)
-                return render_to_response("plot.html", {"script": script, "div": div})
+                return render_to_response(
+                    "plot_dpeptides.html", {"script": script, "div": div}
+                )
             else:
                 pass
         else:

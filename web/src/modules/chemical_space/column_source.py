@@ -2,10 +2,11 @@
 column source, to allow bokeh plot
 """
 import numpy as np
+import pandas as pd
 from bokeh.models import ColumnDataSource
 
 
-def column_source(result, library: str):
+def column_source(result: pd.DataFrame, library: str):
     """
     input:
         result (DataFrame)
@@ -16,5 +17,5 @@ def column_source(result, library: str):
     df = result[result["Library"] == library]
     x_axis = np.array(df["PC 1"])
     y_axis = np.array(df["PC 2"])
-    n = np.array(df["Sequence"])
+    n = np.array(df["chembl_id"])
     return ColumnDataSource(dict(x=x_axis, y=y_axis, N=n))

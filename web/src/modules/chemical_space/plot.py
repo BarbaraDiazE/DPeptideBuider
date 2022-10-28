@@ -1,6 +1,6 @@
 # from bokeh.io import show, output_file
 from bokeh.models import (
-    ColumnDataSource,
+    # ColumnDataSource,
     LassoSelectTool,
     ZoomInTool,
     ZoomOutTool,
@@ -14,26 +14,32 @@ from bokeh.core.enums import LegendLocation
 from modules.chemical_space.column_source import column_source
 
 """
-Plot chemical space
+Plot chemical space on DPeptideBuilder
 """
 
 
 class Plot:
-    def __init__(self, result):
-        self.result = result
+    def __init__(self):
+        pass
 
-    def plot_pca(self, parameter, a, b):
-        result = self.result
-        source1 = column_source(result, "FDA")
-        source2 = column_source(result, "PPI")
-        source3 = column_source(result, "MACRO")
-        source4 = column_source(result, "NP")
-        source5 = column_source(result, "FDA PEP")
-        source6 = column_source(result, "linear")
-        source7 = column_source(result, "cyclic")
-        hover = HoverTool(tooltips=[("PCA 1", "$x"), ("PCA 2", "$y"), ("NAME", "@N"), ])
+    def plot_pca(self, result, a, b, algorith_name):
+        fingerprint = "ECFP6"
+        src1 = column_source(result, "FDA")
+        src2 = column_source(result, "PPI")
+        src3 = column_source(result, "MACRO")
+        src4 = column_source(result, "NP")
+        src5 = column_source(result, "FDA PEP")
+        src6 = column_source(result, "linear")
+        src7 = column_source(result, "cyclic")
+        hover = HoverTool(
+            tooltips=[
+                ("PCA 1", "$x"),
+                ("PCA 2", "$y"),
+                ("NAME", "@N"),
+            ]
+        )
         p = figure(
-            title="PCA based on " + parameter[0],
+            title=f"{algorith_name} based on {fingerprint}",
             x_axis_label="PC 1" + "(" + str(a) + "%)",
             y_axis_label="PC 2" + "(" + str(b) + "%)",
             x_range=(-4, 8),
@@ -45,19 +51,25 @@ class Plot:
         p.add_tools(
             LassoSelectTool(), ZoomInTool(), ZoomOutTool(), SaveTool(), PanTool()
         )
-        FDA_plot = p.circle(x="x", y="y", source=source1, color="darkslateblue", size=5)
-        PPI_plot = p.circle(x="x", y="y", source=source2, color="yellowgreen", size=5)
-        MACRO_plot = p.circle(
-            x="x", y="y", source=source3, color="lightsteelblue", size=5
-        )
-        NP_plot = p.circle(x="x", y="y", source=source4, color="olive", size=5)
+        FDA_plot = p.circle(x="x", y="y", source=src1, size=5, color="darkslateblue")
+        PPI_plot = p.circle(x="x", y="y", source=src2, size=5, color="yellowgreen")
+        MACRO_plot = p.circle(x="x", y="y", source=src3, size=5, color="lightsteelblue")
+        NP_plot = p.circle(x="x", y="y", source=src4, size=5, color="olive")
         PEP_FDA_plot = p.circle(
-            x="x", y="y", source=source5, color="lightcoral", size=5
+            x="x",
+            y="y",
+            source=src5,
+            size=5,
+            color="lightcoral",
         )
-        LIN_plot = p.circle(x="x", y="y", source=source6, color="teal", size=5)
-        CYC_plot = p.circle(
-            x="x", y="y", source=source7, color="mediumvioletred", size=5
+        LIN_plot = p.circle(
+            x="x",
+            y="y",
+            source=src6,
+            size=5,
+            color="teal",
         )
+        CYC_plot = p.circle(x="x", y="y", source=src7, size=5, color="mediumvioletred")
         legend = Legend(
             items=[
                 ("FDA", [FDA_plot]),
@@ -83,18 +95,24 @@ class Plot:
 
         return p
 
-    def plot_tsne(self, parameter):
-        result = self.result
-        source1 = column_source(result, "FDA")
-        source2 = column_source(result, "PPI")
-        source3 = column_source(result, "MACRO")
-        source4 = column_source(result, "NP")
-        source5 = column_source(result, "FDA PEP")
-        source6 = column_source(result, "linear")
-        source7 = column_source(result, "cyclic")
-        hover = HoverTool(tooltips=[("PCA 1", "$x"), ("PCA 2", "$y"), ("NAME", "@N"),])
+    def plot_tsne(self, result, algorithm_name):
+        fingerprint = "ECFP6"
+        src1 = column_source(result, "FDA")
+        src2 = column_source(result, "PPI")
+        src3 = column_source(result, "MACRO")
+        src4 = column_source(result, "NP")
+        src5 = column_source(result, "FDA PEP")
+        src6 = column_source(result, "linear")
+        src7 = column_source(result, "cyclic")
+        hover = HoverTool(
+            tooltips=[
+                ("PCA 1", "$x"),
+                ("PCA 2", "$y"),
+                ("NAME", "@N"),
+            ]
+        )
         p = figure(
-            title="tSNE based on " + parameter[0],
+            title=f"{algorithm_name} based on {fingerprint}",
             x_axis_label="PC 1",
             y_axis_label="PC 2",
             x_range=(-101, 101),
@@ -106,19 +124,19 @@ class Plot:
         p.add_tools(
             LassoSelectTool(), ZoomInTool(), ZoomOutTool(), SaveTool(), PanTool()
         )
-        FDA_plot = p.circle(x="x", y="y", source=source1, color="darkslateblue", size=5)
-        PPI_plot = p.circle(x="x", y="y", source=source2, color="yellowgreen", size=5)
+        FDA_plot = p.circle(x="x", y="y", source=src1, size=5, color="darkslateblue")
+        PPI_plot = p.circle(x="x", y="y", source=src2, size=5, color="yellowgreen")
         MACRO_plot = p.circle(
-            x="x", y="y", source=source3, color="lightsteelblue", size=5
+            x="x",
+            y="y",
+            source=src3,
+            size=5,
+            color="lightsteelblue",
         )
-        NP_plot = p.circle(x="x", y="y", source=source4, color="olive", size=5)
-        PEP_FDA_plot = p.circle(
-            x="x", y="y", source=source5, color="lightcoral", size=5
-        )
-        LIN_plot = p.circle(x="x", y="y", source=source6, color="teal", size=5)
-        CYC_plot = p.circle(
-            x="x", y="y", source=source7, color="mediumvioletred", size=5
-        )
+        NP_plot = p.circle(x="x", y="y", source=src4, size=5, color="olive")
+        PEP_FDA_plot = p.circle(x="x", y="y", source=src5, size=5, color="lightcoral")
+        LIN_plot = p.circle(x="x", y="y", source=src6, size=5, color="teal")
+        CYC_plot = p.circle(x="x", y="y", source=src7, size=5, color="mediumvioletred")
         legend = Legend(
             items=[
                 ("FDA", [FDA_plot]),
@@ -141,5 +159,5 @@ class Plot:
         p.xaxis.major_label_text_font_size = "18pt"
         p.yaxis.major_label_text_font_size = "18pt"
         p.title.text_font_size = "22pt"
-
+        print("line 162", "## FUNCION PLOT ##")
         return p

@@ -9,9 +9,13 @@ import sklearn
 from sklearn import datasets, decomposition
 from sklearn.preprocessing import StandardScaler
 
+# django execution
+from modules.chemical_space.ecfp6 import BitCount
+from modules.chemical_space.data_manipulation import DataManipulation
+
 # local execution
-from ecfp6 import BitCount
-from data_manipulation import DataManipulation
+# from ecfp6 import BitCount
+# from data_manipulation import DataManipulation
 
 
 class performPCA(DataManipulation, BitCount):
