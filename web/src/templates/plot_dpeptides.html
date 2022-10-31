@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<!--{% load static %}-->
+<html>
+  <head>
+    <title>Plot</title>
+    <link
+      rel="stylesheet"
+      href="http://cdn.pydata.org/bokeh/release/bokeh-0.12.13.min.css"
+      type="text/css"
+    />
+  </head>
+
+  <body>
+    <h2>
+      <a href="/peptides/chemspace/">Back</a>
+    </h2>
+    <div class="container" style="vertical-align: middle">
+      {{ div | safe }}
+      <script
+        type="text/javascript"
+        src="http://cdn.pydata.org/bokeh/release/bokeh-2.3.3.min.js"
+      ></script>
+      {{ script | safe }}
+    </div>
+  </body>
+</html>

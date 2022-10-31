@@ -8,7 +8,6 @@ from modules.ppi_chemical_space.pca import PcaFP
 from modules.ppi_chemical_space.tSNE import TsneFP
 from modules.ppi_chemical_space.ipp_plot import PPIPlot
 from modules.fingerprint.compute_fingerprint import FP
-from modules.fingerprint.AtomPair import BitCount
 
 
 class PPIChemicalSpaceView(APIView):
@@ -43,7 +42,6 @@ class PPIChemicalSpaceView(APIView):
                         "SMILES",
                         "chembl_id",
                     ]
-                    test_smiles = "CC(=O)NC1=CC=C(C=C1)O"
                     tsne = TsneFP(root_, input_file_, target, id_columns, test_smiles)
                     result, a_name = tsne.tsne_fingerprint()
                     plot = PPIPlot(result).plot_tsne(fp_name, a_name)
