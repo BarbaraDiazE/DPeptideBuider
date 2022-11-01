@@ -17,7 +17,9 @@ class PPIChemicalSpaceView(APIView):
     def post(self, request):
         cookie_value = request.COOKIES.get("myCookie")
         values = cookie_value.split("&")
-        test_smiles = values[0].split("=")[1].replace("'", "")
+        #TODO include smiles treatment
+        test_smiles = values[0].replace("smiles=", "")
+        print("test smiles:", test_smiles)
         algorithm = values[1].split("=")[1].replace("'", "")
         if test_smiles:
             root_ = f"/src"
